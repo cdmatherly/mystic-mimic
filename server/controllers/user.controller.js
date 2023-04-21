@@ -13,7 +13,9 @@ module.exports.register = (req, res) => {
         })
         .json({ msg: "success!", user: user });
     })
-    .catch((err) => res.json(err));
+    .catch((err) => {
+      res.status(400).json(err)
+    });
 };
 
 module.exports.login = async (req, res) => {
@@ -61,10 +63,10 @@ module.exports.getAll = (req, res) => {
     User.find().sort({"number": 1})
         .then((allUsers) => {
 			console.log("Running query to find all users:", allUsers)
-			response.json(allUsers)
+			res.json(allUsers)
 		})
         .catch(err => {
             console.log(err)
-            response.status(400).json(err)
+            res.status(400).json(err)
         })
 }

@@ -1,7 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 const Register = (props) => {
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/users`)
@@ -15,6 +19,10 @@ const Register = (props) => {
         axios.post('http://localhost:8000/api/register', user)
             .then(res => {
                 console.log(res)
+                setUsername('')
+                setEmail('')
+                setPassword('')
+                setConfirmPassword('')
             })
             .catch(err => {
                 console.log(user)
@@ -22,9 +30,9 @@ const Register = (props) => {
             })
     }
 
-    const onSubmitHandler = (event) => {
-        event.preventDefault()
-        createUser()
+    const onSubmitHandler = (e) => {
+        e.preventDefault()
+        createUser({username, email, password, confirmPassword})
     }
 
     return (
@@ -48,6 +56,8 @@ const Register = (props) => {
                                     name="username"
                                     type="text"
                                     // required
+                                    onChange={(event) =>{setUsername(event.target.value)}}
+                                    value={username}
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
@@ -63,6 +73,8 @@ const Register = (props) => {
                                     name="email"
                                     type="email"
                                     // required
+                                    onChange={(event) =>{setEmail(event.target.value)}}
+                                    value={email}
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
@@ -85,6 +97,8 @@ const Register = (props) => {
                                     name="password"
                                     type="password"
                                     autoComplete="current-password"
+                                    onChange={(event) =>{setPassword(event.target.value)}}
+                                    value={password}
                                     // required
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
@@ -102,6 +116,8 @@ const Register = (props) => {
                                     id="confirmPassword"
                                     name="confirmPassword"
                                     type="password"
+                                    onChange={(event) =>{setConfirmPassword(event.target.value)}}
+                                    value={confirmPassword}
                                     // required
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
