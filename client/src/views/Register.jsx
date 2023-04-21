@@ -45,7 +45,7 @@ const Register = (props) => {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" onSubmit={(event) => onSubmitHandler(event)}>
+                    <form className="space-y-6" onSubmit={(e) => onSubmitHandler(e)}>
                         <div>
                             <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900 text-left">
                                 Username
