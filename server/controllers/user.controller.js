@@ -57,6 +57,14 @@ module.exports.logout = (req, res) => {
     res.sendStatus(200);
 }
 
-modeul.exports.getAll = (req, res) => {
-    
+module.exports.getAll = (req, res) => {
+    User.find().sort({"number": 1})
+        .then((allUsers) => {
+			console.log("Running query to find all users:", allUsers)
+			response.json(allUsers)
+		})
+        .catch(err => {
+            console.log(err)
+            response.status(400).json(err)
+        })
 }
