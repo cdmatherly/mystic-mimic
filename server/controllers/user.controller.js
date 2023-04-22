@@ -31,7 +31,7 @@ module.exports.login = async (req, res) => {
 
   if (user === null) {
     // email not found in users collection
-    return res.status(400).json({error: "Credentials don't match"});
+    return res.status(400).json({error: "Invalid credentials"});
   }
 
   // if we made it this far, we found a user with this email address
@@ -43,7 +43,7 @@ module.exports.login = async (req, res) => {
 
   if (!correctPassword) {
     // password wasn't a match!
-    return res.status(400).json({error: "Credentials don't match"});
+    return res.status(400).json({error: "Invalid credentials"});
   }
 
   // if we made it this far, the password was correct
