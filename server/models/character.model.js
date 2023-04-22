@@ -15,7 +15,7 @@ const CharacterSchema = new mongoose.Schema(
             type:String,
             require: [true, "Character name is required"],
         },
-        stats: {
+        stats: { 
             strength:{
                 type:Number,
                 default:8
