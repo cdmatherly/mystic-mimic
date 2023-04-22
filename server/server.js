@@ -11,12 +11,6 @@ app.use(cookieParser())
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 
 require('./routes/user.routes')(app);
-
-require('./config/mongoose.config'); // This is new
-app.use(cors());
-app.use(express.json()); // This is new
-app.use(express.urlencoded({ extended: true })); // This is new
-require('./routes/users.routes')(app);
     
 app.get('/', (req, res) => {
     return res.send('Hello')
