@@ -1,5 +1,5 @@
 This project is in collaboration with:
 
-Daniell Thoreson
+Danielle Thoreson
 Alex Chang
 Laith Nassar

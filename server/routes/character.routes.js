@@ -6,5 +6,6 @@ module.exports = app => {
     app.post('/api/characters', CharacterController.createCharacter)
     app.put('/api/characters/:id', CharacterController.updateCharacterById)
     app.delete('/api/characters/:id', CharacterController.deleteCharacter)
+    app.get('/api/:user/characters', CharacterController.getCharactersByUser)
     app.post('/api/:user/characters', CharacterController.createCharacterAndUpdateUser)
 }
