@@ -11,7 +11,7 @@ const CharacterSchema = new mongoose.Schema(
             type:String,
             require: [true, "Race is required"],
         },
-        classType: {
+        class: {
             type:String,
             require: [true, "Class is required"],
         },

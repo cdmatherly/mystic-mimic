@@ -1,61 +1,84 @@
-const { Character } = require("../controllers/user.controller")
+const { Character } = require("../models/character.model")
+const { User } = require("../models/user.model")
 
-// Find a Singlar Character
-module.exports.FindOneCharacter = (request, response) => {
-    Character.findOne({ _id: request.params.id })
-        .then(singleCharacter => {
-            response.json(singleCharacter)
+// Find One Character by ID
+module.exports.getCharacterById = (req, res) => {
+    Character.findOne({ _id: req.params.id })
+        .then(character => {
+            res.json(character)
         })
-        .catch((error) => {
-            return response.status(400).json({ message: `Finding ${singleCharacter} Character went wrong`, error: error })
+        .catch((err) => {
+            return res.status(400).json(err)
         })
 }
 
-// Showing all Available Character
-module.exports.ShowAllCharacter = (request, response) => {
-    Character.find()
-        .then((findAllCharacters) => {
-            return response.json(findAllCharacters)
+// Showing all Available Characters
+module.exports.getAllCharacters = (req, res) => {
+    Character.findById(req.params.id)
+        .then((character) => {
+            return res.json(character)
         })
         .catch((error) => {
-            return response.status(400).json({ message: 'Error happened when showing all Characters', error: error })
+            return res.status(400).json(err)
         })
 }
 
-// Creating a New Character 
-module.exports.CreateCharacter = (request, response) => {
-    Character.create(request.body)
-        .then(newCharacter => {
-            console.log("Running query to create a new character:", newCharacter)
-            return response.json(newCharacter)
+// Create a new character
+module.exports.createCharacter = (req, res) => {
+    Character.create(req.body)
+        .then(character => {
+            console.log("Running query to create a new character:", character)
+            return res.json(character)
+        })
+        .catch((err) => {
+            return res.status(400).json(err)
+        })
+}
+
+// Create a new character and update characters in given user document
+module.exports.createCharacterAndUpdateUser = (req, res) => {
+    Character.create(req.body)
+        .then((character) => {
+            console.log(req.params.user)
+            console.log(character._id)
+            User.findById(req.params.user)
+                .then((user) => {
+                    console.log(user.characters)
+                    let updateCharacters = { "characters": [...user.characters, character._id]}
+                    console.log(updateCharacters)
+                    User.findByIdAndUpdate(req.params.user, updateCharacters, { runValidators: true, new: true })
+                        .catch((error) => {
+                            return res.status(400).json({ ...error, message: error.message })
+                        })
+                })
+                .catch((error) => {
+                    return res.status(400).json({ ...error, message: error.message })
+                })
+            return res.json(character);
         })
         .catch((error) => {
-            return response.status(400).json({ message: 'Creating Character went wrong', error: error })
-        })
+            return res.status(400).json({ ...error, message: error.message })
+        });
 }
 
 // Edit a Character
-module.exports.EditCharacter = (request, response) => {
-    Character.findOneAndUpdate(
-        {_id:request.params.id},
-        request.body,
-        {new:true, runValidators:true}
-        )
-        .then(updatedCharacter => {
-            return response.json({character: updatedCharacter})
+module.exports.updateCharacterById = (req, res) => {
+    Character.findByIdAndUpdate(req.params.id, req.body, { runValidators: true, new: true })
+        .then((character) => {
+            return res.json(character)
         })
-        .catch((error) => {
-            return response.status(400).json({ message: 'Editing a Character went wrong', error: error })
+        .catch((err) => {
+            return res.status(400).json(err)
         })
 }
 
 // Delete A Character
-module.exports.DeleteCharacter = (request, response) => {
-    Character.deleteOne({_id:request.params.id})
-        .then( character => {
-            return response.json(character)
+module.exports.deleteCharacter = (req, res) => {
+    Character.findByIdAndDelete(req.params.id)
+        .then((character) => {
+            return res.json(character)
         })
-        .catch((error) => {
-            return response.status(400).json({ message: 'Deleting the Character went wrong', error: error })
+        .catch((err) => {
+            return res.status(400).json(err)
         })
 }
