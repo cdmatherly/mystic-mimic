@@ -5,15 +5,15 @@ const CharacterSchema = new mongoose.Schema(
         name: {
             type:String,
             require: [true, "Character name is required"],
-            minlength: [3, "Password must be 8 characters or longer"],
+            minlength: [3, "Name must be 8 characters or longer"],
         },
         race: {
             type:String,
-            require: [true, "Character Race name is required"],
+            require: [true, "Race is required"],
         },
         class: {
             type:String,
-            require: [true, "Character name is required"],
+            require: [true, "Class is required"],
         },
         stats: { 
             strength:{
