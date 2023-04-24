@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 module.exports.register = (req, res) => {
   console.log("\nRegistering...\n")
-  
+
   User.create(req.body)
     .then((user) => {
       const userToken = jwt.sign(
