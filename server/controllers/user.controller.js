@@ -60,7 +60,7 @@ module.exports.login = async (req, res) => {
     .cookie("usertoken", userToken, process.env.SECRET_KEY, {
       httpOnly: true,
     })
-    .json({ msg: "success!" });
+    .json({ msg: "success!", user_id: user._id });
 };
 
 module.exports.logout = (req, res) => {

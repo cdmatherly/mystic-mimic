@@ -1,23 +1,28 @@
 import {Link, useNavigate} from 'react-router-dom';
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
+import AuthContext from '../context/AuthProvider';
 import axios from 'axios'
+import { useCookies } from 'react-cookie';
 
 const Login = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [validationErrors, setValidationErrors] = useState(null)
+    const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const navigate = useNavigate()
     
     const authenticateUser = (user) => {
         axios.post('http://localhost:8000/api/login', user)
             .then(res => {
                 console.log(res)
-                setEmail('')
-                setPassword('')
-                setValidationErrors(null)
+                const user_id = res.data.user_id
+                setCookie(['user_id'], user_id, {maxAge: 86400})
                 navigate('/dash')
             })
             .catch(err => {
+                setEmail('')
+                setPassword('')
+                setValidationErrors(null)
                 console.log(user)
                 console.log(err)
                 setValidationErrors(err.response?.data)
