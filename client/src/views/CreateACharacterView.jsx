@@ -1,5 +1,29 @@
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const CreateACharacter = (props) => {
+    const [races, setRaces] = useState([])
+    const [classes, setClasses] = useState([])
+
+    useEffect(() => {
+        axios.get('https://www.dnd5eapi.co/api/races')
+            .then(res => {
+                console.log(res)
+                setRaces(res.data.results)
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+        axios.get('https://www.dnd5eapi.co/api/classes')
+            .then(res => {
+                console.log(res)
+                setClasses(res.data.results)
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+        }, [])
+
     return (
         <>
             <body className="min-h-screen py-16 bg-black">
@@ -26,9 +50,9 @@ const CreateACharacter = (props) => {
                                     </div>
                                     <div className="md:w-2/3">
                                         <select className="w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
-                                            <option value="">Class One</option>
-                                            <option value="">Class Two</option>
-                                            <option value="">Class Three</option>
+                                            {races.map((race) => 
+                                                <option value={race.name}>{race.name}</option>
+                                            )}
                                         </select>
                                     </div>
                                 </div>
@@ -40,9 +64,9 @@ const CreateACharacter = (props) => {
                                     </div>
                                     <div className="md:w-2/3">
                                         <select className="w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
-                                            <option value="">Race One</option>
-                                            <option value="">Race Two</option>
-                                            <option value="">Race Three</option>
+                                            {classes.map((eachClass) => 
+                                                <option value={eachClass.name}>{eachClass.name}</option>
+                                            )}
                                         </select>
                                     </div>
                                 </div>
