@@ -7,7 +7,7 @@ const Dash = (props) => {
                         <a className="bg-black inline-block focus:border-l focus:border-t focus:border-r hover:text-blue-800 rounded-t py-2 px-4 text-indigo-700 font-semibold" href="cac">Create Character</a>
                     </li>
                     <li className="mr-1">
-                        <a className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 text-indigo-400 hover:text-blue-800 font-semibold" href="#">View Characters</a>
+                        <a className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 text-indigo-400 hover:text-blue-800 font-semibold" href="sac">View Characters</a>
                     </li>
                     <li className="mr-1">
                         <a className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 text-violet-400 hover:text-blue-800 font-semibold" href="#">Create Group</a>
