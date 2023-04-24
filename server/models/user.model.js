@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema(
     username: {
       type: String,
       required: [true, "First name is required"],
+      minlength: [3, "Username must be at least {MINLENGTH} characters"]
     },
     email: {
       type: String,
@@ -18,8 +19,11 @@ const UserSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-      minlength: [8, "Password must be 8 characters or longer"],
+      minlength: [8, "Password must be {MINLENGTH} characters or longer"],
     },
+    characters: {
+      type: Array
+    }
   },
   { timestamps: true }
 );
@@ -31,7 +35,7 @@ UserSchema.virtual("confirmPassword")
 
 UserSchema.pre("validate", function (next) {
   if (this.password !== this.confirmPassword) {
-    this.invalidate("confirmPassword", "Password must match confirm password");
+    this.invalidate("confirmPassword", "Confirm password must match password");
   }
   next();
 });
@@ -42,3 +46,5 @@ UserSchema.pre("save", function (next) {
     next();
   });
 });
+
+module.exports.User = mongoose.model('User', UserSchema)

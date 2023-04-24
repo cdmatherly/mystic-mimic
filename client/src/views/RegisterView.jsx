@@ -1,31 +1,37 @@
-import { useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 
 const Register = (props) => {
-
-    useEffect(() => {
-        axios.get(`http://localhost:8000/api/users`)
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(err => console.error(err));
-    }, []);
-
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [validationErrors, setValidationErrors] = useState(null)
+    const [isPasswordValid, setIsPasswordValid] = useState(false)
+    const navigate = useNavigate()
+    
     const createUser = (user) => {
         axios.post('http://localhost:8000/api/register', user)
             .then(res => {
                 console.log(res)
+                setUsername('')
+                setEmail('')
+                setPassword('')
+                setConfirmPassword('')
             })
             .catch(err => {
                 console.log(user)
                 console.log(err)
+                setValidationErrors(err.response?.data?.errors)
+
             })
     }
 
-    const onSubmitHandler = (event) => {
-        event.preventDefault()
-        createUser()
+    const onSubmitHandler = (e) => {
+        e.preventDefault()
+        createUser({username, email, password, confirmPassword})
+        navigate('/')
     }
 
     return (
@@ -39,32 +45,42 @@ const Register = (props) => {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" onSubmit={(event) => onSubmitHandler(event)}>
+                    <form className="space-y-6" onSubmit={(e) => onSubmitHandler(e)}>
                         <div>
-                            <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900 text-left">
-                                Username:
-                            </label>
+                            <div className="flex items-center justify-between">
+                                <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900 text-left">
+                                    Username:
+                                </label>
+                                {validationErrors?.username && (<p style={{ color: 'red', marginLeft: '5px' }}>{validationErrors.username.message}</p>)}
+                            </div>
                             <div className="mt-2">
                                 <input
                                     id="username"
                                     name="username"
                                     type="text"
                                     // required
+                                    onChange={(event) =>{setUsername(event.target.value)}}
+                                    value={username}
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 text-left">
-                                Email address:
-                            </label>
+                            <div className="flex items-center justify-between">
+                                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 text-left">
+                                    Email address:
+                                </label>
+                                {validationErrors?.email && (<p style={{ color: 'red', marginLeft: '5px' }}>{validationErrors.email.message}</p>)}
+                            </div>
                             <div className="mt-2">
                                 <input
                                     id="email"
                                     name="email"
                                     type="email"
                                     // required
+                                    onChange={(event) =>{setEmail(event.target.value)}}
+                                    value={email}
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
@@ -75,13 +91,17 @@ const Register = (props) => {
                                 <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                                     Password:
                                 </label>
+                                {validationErrors?.password && (<p style={{ color: 'red', marginLeft: '5px' }}>{validationErrors.password.message}</p>)}
                             </div>
                             <div className="mt-2">
                                 <input
                                     id="password"
                                     name="password"
-                                    type="password"
-                                    autoComplete="current-password"
+                                    // type="password"
+                                    // autoComplete="current-password"
+                                    onChange={(event) =>{setPassword(event.target.value);
+                                    (confirmPassword === event.target.value) ? setIsPasswordValid(true) : setIsPasswordValid(false) }}
+                                    value={password}
                                     // required
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
@@ -89,16 +109,21 @@ const Register = (props) => {
                         </div>
 
                         <div>
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-center justify-between flex-wrap">
                                 <label htmlFor="confirmPassword" className="block text-sm font-medium leading-6 text-gray-900">
                                     Confirm Password:
                                 </label>
+                                {/* {validationErrors?.confirmPassword && (<p style={{ color: 'red', marginLeft: '5px' }}>{validationErrors.confirmPassword.message}</p>)} */}
+                                {(password != confirmPassword) && (<p style={{ color: 'red', marginLeft: '5px' }}>Passwords must match</p>)}
                             </div>
                             <div className="mt-2">
                                 <input
                                     id="confirmPassword"
                                     name="confirmPassword"
-                                    type="password"
+                                    // type="password"
+                                    onChange={(event) =>{setConfirmPassword(event.target.value);
+                                    (password === event.target.value) ? setIsPasswordValid(true) : setIsPasswordValid(false) }}
+                                    value={confirmPassword}
                                     // required
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
@@ -109,8 +134,10 @@ const Register = (props) => {
                             <Link to="/dash">
                                 <button
                                     type="submit"
-                                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                >
+                                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600
+                                disabled:bg-gray-500"
+                                disabled={!isPasswordValid}
+                                    >
                                     Sign in
                                 </button>
                             </Link>
@@ -119,9 +146,9 @@ const Register = (props) => {
 
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Already a member?{' '}
-                        <a href="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                        <Link to="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                             Login
-                        </a>
+                        </Link>
                     </p>
                 </div>
             </div>
