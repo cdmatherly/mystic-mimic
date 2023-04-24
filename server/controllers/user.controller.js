@@ -12,7 +12,7 @@ module.exports.register = (req, res) => {
         process.env.SECRET_KEY);
 
       res
-        .cookie("usertoken", userToken, {
+        .cookie("usertoken", userToken, process.env.SECRET_KEY, {
           httpOnly: true,
         })
         .json({ msg: "success!", user: user });
@@ -56,7 +56,7 @@ module.exports.login = async (req, res) => {
 
   // note that the response object allows chained calls to cookie and json
   res
-    .cookie("usertoken", userToken, {
+    .cookie("usertoken", userToken, process.env.SECRET_KEY, {
       httpOnly: true,
     })
     .json({ msg: "success!" });

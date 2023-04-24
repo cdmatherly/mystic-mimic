@@ -16,7 +16,7 @@ const Dash = (props) => {
                         <a className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 text-violet-500 hover:text-blue-800 font-semibold" href="#">Find Group</a>
                     </li>
                     <li className="mr-1">
-                        <a className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 font-semibold text-blue-600 dark:text-blue-500 hover:underline">Logout</a>
+                        <a className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 font-semibold text-blue-600 dark:text-blue-500 hover:underline"> Logout</a>
                     </li>
                 </ul>
             </div>

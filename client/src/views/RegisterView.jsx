@@ -19,6 +19,7 @@ const Register = (props) => {
                 setEmail('')
                 setPassword('')
                 setConfirmPassword('')
+                navigate('/dash')
             })
             .catch(err => {
                 console.log(user)
@@ -31,7 +32,6 @@ const Register = (props) => {
     const onSubmitHandler = (e) => {
         e.preventDefault()
         createUser({username, email, password, confirmPassword})
-        navigate('/')
     }
 
     return (
@@ -97,7 +97,7 @@ const Register = (props) => {
                                 <input
                                     id="password"
                                     name="password"
-                                    // type="password"
+                                    type="password"
                                     // autoComplete="current-password"
                                     onChange={(event) =>{setPassword(event.target.value);
                                     (confirmPassword === event.target.value) ? setIsPasswordValid(true) : setIsPasswordValid(false) }}
@@ -120,7 +120,7 @@ const Register = (props) => {
                                 <input
                                     id="confirmPassword"
                                     name="confirmPassword"
-                                    // type="password"
+                                    type="password"
                                     onChange={(event) =>{setConfirmPassword(event.target.value);
                                     (password === event.target.value) ? setIsPasswordValid(true) : setIsPasswordValid(false) }}
                                     value={confirmPassword}
@@ -131,7 +131,6 @@ const Register = (props) => {
                         </div>
 
                         <div>
-                            <Link to="/dash">
                                 <button
                                     type="submit"
                                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600
@@ -140,7 +139,6 @@ const Register = (props) => {
                                     >
                                     Sign in
                                 </button>
-                            </Link>
                         </div>
                     </form>
 
