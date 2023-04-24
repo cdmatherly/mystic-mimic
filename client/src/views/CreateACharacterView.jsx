@@ -34,17 +34,17 @@ const CreateACharacter = (props) => {
                             <form className="w-full max-w-sm">
                                 <div className="md:flex md:items-center mb-6">
                                     <div className="md:w-1/3">
-                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" HTMLFor="inline-full-name">
                                             Character Name:
                                         </label>
                                     </div>
                                     <div className="md:w-2/3">
-                                        <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"/>
+                                        <input id="inline-full-name" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"/>
                                     </div>
                                 </div>
                                 <div className="md:flex md:items-center mb-6">
                                     <div className="md:w-1/3">
-                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-password">
+                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" HTMLFor="race">
                                             Race:
                                         </label>
                                     </div>
@@ -58,7 +58,7 @@ const CreateACharacter = (props) => {
                                 </div>
                                 <div className="md:flex md:items-center mb-6">
                                     <div className="md:w-1/3">
-                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-password">
+                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" HTMLFor="class">
                                             Class:
                                         </label>
                                     </div>
@@ -75,42 +75,42 @@ const CreateACharacter = (props) => {
                                 <br/>
                                 <div className="md:flex md:items-center mb-6">
                                     <div className="md:w-1/3">
-                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" HTMLFor="attributes">
                                             Select Attributes:
                                         </label>
                                     </div>
                                     <div className="md:w-2/3">
-                                        <p className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500">27</p>
+                                        <p id="attributes" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500">27</p>
                                     </div>
                                 </div>
                                 <div className="md:flex md:items-center mb-6">
                                     <div className="md:w-1/3">
-                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" HTMLFor="stamina">
                                             Stamina:
                                         </label>
                                     </div>
                                     <div className="md:w-2/3">
-                                        <input type="number" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"/>
+                                        <input id="stamina" type="number" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"/>
                                     </div>
                                 </div>
                                 <div className="md:flex md:items-center mb-6">
                                     <div className="md:w-1/3">
-                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" HTMLFor="intelligence">
                                             Intelligence:
                                         </label>
                                     </div>
                                     <div className="md:w-2/3">
-                                        <input type="number" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"/>
+                                        <input id="intelligence" type="number" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"/>
                                     </div>
                                 </div>
                                 <div className="md:flex md:items-center mb-6">
                                     <div className="md:w-1/3">
-                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" HTMLFor="strength">
                                             Strength:
                                         </label>
                                     </div>
                                     <div className="md:w-2/3">
-                                        <input type="number" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"/>
+                                        <input id="strength" type="number" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"/>
                                     </div>
                                 </div>
                                 <div className="md:flex md:items-center">
