@@ -1,33 +1,53 @@
 const { Character } = require("../models/character.model")
 const { User } = require("../models/user.model")
 
-// Find One Character by ID
+// Get character by ID
 module.exports.getCharacterById = (req, res) => {
-    Character.findOne({ _id: req.params.id })
-        .then(character => {
-            res.json(character)
+    Character.findById(req.params.id)
+        .then((character) => {
+            return res.json(character)
         })
         .catch((err) => {
             return res.status(400).json(err)
         })
 }
 
-// Showing all Available Characters
+// Get all characters
 module.exports.getAllCharacters = (req, res) => {
-    Character.findById(req.params.id)
-        .then((character) => {
-            return res.json(character)
+    Character.find()
+        .then((characters) => {
+            return res.json(characters)
         })
-        .catch((error) => {
+        .catch((err) => {
             return res.status(400).json(err)
         })
 }
+
+// Get Characters by User
+module.exports.getCharactersByUser = (req, res) => {
+    User.findById(req.params.user)
+        .then((user) => {
+            let userCharacters = user.characters
+            Character.find({_id: {$in: userCharacters}})
+            .then((characters)=>{
+                console.log(characters)
+                return res.json(characters)
+            })
+            .catch((err)=>{
+                return res.status(400).json(err)
+            })
+            // return res.json(user)
+        })
+        .catch((err) => {
+            return res.status(400).json(err)
+        })
+}
+
 
 // Create a new character
 module.exports.createCharacter = (req, res) => {
     Character.create(req.body)
         .then(character => {
-            console.log("Running query to create a new character:", character)
             return res.json(character)
         })
         .catch((err) => {
@@ -47,17 +67,17 @@ module.exports.createCharacterAndUpdateUser = (req, res) => {
                     let updateCharacters = { "characters": [...user.characters, character._id]}
                     console.log(updateCharacters)
                     User.findByIdAndUpdate(req.params.user, updateCharacters, { runValidators: true, new: true })
-                        .catch((error) => {
-                            return res.status(400).json({ ...error, message: error.message })
+                        .catch((err) => {
+                            return res.status(400).json(err)
                         })
                 })
-                .catch((error) => {
-                    return res.status(400).json({ ...error, message: error.message })
+                .catch((err) => {
+                    return res.status(400).json(err)
                 })
             return res.json(character);
         })
-        .catch((error) => {
-            return res.status(400).json({ ...error, message: error.message })
+        .catch((err) => {
+            return res.status(400).json(err)
         });
 }
 
