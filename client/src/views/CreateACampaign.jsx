@@ -1,5 +1,5 @@
 
-const CreateAGroup = (props) => {
+const CreateACampaign = (props) => {
     return (
         <>
             <body className="min-h-screen py-16 bg-black">
@@ -29,4 +29,4 @@ const CreateAGroup = (props) => {
         </>
     )
 }
-export default CreateAGroup;
+export default CreateACampaign;

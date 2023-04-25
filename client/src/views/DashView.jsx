@@ -32,7 +32,7 @@ const Dash = (props) => {
                             <Link to="cag" className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 text-violet-400 hover:text-blue-800 font-semibold" href="#">Create Campaign</Link>
                         </li>
                         <li className="mr-1">
-                            <Link className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 text-violet-500 hover:text-blue-800 font-semibold" href="#">Find Campaign</Link>
+                            <Link to="vac" className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 text-violet-500 hover:text-blue-800 font-semibold" href="#">Find Campaign</Link>
                         </li>
                     </div>
                     <li className="mr-1">
