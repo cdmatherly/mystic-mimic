@@ -1,6 +1,20 @@
+import axios from 'axios'
+import { useCookies } from 'react-cookie'
 
 const EachCharacter = (props) => {
     const { character, charImg } = props
+    const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
+    const user = cookies.user_id
+
+    const handleDelete = () => {
+        axios.delete(`/api/${user}/characters/${character._id}`)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
     
     return (
@@ -44,6 +58,10 @@ const EachCharacter = (props) => {
 
                     <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
                         Edit
+                    </button>
+
+                    <button onClick={(e) => handleDelete(e)} className="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
+                        Delete
                     </button>
                 </div>
             </div>
