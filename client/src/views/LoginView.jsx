@@ -39,6 +39,7 @@ const Login = (props) => {
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                    <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"><span className="text-transparent bg-clip-text bg-gradient-to-r to-purple-500 from-sky-400">Mystic</span> Mimic</h1>
                         Sign in to your account
                     </h2>
                 </div>
@@ -98,13 +99,14 @@ const Login = (props) => {
                                 </button>
                         </div>
                     </form>
-
-                    <p className="mt-10 text-center text-sm text-gray-500">
-                        Not a member?{' '}
-                        <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                            Register
-                        </a>
-                    </p>
+                    <Link to="/register">
+                        <p className="mt-10 text-center text-sm text-gray-500">
+                            Not a member?{' '}
+                            <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                                Register
+                            </a>
+                        </p>
+                    </Link>
                 </div>
             </div>
         </>
