@@ -22,9 +22,6 @@ const UserSchema = new mongoose.Schema(
       minlength: [8, "Password must be {MINLENGTH} characters or longer"],
     },
     characters: [{type: mongoose.Schema.Types.ObjectId, ref: 'Character'}]
-    // characters: {
-    //   type: Array
-    // }
   }, 
   { timestamps: true }
 );
