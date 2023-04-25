@@ -9,6 +9,7 @@ const Register = (props) => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [validationErrors, setValidationErrors] = useState(null)
+    const [uniqueValidationErrors, setUniqueValidationErrors] = useState(null)
     const [isPasswordValid, setIsPasswordValid] = useState(false)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const navigate = useNavigate()
@@ -25,7 +26,7 @@ const Register = (props) => {
                 console.log(user)
                 console.log(err)
                 setValidationErrors(err.response?.data?.errors)
-
+                setUniqueValidationErrors(err.response?.data)
             })
     }
 
@@ -72,6 +73,8 @@ const Register = (props) => {
                                     Email address:
                                 </label>
                                 {validationErrors?.email && (<p style={{ color: 'red', marginLeft: '5px' }}>{validationErrors.email.message}</p>)}
+                                {uniqueValidationErrors && (<p style={{ color: 'red', marginLeft: '5px' }}>{uniqueValidationErrors}</p>)}
+
                             </div>
                             <div className="mt-2">
                                 <input

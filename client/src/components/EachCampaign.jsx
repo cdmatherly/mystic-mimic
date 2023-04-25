@@ -2,7 +2,7 @@ import charImg from '../images/bard_lute_char_img.jpeg';
 import ShowOneCampaignModal from './ShowOneCampaignModal'
 
 const EachCampaign = (props) => {
-    const { campaign } = props
+    const { campaign, characters } = props
 
     return (
         <>
@@ -16,8 +16,7 @@ const EachCampaign = (props) => {
                                     {campaign.name}
                                 </label>
                             </div>
-                            <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">View Campaign</button>
-                            <ShowOneCampaignModal campaign={campaign}/>
+                            <ShowOneCampaignModal campaign={campaign} characters={characters}/>
                         </div>
                 </div>
             </div>
