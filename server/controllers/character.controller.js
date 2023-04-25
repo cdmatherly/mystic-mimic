@@ -156,6 +156,7 @@ module.exports.deleteCharacterAndUpdateUser = (req, res) => {
             //         return res.json(user)
             //     })
 
+
             User.findById(req.params.user)
                 .then((user) => {
                     const filteredCharacters = user.characters.filter((character) => (character.toString() !== req.params.id))
