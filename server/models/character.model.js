@@ -8,7 +8,8 @@ const CharacterSchema = new mongoose.Schema(
         },
         campaign: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Campaign'
+            ref: 'Campaign',
+            default: null
         }
         ,
         name: {
