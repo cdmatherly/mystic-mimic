@@ -1,5 +1,22 @@
+import { useEffect } from 'react'
+import axios from 'axios'
 import charImg from '../images/bard_lute_char_img.jpeg';
+import { useCookies } from 'react-cookie'
+
 const ShowAllCharacters = (props) => {
+    const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
+    const user = cookies.user_id
+    
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/${user}/characters`)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
     return (
         <>
             <body className="min-h-screen py-16 bg-black">

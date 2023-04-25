@@ -7,7 +7,6 @@ import { useCookies } from 'react-cookie'
 const ProtectedRoute = ({ person, redirectPath='/login', children }) => {
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user = cookies.user_id
-    console.log(user)
     if (!user) {
         return <Navigate to={redirectPath} replace/>
     }
