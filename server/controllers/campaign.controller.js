@@ -1,8 +1,8 @@
 const { Campaign } = require("../models/campaign.model")
 
-// get all campaigns
+// get all campaigns and populate characters with character documents from character model
 module.exports.getAllCampaigns = (req, res) => {
-    Campaign.find()
+    Campaign.find().populate('characters')
         .then((campaigns) => {
             return res.json(campaigns)
         })
@@ -11,9 +11,9 @@ module.exports.getAllCampaigns = (req, res) => {
         })
 }
 
-// get campaign by ID
+// get campaign by ID and populate characters with character documents from character model
 module.exports.getCampaignById = (req, res) => {
-    Campaign.findById(req.params.id)
+    Campaign.findById(req.params.id).populate('characters')
         .then((campaign) => {
             return res.json(campaign)
         })
