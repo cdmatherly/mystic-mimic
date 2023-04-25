@@ -10,4 +10,6 @@ module.exports = app => {
     app.get('/api/:user/characters', CharacterController.getCharactersByUser)
     app.post('/api/:user/characters', CharacterController.createCharacterAndUpdateUser)
     app.delete('/api/:user/characters/:id', CharacterController.deleteCharacterAndUpdateUser)
+    app.put('/api/characters/:char_id/add/campaigns/:campaign_id', CharacterController.addCharacterToCampaign)
+    app.put('/api/characters/:char_id/remove/campaigns/:campaign_id', CharacterController.removeCharacterFromCampaign)
 }

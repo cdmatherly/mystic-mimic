@@ -1,3 +1,4 @@
+const { Campaign } = require("../models/campaign.model")
 const { Character } = require("../models/character.model")
 const { User } = require("../models/user.model")
 
@@ -25,29 +26,29 @@ module.exports.getCharacterById = (req, res) => {
 
 // Get characters by user
 module.exports.getCharactersByUser = (req, res) => {
-    // User.findById(req.params.user)
+    User.findById(req.params.user)
+        .then((user) => {
+            let userCharacters = user.characters
+            Character.find({ _id: { $in: userCharacters } })
+                .then((characters) => {
+                    console.log(characters)
+                    return res.json(characters)
+                })
+                .catch((err) => {
+                    return res.status(400).json(err)
+                })
+        })
+        .catch((err) => {
+            return res.status(400).json(err)
+        })
+    // //This will populate users document with character documents
+    // User.findById(req.params.user).populate('characters')
     //     .then((user) => {
-        //         let userCharacters = user.characters
-        //         Character.find({ _id: { $in: userCharacters } })
-        //             .then((characters) => {
-            //                 console.log(characters)
-            //                 return res.json(characters)
-            //             })
-            //             .catch((err) => {
-                //                 return res.status(400).json(err)
-                //             })
-                //         // return res.json(user)
-                //     })
-                //     .catch((err) => {
-                    //         return res.status(400).json(err)
-                    //     })
-                    User.findById(req.params.user).populate('characters')
-                        .then((user) => {
-                            return res.json(user)
-                        })
-                        .catch((err) => {
-                            return res.status(400).json(err)
-                        })
+    //         return res.json(user)
+    //     })
+    //     .catch((err) => {
+    //         return res.status(400).json(err)
+    //     })
 }
 
 
@@ -98,6 +99,40 @@ module.exports.updateCharacterById = (req, res) => {
         })
 }
 
+module.exports.addCharacterToCampaign = (req, res) => {
+    Character.findByIdAndUpdate(req.params.char_id, req.body, { runValidators: true, new: true })
+        .then((character)=>{
+            Campaign.updateOne({_id:req.params.campaign_id},{ $push: {characters: req.params.char_id}})
+                .then((campaign)=>{
+                    return res.json(campaign)
+                })
+                .catch((err) => {
+                    return res.status(400).json(err)
+                })
+        })
+        .catch((err) => {
+            return res.status(400).json(err)
+        })
+}
+
+
+module.exports.removeCharacterFromCampaign = (req, res) => {
+    Character.findByIdAndUpdate(req.params.char_id, req.body, { runValidators: true, new: true })
+        .then((character)=>{
+            Campaign.updateOne({_id:req.params.campaign_id},{ $pull: {characters: req.params.char_id}})
+                .then((campaign)=>{
+                    return res.json(campaign)
+                })
+                .catch((err) => {
+                    return res.status(400).json(err)
+                })
+        })
+        .catch((err) => {
+            return res.status(400).json(err)
+        })
+}
+
+
 // Delete a character
 module.exports.deleteCharacter = (req, res) => {
     Character.findByIdAndDelete(req.params.id)
@@ -119,7 +154,7 @@ module.exports.deleteCharacterAndUpdateUser = (req, res) => {
             //     .then(user => {
             //         return res.json(user)
             //     })
-            
+
             User.findById(req.params.user)
                 .then((user) => {
                     const filteredCharacters = user.characters.filter((character) => (character.toString() !== req.params.id))
