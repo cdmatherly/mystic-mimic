@@ -17,8 +17,7 @@ import ViewAllCampaigns from "./views/ShowAllCampaigns";
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
-  // const user = cookies.user_id
-  const user = false
+  const user = cookies.user_id
 
   return (
     <CookiesProvider>
