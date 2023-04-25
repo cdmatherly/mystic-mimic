@@ -21,9 +21,10 @@ const UserSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       minlength: [8, "Password must be {MINLENGTH} characters or longer"],
     },
-    characters: {
-      type: Array
-    }
+    characters: [{type: mongoose.Schema.Types.ObjectId, ref: 'Character'}]
+    // characters: {
+    //   type: Array
+    // }
   }, 
   { timestamps: true }
 );
