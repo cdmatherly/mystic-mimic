@@ -12,6 +12,7 @@ import { CookiesProvider, useCookies } from "react-cookie";
 import ShowAllCharacters from './views/ShowAllCharactersView';
 import ShowOneCharacter from './views/ShowOneCharacter';
 import Index from './components/Index'
+import CreateAGroup from "./views/CreateAGroup";
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
@@ -26,6 +27,7 @@ function App() {
             <Route element={<CreateACharacter />} path="/cac" />
             <Route element={<ShowAllCharacters />} path='/sac' />
             <Route element={<ShowOneCharacter />} path='/soc' />
+            <Route element={<CreateAGroup />} path='/cag' />
           </Route>
         </Route>
         <Route element={<Register />} path="/register" />

@@ -29,7 +29,7 @@ const Dash = (props) => {
                         <Link to="/sac" className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 text-indigo-400 hover:text-blue-800 font-semibold">View Characters</Link>
                     </p>
                     <p className="mr-1">
-                        <Link className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 text-violet-400 hover:text-blue-800 font-semibold">Create Group</Link>
+                        <Link to="cag" className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 text-violet-400 hover:text-blue-800 font-semibold">Create Group</Link>
                     </p>
                     <p className="mr-1">
                         <Link className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 text-violet-500 hover:text-blue-800 font-semibold">Find Group</Link>
