@@ -7,9 +7,7 @@ const CampaignSchema = new mongoose.Schema(
             require: [true, "Campaign name is required"],
             minlength: [2, "Campaign name must be at least {MINLENGTH} characters"],
         },
-        characters: {
-            type: Array
-        }
+        characters: [{type: mongoose.Schema.Types.ObjectId, ref: 'Character'}]
     }, 
     { timestamps: true }
 )
