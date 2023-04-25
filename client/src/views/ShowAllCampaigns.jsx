@@ -6,6 +6,7 @@ import EachCampaign from "../components/EachCampaign";
 
 const ViewAllCampaigns = (props) => {
     const [campaigns, setCampaigns] = useState([])
+    const [characters, setCharacters] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user = cookies.user_id
@@ -20,6 +21,15 @@ const ViewAllCampaigns = (props) => {
             .catch(err => {
                 console.log(err)
             })
+            axios.get(`http://localhost:8000/api/${user}/characters`)
+            .then(res => {
+                console.log(res)
+                setCharacters(res.data)
+                setIsLoading(false)
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }, [])
 
     return (
@@ -27,7 +37,7 @@ const ViewAllCampaigns = (props) => {
             <div className="min-h-screen py-16 bg-black">
                 <div className="grid grid-cols-4 gap-10">
                     {campaigns.map((campaign) => 
-                    <EachCampaign key={campaign._id} campaign={campaign}/>
+                    <EachCampaign key={campaign._id} campaign={campaign} characters={characters}/>
                     )}
                 </div>
             </div>

@@ -1,13 +1,27 @@
-import React from "react";
+import { useState } from "react";
+import axios from 'axios'
 
 export default function Modal(props) {
-    const { campaign } = props
-    const [showModal, setShowModal] = React.useState(false);
+    const { campaign, characters } = props
+    const [ selectedCharacter, setSelectedCharacter ] = useState(characters[0]._id)
+    const [showModal, setShowModal] = useState(false);
+    const campCharacters = campaign.characters
+
+    const handleJoin = () => {
+        const character = {selectedCharacter}
+        axios.put(`http://localhost:8000/api/characters/${selectedCharacter}/add/campaigns/${campaign._id}`, character)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
     return (
         <>
             <button
-                className="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                 type="button"
                 onClick={() => setShowModal(true)}
             >
@@ -37,12 +51,17 @@ export default function Modal(props) {
                                 </div>
                                 {/*body*/}
                                 <div className="relative p-6 flex-auto">
-                                    <p>Info about Each campaign here!</p>
-                                    {campaign.characters.map(() => {
-                                        <p>Hi</p>
+                                    <p>Info about each campaign here!</p>
+                                    {campCharacters.map((character) => {
+                                        <p key={character._id}>{character.name}</p>
                                     })}
                                 </div>
                                 {/*footer*/}
+                                <select name="character" id="character" className="px-2 py-1">
+                                {characters.map((character) => 
+                                    <option value={character._id} onChange={(e) => {setSelectedCharacter(e.target.value)}}>{character.name}</option>
+                                )}
+                                </select>
                                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                                     <button
                                         className="text-gray-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -51,7 +70,7 @@ export default function Modal(props) {
                                     >
                                         Cancel
                                     </button>
-                                    <button
+                                    <button onClick={(e) => {handleJoin(e)}}
                                         className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                         type="button"
                                     >
