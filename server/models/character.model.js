@@ -16,6 +16,7 @@ const CharacterSchema = new mongoose.Schema(
             type:String,
             require: [true, "Character name is required"],
             minlength: [2, "Name must be at least {MINLENGTH} characters"],
+            minlength: [2, "Name must be at least {MINLENGTH} characters"],
         },
         race: {
             type:String,
