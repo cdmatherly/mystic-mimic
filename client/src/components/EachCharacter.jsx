@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
+import DeleteModal from '../components/DeleteModal'
 
 const EachCharacter = (props) => {
-    const { character, charImg, allCharacters } = props
-    const [charactesr, setAllCharacters] = useState(allCharacters)
+    const { character, charImg, allCharacters, updateCharacters } = props
+    const [characters, setAllCharacters] = useState(allCharacters)
+    const [deletedCharacter, setDeletedCharacter] = useState(null)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user = cookies.user_id
 
@@ -12,6 +14,7 @@ const EachCharacter = (props) => {
         axios.delete(`http://localhost:8000/api/${user}/characters/${character._id}`)
             .then(res => {
                 console.log(res)
+                updateCharacters(res)
             })
             .catch(err => {
                 console.log(err)
@@ -22,7 +25,7 @@ const EachCharacter = (props) => {
     return (
         <div className="relative">
             <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg "></div>
-            <div className="relative max-w-full rounded overflow-hidden shadow-lg px-20 py-20 bg-white">
+            <div className="relative max-w-full rounded overflow-hidden shadow-lg px-16 py-16 bg-white">
                 <div >
                     <img className="h-20" src={charImg} alt="Character Image"></img>
                     <div className="mb-6">
@@ -52,9 +55,8 @@ const EachCharacter = (props) => {
                         <p className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight">{character.class}</p>
                     </div>
                 </div>
-                <p>{character._id}</p>
 
-                <div className="md:w-2/3 flex gap-10">
+                <div className="grid grid-cols-3 gap-6">
                     <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
                         View
                     </button>
@@ -62,10 +64,8 @@ const EachCharacter = (props) => {
                     <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
                         Edit
                     </button>
-
-                    <button onClick={(e) => handleDelete(e)} className="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-                        Delete
-                    </button>
+                    
+                    <DeleteModal character={character} handleDelete={handleDelete}/>
                 </div>
             </div>
         </div>

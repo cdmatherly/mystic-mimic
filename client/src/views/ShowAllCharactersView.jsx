@@ -7,6 +7,7 @@ import EachCharacter from '../components/EachCharacter'
 const ShowAllCharacters = (props) => {
     const [characters, setCharacters] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [deletedCharacter, setDeletedCharacter] = useState(null)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user = cookies.user_id
     
@@ -20,13 +21,18 @@ const ShowAllCharacters = (props) => {
             .catch(err => {
                 console.log(err)
             })
-    }, [])
+    }, [deletedCharacter])
+
+    const updateCharacters = (delCharacter) => {
+        setDeletedCharacter(delCharacter)
+    }
+
 
     return (
         <div className="min-h-screen p-16 bg-black">
             <div className="grid grid-cols-4 gap-10">
                 {characters.map((character) =>
-                <EachCharacter key={character._id} charImg={charImg} character={character} allCharacters={characters} />
+                <EachCharacter key={character._id} charImg={charImg} character={character} allCharacters={characters} updateCharacters={updateCharacters} />
                 )}
             </div>
         </div>
