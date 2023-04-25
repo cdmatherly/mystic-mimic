@@ -6,7 +6,7 @@ const ShowAllCharacters = (props) => {
                 <div className="grid gap-8 items-start justify-center">
                     <div className="relative">
                         <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg "></div>
-                        <div className="relative max-w-full rounded overflow-hidden shadow-lg px-20 py-20 bg-white">
+                        <div className="relative max-w-lg rounded overflow-hidden shadow-lg px-20 py-20 bg-white">
                                 <div >
                                     <img className="h-20" src={charImg} alt="Character Image"></img>
                                     <div className="mb-6">
