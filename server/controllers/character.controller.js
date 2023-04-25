@@ -135,7 +135,6 @@ module.exports.removeCharacterFromCampaign = (req, res) => {
 
 
 // Delete a character
-// Delete a character
 module.exports.deleteCharacter = (req, res) => {
     Character.findByIdAndDelete(req.params.id)
         .then((character) => {
