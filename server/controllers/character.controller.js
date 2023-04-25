@@ -89,7 +89,6 @@ module.exports.createCharacterAndUpdateUser = (req, res) => {
 }
 
 // Edit a character
-// Edit a character
 module.exports.updateCharacterById = (req, res) => {
     Character.findByIdAndUpdate(req.params.id, req.body, { runValidators: true, new: true })
         .then((character) => {
