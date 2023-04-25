@@ -3,25 +3,32 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const { Error } = require("mongoose");
 
-module.exports.register = (req, res) => {
+module.exports.register = async (req, res) => {
   console.log("\nRegistering...\n")
 
-  User.create(req.body)
-    .then((user) => {
-      const userToken = jwt.sign(
-        { id: user._id },
-        process.env.SECRET_KEY);
+  console.log(req.body.email)
 
-      res
-        .cookie("usertoken", userToken, process.env.SECRET_KEY, {
-          httpOnly: true,
+  const isUser = await User.findOne({email: req.body.email})
+
+  isUser ? res.status(406).json('Email already in use') :
+
+      (User.create(req.body)
+        .then((user) => {
+          const userToken = jwt.sign(
+            { id: user._id },
+            process.env.SECRET_KEY);
+    
+          res
+            .cookie("usertoken", userToken, process.env.SECRET_KEY, {
+              httpOnly: true,
+            })
+            .json({ msg: "success!", user: user });
         })
-        .json({ msg: "success!", user: user });
-    })
-    .catch((err) => {
-      console.log(err)
-      res.status(400).json(err)
-    });
+        .catch((err) => {
+          console.log(err)
+          res.status(400).json(err)
+        }))
+
 };
 
 module.exports.login = async (req, res) => {

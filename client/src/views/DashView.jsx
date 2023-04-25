@@ -12,7 +12,6 @@ const Dash = (props) => {
     // console.log(user)
 
     const onClickHandler = (e) => {
-        console.log('working')
         removeCookie(['user_id'])
         navigate('/')
     }
