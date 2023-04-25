@@ -2,6 +2,15 @@ const mongoose = require("mongoose")
 
 const CharacterSchema = new mongoose.Schema(
     {
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        campaign: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Campaign'
+        }
+        ,
         name: {
             type:String,
             require: [true, "Character name is required"],
@@ -39,8 +48,8 @@ const CharacterSchema = new mongoose.Schema(
             charisma:{
                 type:Number,
                 default:8
-            },
-        },
+            }
+        }
     }, 
     { timestamps: true }
 )

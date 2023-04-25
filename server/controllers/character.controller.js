@@ -25,22 +25,29 @@ module.exports.getCharacterById = (req, res) => {
 
 // Get characters by user
 module.exports.getCharactersByUser = (req, res) => {
-    User.findById(req.params.user)
-        .then((user) => {
-            let userCharacters = user.characters
-            Character.find({ _id: { $in: userCharacters } })
-                .then((characters) => {
-                    console.log(characters)
-                    return res.json(characters)
-                })
-                .catch((err) => {
-                    return res.status(400).json(err)
-                })
-            // return res.json(user)
-        })
-        .catch((err) => {
-            return res.status(400).json(err)
-        })
+    // User.findById(req.params.user)
+    //     .then((user) => {
+        //         let userCharacters = user.characters
+        //         Character.find({ _id: { $in: userCharacters } })
+        //             .then((characters) => {
+            //                 console.log(characters)
+            //                 return res.json(characters)
+            //             })
+            //             .catch((err) => {
+                //                 return res.status(400).json(err)
+                //             })
+                //         // return res.json(user)
+                //     })
+                //     .catch((err) => {
+                    //         return res.status(400).json(err)
+                    //     })
+                    User.findById(req.params.user).populate('characters')
+                        .then((user) => {
+                            return res.json(user)
+                        })
+                        .catch((err) => {
+                            return res.status(400).json(err)
+                        })
 }
 
 
@@ -59,12 +66,11 @@ module.exports.createCharacter = (req, res) => {
 module.exports.createCharacterAndUpdateUser = (req, res) => {
     Character.create(req.body)
         .then((character) => {
-            console.log(req.params.user)
             console.log(character._id)
             User.findById(req.params.user)
                 .then((user) => {
                     console.log(user.characters)
-                    let updateCharacters = { "characters": [...user.characters, character._id.toString()] }
+                    let updateCharacters = { "characters": [...user.characters, character._id] }
                     console.log(updateCharacters)
                     User.findByIdAndUpdate(req.params.user, updateCharacters, { runValidators: true, new: true })
                         .catch((err) => {
@@ -116,8 +122,9 @@ module.exports.deleteCharacterAndUpdateUser = (req, res) => {
             
             User.findById(req.params.user)
                 .then((user) => {
-                    const filteredCharacters = user.characters.filter((character) => (character !== req.params.id))
+                    const filteredCharacters = user.characters.filter((character) => (character.toString() !== req.params.id))
                     let updateCharacters = { "characters": filteredCharacters }
+                    console.log(updateCharacters)
                     User.findByIdAndUpdate(req.params.user, updateCharacters, { runValidators: true, new: true })
                         .then((user) => {
                             return res.json(user)
