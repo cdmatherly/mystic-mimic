@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { useCookies } from 'react-cookie';
 import axios from 'axios'
 
 const Register = (props) => {
@@ -9,17 +10,16 @@ const Register = (props) => {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [validationErrors, setValidationErrors] = useState(null)
     const [isPasswordValid, setIsPasswordValid] = useState(false)
+    const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const navigate = useNavigate()
     
     const createUser = (user) => {
         axios.post('http://localhost:8000/api/register', user)
             .then(res => {
                 console.log(res)
-                setUsername('')
-                setEmail('')
-                setPassword('')
-                setConfirmPassword('')
-                navigate('/dash')
+                const user_id = res.data.user_id
+                setCookie(['user_id'], user_id, {maxAge: 86400})
+                navigate('/')
             })
             .catch(err => {
                 console.log(user)
