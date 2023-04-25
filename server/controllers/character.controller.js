@@ -25,29 +25,29 @@ module.exports.getCharacterById = (req, res) => {
 
 // Get characters by user
 module.exports.getCharactersByUser = (req, res) => {
-    // User.findById(req.params.user)
-    //     .then((user) => {
-        //         let userCharacters = user.characters
-        //         Character.find({ _id: { $in: userCharacters } })
-        //             .then((characters) => {
-            //                 console.log(characters)
-            //                 return res.json(characters)
-            //             })
-            //             .catch((err) => {
-                //                 return res.status(400).json(err)
-                //             })
-                //         // return res.json(user)
-                //     })
-                //     .catch((err) => {
-                    //         return res.status(400).json(err)
-                    //     })
-                    User.findById(req.params.user).populate('characters')
-                        .then((user) => {
-                            return res.json(user)
+    User.findById(req.params.user)
+        .then((user) => {
+                let userCharacters = user.characters
+                Character.find({ _id: { $in: userCharacters } })
+                    .then((characters) => {
+                            console.log(characters)
+                            return res.json(characters)
                         })
                         .catch((err) => {
+                                return res.status(400).json(err)
+                            })
+                        // return res.json(user)
+                    })
+                    .catch((err) => {
                             return res.status(400).json(err)
                         })
+                    // User.findById(req.params.user).populate('characters')
+                    //     .then((user) => {
+                    //         return res.json(user)
+                    //     })
+                    //     .catch((err) => {
+                    //         return res.status(400).json(err)
+                    //     })
 }
 
 

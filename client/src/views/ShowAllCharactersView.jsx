@@ -26,7 +26,7 @@ const ShowAllCharacters = (props) => {
         <div className="min-h-screen p-16 bg-black">
             <div className="grid grid-cols-4 gap-10">
                 {characters.map((character) =>
-                <EachCharacter key={character._id} charImg={charImg} character={character} />
+                <EachCharacter key={character._id} charImg={charImg} character={character} allCharacters={characters} />
                 )}
             </div>
         </div>
