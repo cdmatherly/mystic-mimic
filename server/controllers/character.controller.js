@@ -1,22 +1,22 @@
 const { Character } = require("../models/character.model")
 const { User } = require("../models/user.model")
 
-// get character by ID
-module.exports.getCharacterById = (req, res) => {
-    Character.findById(req.params.id)
-        .then((character) => {
-            return res.json(character)
+// get all characters
+module.exports.getAllCharacters = (req, res) => {
+    Character.find()
+        .then((characters) => {
+            return res.json(characters)
         })
         .catch((err) => {
             return res.status(400).json(err)
         })
 }
 
-// get all characters
-module.exports.getAllCharacters = (req, res) => {
-    Character.find()
-        .then((characters) => {
-            return res.json(characters)
+// get character by ID
+module.exports.getCharacterById = (req, res) => {
+    Character.findById(req.params.id)
+        .then((character) => {
+            return res.json(character)
         })
         .catch((err) => {
             return res.status(400).json(err)
