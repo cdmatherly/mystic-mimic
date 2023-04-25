@@ -9,7 +9,7 @@ const Dash = (props) => {
     const { user } = useContext(AuthContext)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const navigate = useNavigate()
-    console.log(user)
+    // console.log(user)
 
     const onClickHandler = (e) => {
         console.log('working')
