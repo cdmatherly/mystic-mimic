@@ -1,13 +1,15 @@
+import { useState } from 'react'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 
 const EachCharacter = (props) => {
-    const { character, charImg } = props
+    const { character, charImg, allCharacters } = props
+    const [charactesr, setAllCharacters] = useState(allCharacters)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user = cookies.user_id
 
     const handleDelete = () => {
-        axios.delete(`/api/${user}/characters/${character._id}`)
+        axios.delete(`http://localhost:8000/api/${user}/characters/${character._id}`)
             .then(res => {
                 console.log(res)
             })
@@ -50,6 +52,7 @@ const EachCharacter = (props) => {
                         <p className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight">{character.class}</p>
                     </div>
                 </div>
+                <p>{character._id}</p>
 
                 <div className="md:w-2/3 flex gap-10">
                     <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
