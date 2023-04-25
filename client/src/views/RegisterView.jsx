@@ -137,7 +137,7 @@ const Register = (props) => {
                                 disabled:bg-gray-500"
                                 disabled={!isPasswordValid}
                                     >
-                                    Sign in
+                                    Register
                                 </button>
                         </div>
                     </form>
