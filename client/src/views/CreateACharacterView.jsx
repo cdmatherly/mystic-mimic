@@ -44,10 +44,10 @@ const CreateACharacter = (props) => {
     const postCreateACharacter = (event) => {
         event.preventDefault();
         const character = { nameCAC, raceCAC, classCAC, statsCAC }
-        axios.post(`/api/${user}/characters`, character)
+        console.log("clicked");
+        axios.post(`http://localhost:8000/api/${user}/characters`, character)
             .then((response) => {
                 console.log(response.data);
-                navigate('/sac')
             })
             .catch((error) => {
                 console.log(error);
@@ -61,7 +61,7 @@ const CreateACharacter = (props) => {
                     <div className="relative">
                         <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg "></div>
                         <div className="relative max-w-full rounded overflow-hidden shadow-lg px-20 py-20 bg-white">
-                            <form onSubmit={ postCreateACharacter } className="w-full max-w-sm">
+                            <form onSubmit={ (e) => postCreateACharacter(e) } className="w-full max-w-sm">
                                 <div className="md:flex md:items-center mb-6">
                                     <div className="md:w-1/3">
                                         <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
@@ -122,7 +122,7 @@ const CreateACharacter = (props) => {
                                 <div className="md:flex md:items-center">
                                     <div className="md:w-1/3"></div>
                                     <div className="md:w-2/3">
-                                        <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
+                                        <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                             Create Character
                                         </button>
                                     </div>
