@@ -5,7 +5,7 @@ const CharacterSchema = new mongoose.Schema(
         name: {
             type:String,
             require: [true, "Character name is required"],
-            minlength: [3, "Name must be 8 characters or longer"],
+            minlength: [2, "Name must be at least {MINLENGTH} characters"],
         },
         race: {
             type:String,
@@ -41,7 +41,8 @@ const CharacterSchema = new mongoose.Schema(
                 default:8
             },
         },
-    }, { timestamps: true }
+    }, 
+    { timestamps: true }
 )
 
 module.exports.Character = mongoose.model("Character", CharacterSchema)
