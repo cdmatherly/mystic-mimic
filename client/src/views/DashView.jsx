@@ -30,7 +30,6 @@ const Dash = (props) => {
                 console.log(err)
             })
 
-        console.log("Is this running?")
         joinRoom()
 
         return () => socket.disconnect(true)
@@ -64,7 +63,7 @@ const Dash = (props) => {
                     </li>
                 </ul>
             </div>
-            <div className="max-w-full rounded overflow-hidden px-20 py-20 bg-no-repeat bg-cover" style={{
+            <div className="max-w-full rounded overflow-hidden px-20 py-10 bg-no-repeat bg-cover" style={{
                             backgroundPosition: '100%',
                             backgroundImage: 'url("https://cdn.shopify.com/s/files/1/0059/3061/4851/products/B9A0964.jpg?v=1653900526&width=1445")',
                             height: '1200px',
