@@ -2,16 +2,16 @@ import { useState } from "react";
 import axios from 'axios'
 
 export default function Modal(props) {
-    const { campaign, characters } = props
-    const [ selectedCharacter, setSelectedCharacter ] = useState(characters[0]._id)
+    const { campaign, characters, setNewCharacter } = props
+    const [ selectedCharacter, setSelectedCharacter ] = useState(null)
     const [showModal, setShowModal] = useState(false);
-    const campCharacters = campaign.characters
 
     const handleJoin = () => {
         const character = {selectedCharacter}
         axios.put(`http://localhost:8000/api/characters/${selectedCharacter}/add/campaigns/${campaign._id}`, character)
             .then(res => {
                 console.log(res)
+                setNewCharacter(character)
             })
             .catch(err => {
                 console.log(err)
@@ -45,21 +45,21 @@ export default function Modal(props) {
                                         onClick={() => setShowModal(false)}
                                     >
                                         <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                                            ×
+                                            x
                                         </span>
                                     </button>
                                 </div>
                                 {/*body*/}
                                 <div className="relative p-6 flex-auto">
                                     <p>Info about each campaign here!</p>
-                                    {campCharacters.map((character) => {
+                                    {campaign.characters.map((character) => 
                                         <p key={character._id}>{character.name}</p>
-                                    })}
+                                    )}
                                 </div>
                                 {/*footer*/}
-                                <select name="character" id="character" className="px-2 py-1">
+                                <select name="character" id="character" className="px-2 py-1" onChange={(e) => setSelectedCharacter(e.target.value)}>
                                 {characters.map((character) => 
-                                    <option value={character._id} onChange={(e) => {setSelectedCharacter(e.target.value)}}>{character.name}</option>
+                                    <option key={character._id} value={character._id} >{character.name}</option>
                                 )}
                                 </select>
                                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">

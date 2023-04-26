@@ -10,6 +10,8 @@ const ViewAllCampaigns = (props) => {
     const [isLoading, setIsLoading] = useState(true)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user = cookies.user_id
+    const [newCharacter, setNewCharacter] = useState(null)
+
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/campaigns`)
@@ -30,14 +32,14 @@ const ViewAllCampaigns = (props) => {
             .catch(err => {
                 console.log(err)
             })
-    }, [])
+    }, [newCharacter])
 
     return (
         <>
             <div className="min-h-screen py-16 bg-black">
                 <div className="grid grid-cols-4 gap-10">
                     {campaigns.map((campaign) => 
-                    <EachCampaign key={campaign._id} campaign={campaign} characters={characters}/>
+                    <EachCampaign key={campaign._id} campaign={campaign} characters={characters} setNewCharacter={setNewCharacter}/>
                     )}
                 </div>
             </div>
