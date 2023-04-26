@@ -26,23 +26,7 @@ module.exports.getCharacterById = (req, res) => {
 
 // Get characters by user
 module.exports.getCharactersByUser = (req, res) => {
-    User.findById(req.params.user_id)
-        .then((user) => {
-            let userCharacters = user.characters
-            Character.find({ _id: { $in: userCharacters } })
-                .then((characters) => {
-                    console.log(characters)
-                    return res.json(characters)
-                })
-                .catch((err) => {
-                    return res.status(400).json(err)
-                })
-        })
-        .catch((err) => {
-            return res.status(400).json(err)
-        })
-    // //This will populate users document with character documents
-    // User.findById(req.params.user_id).populate('characters')
+    // User.findById(req.params.user)
     //     .then((user) => {
     //         return res.json(user)
     //     })
@@ -185,7 +169,74 @@ module.exports.removeCharacterFromCampaign = (req, res) => {
 }
 
 
-// Delete a character
+module.exports.addCharacterToCampaign = (req, res) => {
+    Character.findByIdAndUpdate(req.params.char_id, req.body, { runValidators: true, new: true })
+        .then((character)=>{
+            Campaign.updateOne({_id:req.params.campaign_id},{ $push: {characters: req.params.char_id}})
+                .then((campaign)=>{
+                    return res.json(campaign)
+                })
+                .catch((err) => {
+                    return res.status(400).json(err)
+                })
+        })
+        .catch((err) => {
+            return res.status(400).json(err)
+        })
+}
+
+
+module.exports.removeCharacterFromCampaign = (req, res) => {
+    Character.findByIdAndUpdate(req.params.char_id, req.body, { runValidators: true, new: true })
+        .then((character)=>{
+            Campaign.updateOne({_id:req.params.campaign_id},{ $pull: {characters: req.params.char_id}})
+                .then((campaign)=>{
+                    return res.json(campaign)
+                })
+                .catch((err) => {
+                    return res.status(400).json(err)
+                })
+        })
+        .catch((err) => {
+            return res.status(400).json(err)
+        })
+}
+
+
+module.exports.addCharacterToCampaign = (req, res) => {
+    Character.findByIdAndUpdate(req.params.char_id, req.body, { runValidators: true, new: true })
+        .then((character)=>{
+            Campaign.updateOne({_id:req.params.campaign_id},{ $push: {characters: req.params.char_id}})
+                .then((campaign)=>{
+                    return res.json(campaign)
+                })
+                .catch((err) => {
+                    return res.status(400).json(err)
+                })
+        })
+        .catch((err) => {
+            return res.status(400).json(err)
+        })
+}
+
+
+module.exports.removeCharacterFromCampaign = (req, res) => {
+    Character.findByIdAndUpdate(req.params.char_id, req.body, { runValidators: true, new: true })
+        .then((character)=>{
+            Campaign.updateOne({_id:req.params.campaign_id},{ $pull: {characters: req.params.char_id}})
+                .then((campaign)=>{
+                    return res.json(campaign)
+                })
+                .catch((err) => {
+                    return res.status(400).json(err)
+                })
+        })
+        .catch((err) => {
+            return res.status(400).json(err)
+        })
+}
+
+
 // Delete a character
 module.exports.deleteCharacter = (req, res) => {
     Character.findByIdAndDelete(req.params.id)
