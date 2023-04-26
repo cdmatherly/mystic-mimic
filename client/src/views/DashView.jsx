@@ -1,15 +1,40 @@
-import {useContext, useEffect} from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate, Outlet } from 'react-router-dom'
 import AuthContext from '../context/AuthProvider';
 import { useCookies } from 'react-cookie'
 import CreateACharacter from './CreateACharacterView';
 import ShowOneCharacter from './ShowOneCharacter';
+import Chat from '../components/Chat';
+import io from 'socket.io-client'
+import axios from 'axios';
+
 
 const Dash = (props) => {
-    const { user } = useContext(AuthContext)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
+    const user_id = cookies.user_id
+    const [user, setUser] = useState(null)
     const navigate = useNavigate()
-    // console.log(user)
+    const [socket] = useState(() => io(':8000'))
+
+    const joinRoom = () => {
+        socket.emit("join_room", 1)
+    }
+
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/users/${user_id}`)
+            .then(res => {
+                console.log(res)
+                setUser(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+        console.log("Is this running?")
+        joinRoom()
+
+        return () => socket.disconnect(true)
+    }, [socket])
 
     const onClickHandler = (e) => {
         removeCookie(['user_id'])
@@ -35,11 +60,12 @@ const Dash = (props) => {
                         </li>
                     </div>
                     <li className="mr-1">
-                        <button onClick={e => {onClickHandler(e)}} className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 font-semibold text-blue-600 dark:text-blue-500 hover:underline"> Logout</button>
+                        <button onClick={e => { onClickHandler(e) }} className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 font-semibold text-blue-600 dark:text-blue-500 hover:underline"> Logout</button>
                     </li>
                 </ul>
             </div>
-            <Outlet/>
+            <Outlet />
+            <Chat socket={socket} user={user}/>
         </>
     )
 }

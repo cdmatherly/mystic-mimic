@@ -29,6 +29,17 @@ io.on("connection", socket => {
     //NOTE: Each client that connects gets their own socket id
     console.log("User Connected", socket.id)
 
+    socket.on("join_room", (campaign_id) => {
+        socket.join(campaign_id)
+        console.log(`User ${socket.id} joined room`)
+    })
+
+    socket.on('send_message', (data) => {
+        // console.log(data)
+        socket.to(1).emit('receive_message', data)
+    })
+    
+
     socket.on("event_from_client", data => {
         //socket.broadcast will emit to all other clients besides the client who is actually emitting
         socket.broadcast.emit("send_data_to_all_other_clients", data)

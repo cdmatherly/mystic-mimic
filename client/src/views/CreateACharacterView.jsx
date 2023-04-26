@@ -17,7 +17,7 @@ const CreateACharacter = (props) => {
         14:15,
         15:17
     }
-    console.log(attributePointCosts)
+    // console.log(attributePointCosts)
 
     const [nameCAC,setNameCAC] = useState("")
     const [raceCAC,setRaceCAC] = useState("")
