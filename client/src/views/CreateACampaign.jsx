@@ -1,12 +1,17 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useCookies } from 'react-cookie'
 
 const CreateACampaign = (props) => {
     const [name, setName] = useState('')
     const [validationErrors, setValidationErrors] = useState(null)
+    const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
+    const user = cookies.user_id
+    const navigate = useNavigate()
 
     const createCampaign = (campaign) => {
-        axios.post("http://localhost:8000/api/campaigns", campaign)
+        axios.post(`http://localhost:8000/api/${user}/campaigns`, campaign)
             .then(res => {
                 console.log(res)
             })
@@ -19,6 +24,7 @@ const CreateACampaign = (props) => {
     const onSubmitHandler = (e) => {
         e.preventDefault()
         createCampaign({name})
+        navigate('/vac')
     }
     return (
         <div className="min-h-screen py-16 bg-black">
