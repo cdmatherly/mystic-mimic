@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from 'axios'
+import { Outlet } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import EachCampaign from "../components/EachCampaign";
 
@@ -42,6 +43,7 @@ const ViewAllCampaigns = (props) => {
                     {campaigns.map((campaign) => 
                     <EachCampaign key={campaign._id} campaign={campaign} characters={characters} setNewCampaign={setNewCampaign} setUpdateCampaigns={setUpdateCampaigns}/>
                     )}
+                    <Outlet />
                 </div>
             </div>
         </>
