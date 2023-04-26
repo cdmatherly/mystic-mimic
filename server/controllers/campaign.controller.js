@@ -1,4 +1,5 @@
 const { Campaign } = require("../models/campaign.model")
+const { Character } = require("../models/character.model")
 
 // get all campaigns and populate characters with character documents from character model
 module.exports.getAllCampaigns = (req, res) => {
@@ -61,6 +62,22 @@ module.exports.deleteCampaign = (req, res) => {
     Campaign.findByIdAndDelete(req.params.id)
         .then((campaign) => {
             return res.json(campaign)
+        })
+        .catch((err) => {
+            return res.status(400).json(err)
+        })
+}
+
+// Delete a campaign, remove deleted campaign from all characters
+module.exports.deleteCampaignAndRemoveFromCharacters = (req, res) => {
+    Campaign.findByIdAndDelete(req.params.campaign_id)
+        .then((campaign) => {
+            Character.updateMany({campaign: req.params.campaign_id},{$set: {campaign: null}})
+            // Character.find({campaign: req.params.campaign_id})
+                .then((characters)=>{
+                    return res.json(characters)
+                })
+            // return res.json(campaign)
         })
         .catch((err) => {
             return res.status(400).json(err)

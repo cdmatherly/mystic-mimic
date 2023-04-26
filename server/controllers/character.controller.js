@@ -29,7 +29,7 @@ module.exports.getCharactersByUser = (req, res) => {
     User.findById(req.params.user_id)
         .then((user) => {
             let userCharacters = user.characters
-            Character.find({ _id: { $in: userCharacters } })
+            Character.find({ _id: { $in: userCharacters }}).populate('campaign')
                 .then((characters) => {
                     console.log(characters)
                     return res.json(characters)
