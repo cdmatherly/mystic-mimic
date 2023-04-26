@@ -14,15 +14,6 @@ const StatSelect = (props) => {
         15: 2
     }
 
-    const onChangeHandle = (newValue) => {
-        setCount(newValue)
-        // const oneStat = {} 
-        // oneStat[props.attribute] = newValue
-        newStat(attribute, newValue)
-        // console.log(oneStat[attribute]);
-        // console.log(attribute, newValue);
-    }
-
     const handleClick = (change) => {
         let newCount = count + change
         if (newCount >= 8 && newCount <= 15) {
@@ -36,10 +27,7 @@ const StatSelect = (props) => {
                 setCount(newCount)
                 return newStat(attribute, newCount)
             }
-
         }
-
-        console.log("in statselect", attribute, count)
     }
 
     return (

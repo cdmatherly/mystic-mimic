@@ -17,12 +17,10 @@ const CreateACharacter = (props) => {
         14:15,
         15:17
     }
-    console.log(attributePointCosts)
 
-    const [nameCAC,setNameCAC] = useState("")
-    const [raceCAC,setRaceCAC] = useState("")
-    const [classCAC, setClassCAC] = useState("")
-    const [statsCAC, setStatsCAC] = useState({})
+    const [name,setName] = useState("")
+    const [race,setRace] = useState("Dragonborn")
+    const [className, setClassName] = useState("Barbarian")
 
     const [strength, setStrength] = useState(8)
     const [dexterity, setDexterity] = useState(8)
@@ -89,9 +87,27 @@ const CreateACharacter = (props) => {
 
     const postCreateACharacter = (event) => {
         event.preventDefault();
-        const character = { nameCAC, raceCAC, classCAC, statsCAC }
-        console.log("clicked");
-        axios.post(`http://localhost:8000/api/${user}/characters`, character)
+        const stats = {
+            stats: {
+                strength,
+                dexterity,
+                constitution,
+                intelligence,
+                wisdom,
+                charisma
+            }
+        }
+        const newCharacter = { 
+            name, 
+            race, 
+            class:className,
+            ...stats
+        }
+
+        console.log(stats)
+        console.log(newCharacter)
+
+        axios.post(`http://localhost:8000/api/${user}/characters`, newCharacter)
             .then((response) => {
                 console.log(response.data);
             })
@@ -107,6 +123,7 @@ const CreateACharacter = (props) => {
                     <div className="relative">
                         <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg "></div>
                         <div className="relative max-w-full rounded overflow-hidden shadow-lg px-20 py-20 bg-white">
+                            <h1>Create a Character:</h1>
                             <form onSubmit={ (e) => postCreateACharacter(e) } className="w-full max-w-sm">
                                 <div className="md:flex md:items-center mb-6">
                                     <div className="md:w-1/3">
@@ -115,7 +132,7 @@ const CreateACharacter = (props) => {
                                         </label>
                                     </div>
                                     <div className="md:w-2/3">
-                                        <input onChange={ (event) => setNameCAC(event.target.value) } id="inline-full-name" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" />
+                                        <input onChange={ (event) => setName(event.target.value) } id="inline-full-name" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Enter A Name"/>
                                     </div>
                                 </div>
                                 <div className="md:flex md:items-center mb-6">
@@ -125,7 +142,7 @@ const CreateACharacter = (props) => {
                                         </label>
                                     </div>
                                     <div className="md:w-2/3">
-                                        <select onChange={ (event) => setRaceCAC(event.target.value) } className="w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
+                                        <select value={race} onChange={ (event) => setRace(event.target.value) } className="w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
                                             {races.map((race) =>
                                                 <option value={race.name}>{race.name}</option>
                                             )}
@@ -139,7 +156,7 @@ const CreateACharacter = (props) => {
                                         </label>
                                     </div>
                                     <div className="md:w-2/3">
-                                        <select onChange={ (event) => setClassCAC(event.target.value) } className="w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
+                                        <select value={className} onChange={ (event) => setClassName(event.target.value) } className="w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
                                             {classes.map((eachClass) =>
                                                 <option value={eachClass.name}>{eachClass.name}</option>
                                             )}
@@ -149,10 +166,11 @@ const CreateACharacter = (props) => {
                                 <br />
                                 <hr />
                                 <br />
+                                <h2>Select Attributes:</h2>
                                 <div className="md:flex md:items-center mb-6">
                                     <div className="md:w-1/3">
                                         <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="attributes">
-                                            Select Attributes:
+                                            Remaining Att. Points:
                                         </label>
                                     </div>
                                     <div className="md:w-2/3">

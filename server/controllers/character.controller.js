@@ -76,7 +76,8 @@ module.exports.createCharacter = (req, res) => {
 
 // Create a new character and update characters in given user document
 module.exports.createCharacterAndUpdateUser = (req, res) => {
-    Character.create(req.body)
+    let newCharacter = {...req.body, user: req.params.user_id}
+    Character.create(newCharacter)
         .then((character) => {
             console.log(character._id)
             User.findById(req.params.user_id)
