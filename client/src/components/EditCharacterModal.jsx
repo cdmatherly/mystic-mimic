@@ -1,9 +1,18 @@
-import React from "react";
+import {useState} from "react";
 
 export default function Modal(props) {
     const { character, handleEdit, races, classes } = props
-    const [showModal, setShowModal] = React.useState(false);
-    
+    const [newRace, setNewRace] = useState(null)
+    const [newClass, setNewClass] = useState(null)
+    const [showModal, setShowModal] = useState(false);
+    const [name, setName] = useState(character.name)
+
+    const onSubmitHandler = (e) => {
+        e.preventDefault()
+        const updatedCharacter = {name, class: newClass, race: newRace, _id: character._id}
+        handleEdit(updatedCharacter)
+        setShowModal(false)
+    }
 
     return (
         <>
@@ -25,7 +34,7 @@ export default function Modal(props) {
                                 {/*header*/}
                                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                                     <h3 className="text-3xl font-semibold">
-                                        Delete <span className="text-fuchsia-700 underline"></span>
+                                        Edit <span className="text-fuchsia-700 underline">{character.name}</span>
                                     </h3>
                                     <button
                                         className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -37,13 +46,11 @@ export default function Modal(props) {
                                     </button>
                                 </div>
                                 {/*body*/}
-                                <form onSubmit={() => handleEdit()}>
+                                <form onSubmit={(e) => onSubmitHandler(e)}>
                                     <div className="relative max-w-full rounded overflow-hidden shadow-lg px-16 py-16 bg-white">
                                         <div >
                                             <div className="mb-6">
-                                                <label className="text-gray-500 font-bold">
-                                                    {character.name}
-                                                </label>
+                                                <input className="text-gray-500 font-bold" type="text" value={name} onChange={(e) => setName(e.target.value)}/>
                                             </div>
                                         </div>
                                         <div className="md:flex md:items-center mb-6">
@@ -53,9 +60,9 @@ export default function Modal(props) {
                                                 </label>
                                             </div>
                                             <div className="md:w-2/3">
-                                                <select name="" id="" className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight">
+                                                <select name="" id="" onChange={(e) => setNewRace(e.target.value)} className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight">
                                                     {races.map((race) => 
-                                                    <option value={race.name}>{race.name}</option>)}
+                                                    <option key={race.index} value={race.name}>{race.name}</option>)}
                                                 </select>
                                             </div>
                                         </div>
@@ -67,9 +74,9 @@ export default function Modal(props) {
                                                 </label>
                                             </div>
                                             <div className="md:w-2/3">
-                                            <select name="" id="" className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight">
+                                            <select name="" id="" onChange={(e) => setNewClass(e.target.value)} className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight">
                                                     {classes.map((eachClass) => 
-                                                    <option value={eachClass.name}>{eachClass.name}</option>)}
+                                                    <option key={eachClass.index} value={eachClass.name}>{eachClass.name}</option>)}
                                                 </select>                                            </div>
                                         </div>
                                         
