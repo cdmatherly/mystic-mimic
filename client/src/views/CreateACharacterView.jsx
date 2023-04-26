@@ -33,6 +33,7 @@ const CreateACharacter = (props) => {
     const [classes, setClasses] = useState([])
     const [attributePoints, setAttributePoints] = useState(75-attributePointCosts[strength]-attributePointCosts[dexterity]-attributePointCosts[constitution]-attributePointCosts[intelligence]-attributePointCosts[wisdom]-attributePointCosts[charisma])
 
+    const [validationErrors, setValidationErrors] = useState(null)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user = cookies.user_id
 
@@ -110,9 +111,11 @@ const CreateACharacter = (props) => {
         axios.post(`http://localhost:8000/api/${user}/characters`, newCharacter)
             .then((response) => {
                 console.log(response.data);
+                navigate('/sac')
             })
-            .catch((error) => {
-                console.log(error);
+            .catch((err) => {
+                console.log(err);
+                setValidationErrors(err.response?.data?.errors)
             })
     }
 
@@ -122,9 +125,9 @@ const CreateACharacter = (props) => {
                 <div className="grid gap-8 items-start justify-center">
                     <div className="relative">
                         <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg "></div>
-                        <div className="relative max-w-full rounded overflow-hidden shadow-lg px-20 py-20 bg-white">
-                            <h1>Create a Character:</h1>
-                            <form onSubmit={ (e) => postCreateACharacter(e) } className="w-full max-w-sm">
+                        <div className="relative max-w-full rounded overflow-hidden shadow-lg px-20 py-10 bg-white">
+                            <h1 className='mb-6 text-xl font-bold'>Create a Character:</h1>
+                            <form onSubmit={ (e) => postCreateACharacter(e) } className="w-full max-w-sm relative py-6">
                                 <div className="md:flex md:items-center mb-6">
                                     <div className="md:w-1/3">
                                         <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
@@ -132,6 +135,7 @@ const CreateACharacter = (props) => {
                                         </label>
                                     </div>
                                     <div className="md:w-2/3">
+                                    {validationErrors?.name && (<p className='text-red-500 ml-1 top-0 absolute whitespace-nowrap'>{validationErrors.name.message}</p>)}
                                         <input onChange={ (event) => setName(event.target.value) } id="inline-full-name" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Enter A Name"/>
                                     </div>
                                 </div>
@@ -144,7 +148,7 @@ const CreateACharacter = (props) => {
                                     <div className="md:w-2/3">
                                         <select value={race} onChange={ (event) => setRace(event.target.value) } className="w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
                                             {races.map((race) =>
-                                                <option value={race.name}>{race.name}</option>
+                                                <option key={race.index} value={race.name}>{race.name}</option>
                                             )}
                                         </select>
                                     </div>
@@ -158,7 +162,7 @@ const CreateACharacter = (props) => {
                                     <div className="md:w-2/3">
                                         <select value={className} onChange={ (event) => setClassName(event.target.value) } className="w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
                                             {classes.map((eachClass) =>
-                                                <option value={eachClass.name}>{eachClass.name}</option>
+                                                <option key={eachClass.index} value={eachClass.name}>{eachClass.name}</option>
                                             )}
                                         </select>
                                     </div>

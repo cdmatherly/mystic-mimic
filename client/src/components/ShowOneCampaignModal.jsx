@@ -67,15 +67,18 @@ export default function Modal(props) {
                                 {/*body*/}
                                 <div className="relative p-6 flex-auto">
                                     <p>Info about each campaign here!</p>
-                                    {campaign.characters.map((character) => 
+                                    <p className="font-semibold mt-5 text-lg">Players:</p>
+                                    {campaign.characters ? campaign.characters.map((character) => 
                                         <p key={character._id}>{character.name}</p>
-                                    )}
+                                        //? Logic doesn''t work
+                                    ) : <p>None yet!</p>}
                                 </div>
                                 {/*footer*/}
                                 <select name="character" id="character" className="px-2 py-1" onChange={(e) => setSelectedCharacter(e.target.value)}>
-                                {characters.map((character) => 
+                                    <option value="null">Select a Character</option>
+                                    {characters.map((character) => 
                                     <option key={character._id} value={character._id} >{character.name}</option>
-                                )}
+                                    )}
                                 </select>
                                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                                     <button

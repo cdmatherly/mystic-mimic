@@ -30,7 +30,6 @@ const Dash = (props) => {
                 console.log(err)
             })
 
-        console.log("Is this running?")
         joinRoom()
 
         return () => socket.disconnect(true)

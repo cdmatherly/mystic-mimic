@@ -10,7 +10,7 @@ const EachCampaign = (props) => {
         <>
             <div className="relative">
                 <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg"></div>
-                <div className="relative max-w-full rounded overflow-hidden shadow-lg bg-white">
+                <div className="relative max-w-full h-full rounded overflow-hidden shadow-lg bg-white">
                         <div className='p-20'>
                             <img className="h-20" src={charImg} alt="Character Image"></img>
                             <div className="mb-6">
