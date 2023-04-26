@@ -47,7 +47,6 @@ const ShowAllCharacters = (props) => {
     }
 
     const handleEdit = (character) => {
-        alert()
         setUpdatedCharacter(character)
     }
 

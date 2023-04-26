@@ -1,17 +1,36 @@
-import {useState} from "react";
+import { useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import LeaveCampaignModal from './LeaveCampaignModal'
 
 export default function Modal(props) {
     const { character, handleEdit, races, classes } = props
-    const [newRace, setNewRace] = useState(null)
-    const [newClass, setNewClass] = useState(null)
+    const [newRace, setNewRace] = useState(character.race)
+    const [newClass, setNewClass] = useState(character.class)
     const [showModal, setShowModal] = useState(false);
     const [name, setName] = useState(character.name)
 
+    const otherRaces = races.filter(race => race.name !== character.race)
+    const otherClasses = classes.filter(eachClass => eachClass.name !== character.class)
+
     const onSubmitHandler = (e) => {
         e.preventDefault()
-        const updatedCharacter = {name, class: newClass, race: newRace, _id: character._id}
+        const updatedCharacter = { name, class: newClass, race: newRace, _id: character._id }
         handleEdit(updatedCharacter)
         setShowModal(false)
+    }
+
+    const handleLeaveCampaign = () => {
+        axios.put(`http://localhost:8000/api/characters/${character._id}/remove/campaigns/${character.campaign._id}`, { campaign: null })
+            .then(res => {
+                console.log(res)
+                const updatedCharacter = { name, class: newClass, race: newRace, _id: character._id }
+                handleEdit(updatedCharacter)
+                setShowModal(false)
+            })
+            .then(err => {
+                console.log(err)
+            })
     }
 
     return (
@@ -50,7 +69,7 @@ export default function Modal(props) {
                                     <div className="relative max-w-full rounded overflow-hidden shadow-lg px-16 py-16 bg-white">
                                         <div >
                                             <div className="mb-6">
-                                                <input className="text-gray-500 font-bold" type="text" value={name} onChange={(e) => setName(e.target.value)}/>
+                                                <input className="text-gray-500 font-bold" type="text" value={name} onChange={(e) => setName(e.target.value)} />
                                             </div>
                                         </div>
                                         <div className="md:flex md:items-center mb-6">
@@ -61,8 +80,9 @@ export default function Modal(props) {
                                             </div>
                                             <div className="md:w-2/3">
                                                 <select name="" id="" onChange={(e) => setNewRace(e.target.value)} className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight">
-                                                    {races.map((race) => 
-                                                    <option key={race.index} value={race.name}>{race.name}</option>)}
+                                                    <option value={character.race}>{character.race}</option>
+                                                    {otherRaces.map((race) =>
+                                                        <option key={race.index} value={race.name}>{race.name}</option>)}
                                                 </select>
                                             </div>
                                         </div>
@@ -74,12 +94,33 @@ export default function Modal(props) {
                                                 </label>
                                             </div>
                                             <div className="md:w-2/3">
-                                            <select name="" id="" onChange={(e) => setNewClass(e.target.value)} className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight">
-                                                    {classes.map((eachClass) => 
-                                                    <option key={eachClass.index} value={eachClass.name}>{eachClass.name}</option>)}
+                                                <select name="" id="" onChange={(e) => setNewClass(e.target.value)} className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight">
+                                                    <option value={character.class}>{character.class}</option>
+                                                    {otherClasses.map((eachClass) =>
+                                                        <option key={eachClass.index} value={eachClass.name}>{eachClass.name}</option>)}
                                                 </select>                                            </div>
                                         </div>
-                                        
+
+                                        <div className="md:flex md:items-center mb-6">
+                                            <div className="md:w-1/3">
+                                                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                                                    Campaign:
+                                                </label>
+                                            </div>
+                                            <div className="md:w-2/3 flex text-center">
+                                                {character.campaign ?
+                                                    <>
+                                                        <p className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight text-center">{character.campaign.name}</p>
+                                                        <LeaveCampaignModal character={character} handleLeaveCampaign={handleLeaveCampaign} />
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <p className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight text-center"> None </p>
+                                                        <Link to="/vac" className="shadow bg-sky-500 hover:bg-sky-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded text-sm">Join One?</Link>
+                                                    </>}
+                                            </div>
+                                        </div>
+
                                     </div>
                                     {/*footer*/}
                                     <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
