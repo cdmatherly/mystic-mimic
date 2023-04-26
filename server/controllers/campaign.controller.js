@@ -33,6 +33,18 @@ module.exports.createCampaign = (req, res) => {
         })
 }
 
+// Create a new campaign and assign owner
+module.exports.createCampaignAndAssignOwner = (req, res) => {
+    let newCampaign = {...req.body, owner: req.params.user_id}
+    Campaign.create(newCampaign)
+        .then(campaign => {
+            return res.json(campaign)
+        })
+        .catch((err) => {
+            return res.status(400).json(err)
+        })
+}
+
 // Edit a campaign
 module.exports.updateCampaignById = (req, res) => {
     Campaign.findByIdAndUpdate(req.params.id, req.body, { runValidators: true, new: true })
