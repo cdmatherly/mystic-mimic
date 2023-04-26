@@ -22,6 +22,17 @@ const EachCharacter = (props) => {
             })
     }
 
+    const handleEdit = (character) => {
+        axios.put(`http://localhost:8000/api/characters/${character._id}`, character)
+            .then(res => {
+                console.log(res)
+                updateCharacters(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     
     return (
         <div className="relative">
@@ -61,11 +72,7 @@ const EachCharacter = (props) => {
                     <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
                         View
                     </button>
-
-                    <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-                        Edit
-                    </button>
-                    <EditCharacterModal character={character} races={races} classes={classes}/>
+                    <EditCharacterModal character={character} races={races} classes={classes} handleEdit={handleEdit}/>
                     <DeleteModal character={character} handleDelete={handleDelete}/>
                 </div>
             </div>
