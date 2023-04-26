@@ -1,17 +1,17 @@
 import React from "react";
 
 export default function Modal(props) {
-    const { character, handleDelete } = props
+    const { character, handleLeaveCampaign } = props
     const [showModal, setShowModal] = React.useState(false);
 
     return (
         <>
             <button
-                className="text-white font-bold rounded transition ease-in-out delay-150 bg-red-500 hover:-translate-y-1 hover:scale-150 hover:bg-red-600 duration-300 ..."
+                className="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded text-sm"
                 type="button"
                 onClick={() => setShowModal(true)}
             >
-                Delete
+                Leave Campaign
             </button>
             {showModal ? (
                 <>
@@ -24,7 +24,7 @@ export default function Modal(props) {
                                 {/*header*/}
                                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                                     <h3 className="text-3xl font-semibold">
-                                        Delete <span className="text-fuchsia-700 underline">{character.name}</span>
+                                        Leave <span className="text-fuchsia-700 underline">{character.campaign.name}</span>?
                                     </h3>
                                     <button
                                         className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -38,7 +38,7 @@ export default function Modal(props) {
                                 {/*body*/}
                                 <div className="relative p-6 flex-auto">
                                     <p className="my-4 text-slate-500 text-lg leading-relaxed text-center">
-                                        You are about to delete this character. This cannot be undone.<br/> Are you sure you want to continue?
+                                        You are about remove <span className="font-semibold">{character.name}</span> from <span className="font-semibold">{character.campaign.name}</span>. <br/> Are you sure you want to continue?
                                     </p>
                                 </div>
                                 {/*footer*/}
@@ -53,9 +53,9 @@ export default function Modal(props) {
                                     <button
                                         className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                         type="button"
-                                        onClick={() => handleDelete()}
+                                        onClick={() => handleLeaveCampaign()}
                                     >
-                                        Delete
+                                        Remove
                                     </button>
                                 </div>
                             </div>
