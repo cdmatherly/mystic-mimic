@@ -53,7 +53,7 @@ const ShowAllCharacters = (props) => {
 
 
     return (
-        <div className="min-h-screen p-16 bg-black">
+        <div className="min-h-screen p-16 bg-black rounded-lg">
             <div className="grid grid-cols-4 gap-10">
                 {characters.map((character) =>
                     <EachCharacter key={character._id} 
