@@ -7,34 +7,14 @@ import { useCookies } from 'react-cookie';
 const CreateACharacter = (props) => {
     const navigate = useNavigate()
 
-    const attributePointCosts = {
-        8: 8,
-        9: 9,
-        10:10,
-        11:11,
-        12:12,
-        13:13,
-        14:15,
-        15:17
-    }
-    console.log(attributePointCosts)
-
     const [nameCAC,setNameCAC] = useState("")
     const [raceCAC,setRaceCAC] = useState("")
     const [classCAC, setClassCAC] = useState("")
     const [statsCAC, setStatsCAC] = useState({})
 
-    const [strength, setStrength] = useState(8)
-    const [dexterity, setDexterity] = useState(8)
-    const [constitution, setConstitution] = useState(8)
-    const [intelligence, setIntelligence] = useState(8)
-    const [wisdom, setWisdom] = useState(8)
-    const [charisma, setCharisma] = useState(8)
-
     const [races, setRaces] = useState([])
     const [classes, setClasses] = useState([])
-    const [attributePoints, setAttributePoints] = useState(75-attributePointCosts[strength]-attributePointCosts[dexterity]-attributePointCosts[constitution]-attributePointCosts[intelligence]-attributePointCosts[wisdom]-attributePointCosts[charisma])
-
+    const [attributePoint, setAttributePoint] = useState(69)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user = cookies.user_id
 
@@ -57,34 +37,8 @@ const CreateACharacter = (props) => {
             })
     }, [])
 
-    const handleStats = (attribute, stat) => {
-        console.log(attribute)
-        console.log(stat)
-        if (attribute === "Strength") {
-            setStrength(stat)
-            setAttributePoints(75-attributePointCosts[stat]-attributePointCosts[dexterity]-attributePointCosts[constitution]-attributePointCosts[intelligence]-attributePointCosts[wisdom]-attributePointCosts[charisma])
-        }
-        else if (attribute === "Dexterity") {
-            setDexterity(stat)
-            setAttributePoints(75-attributePointCosts[strength]-attributePointCosts[stat]-attributePointCosts[constitution]-attributePointCosts[intelligence]-attributePointCosts[wisdom]-attributePointCosts[charisma])
-        }
-        else if (attribute === "Constitution") {
-            setConstitution(stat)
-            setAttributePoints(75-attributePointCosts[strength]-attributePointCosts[dexterity]-attributePointCosts[stat]-attributePointCosts[intelligence]-attributePointCosts[wisdom]-attributePointCosts[charisma])
-        }
-        else if (attribute === "Intelligence") {
-            setIntelligence(stat)
-            setAttributePoints(75-attributePointCosts[strength]-attributePointCosts[dexterity]-attributePointCosts[constitution]-attributePointCosts[stat]-attributePointCosts[wisdom]-attributePointCosts[charisma])
-        }
-        else if (attribute === "Wisdom") {
-            setWisdom(stat)
-            setAttributePoints(75-attributePointCosts[strength]-attributePointCosts[dexterity]-attributePointCosts[constitution]-attributePointCosts[intelligence]-attributePointCosts[stat]-attributePointCosts[charisma])
-        }
-        else if (attribute === "Charisma") {
-            setCharisma(stat)
-            setAttributePoints(75-attributePointCosts[strength]-attributePointCosts[dexterity]-attributePointCosts[constitution]-attributePointCosts[intelligence]-attributePointCosts[wisdom]-attributePointCosts[stat])
-        }
-        
+    const handleStats = (oneStat) => {
+        setStatsCAC({...statsCAC, ...oneStat })
     }
 
     const postCreateACharacter = (event) => {
@@ -156,15 +110,15 @@ const CreateACharacter = (props) => {
                                         </label>
                                     </div>
                                     <div className="md:w-2/3">
-                                        <p id="attributes" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"> {attributePoints} </p>
+                                        <p id="attributes" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"> {attributePoint} </p>
                                     </div>
                                 </div>
-                                <StatSelect attribute="Strength" stat={strength} newStat={ handleStats } attributePoints={attributePoints}/>
-                                <StatSelect attribute="Dexterity"  stat={dexterity} newStat={ handleStats } attributePoints={attributePoints}/>
-                                <StatSelect attribute="Constitution"  stat={constitution} newStat={ handleStats } attributePoints={attributePoints}/>
-                                <StatSelect attribute="Intelligence"  stat={intelligence} newStat={ handleStats } attributePoints={attributePoints}/>
-                                <StatSelect attribute="Wisdom"  stat={wisdom} newStat={ handleStats } attributePoints={attributePoints}/>
-                                <StatSelect attribute="Charisma"  stat={charisma} newStat={ handleStats } attributePoints={attributePoints}/>
+                                <StatSelect stat="Strength" newStat={ handleStats } />
+                                <StatSelect stat="Dexterity" newStat={ handleStats }/>
+                                <StatSelect stat="Constitution" newStat={ handleStats }/>
+                                <StatSelect stat="Intelligence" newStat={ handleStats }/>
+                                <StatSelect stat="Wisdom" newStat={ handleStats }/>
+                                <StatSelect stat="Charisma" newStat={ handleStats }/>
                                 <div className="md:flex md:items-center">
                                     <div className="md:w-1/3"></div>
                                     <div className="md:w-2/3">
