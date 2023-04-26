@@ -23,7 +23,7 @@ const ViewAllCampaigns = (props) => {
             .catch(err => {
                 console.log(err)
             })
-            axios.get(`http://localhost:8000/api/${user}/characters`)
+            axios.get(`http://localhost:8000/api/${user}/characters/campaign_null`)
             .then(res => {
                 console.log(res)
                 setCharacters(res.data)
