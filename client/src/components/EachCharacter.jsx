@@ -83,7 +83,7 @@ const EachCharacter = (props) => {
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
-                    <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
+                    <button className="text-white font-bold rounded transition ease-in-out delay-150 bg-purple-400 hover:-translate-y-1 hover:scale-150 hover:bg-purple-600 duration-300 ..." type="button">
                         View
                     </button>
                     <EditCharacterModal character={character} races={races} classes={classes} handleEdit={handleEdit}/>
