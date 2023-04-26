@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Routes, Route, Link, Navigate, Outlet } from "react-router-dom";
 import LandingPage from './views/LandingPageView';
 import Register from "./views/RegisterView";
@@ -15,10 +15,19 @@ import Index from './components/Index'
 import CreateACampaign from "./views/CreateACampaign";
 import ViewAllCampaigns from "./views/ShowAllCampaigns";
 import ShowOneCampaignModal from "./components/ShowOneCampaignModal"
+import io from 'socket.io-client'
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
   const user = cookies.user_id
+  const [socket] = useState(() => io(':8000'))
+
+  useEffect(() => {
+    console.log("Is this running?")
+    socket.on("Welcome", data => console.log(data))
+
+    return () => socket.disconnect(true)
+  }, [])
 
   return (
     <CookiesProvider>
