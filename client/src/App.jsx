@@ -14,6 +14,7 @@ import ShowOneCharacter from './views/ShowOneCharacter';
 import Index from './components/Index'
 import CreateACampaign from "./views/CreateACampaign";
 import ViewAllCampaigns from "./views/ShowAllCampaigns";
+import ShowOneCampaignModal from "./components/ShowOneCampaignModal"
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
@@ -28,7 +29,7 @@ function App() {
             <Route element={<ShowAllCharacters />} path='/sac' />
             <Route element={<ShowOneCharacter />} path='/soc' />
             <Route element={<CreateACampaign />} path='/cag' />
-            <Route element={<ViewAllCampaigns />} path='/vac' />
+            <Route element={<ViewAllCampaigns/>} path='/vac' />
           </Route>
         </Route>
         <Route element={<Register />} path="/register" />

@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import DeleteModal from '../components/DeleteModal'
 import EditCharacterModal from '../components/EditCharacterModal'
+import { Link } from 'react-router-dom'
 
 const EachCharacter = (props) => {
     const { character, charImg, allCharacters, updateCharacters, races, classes} = props
@@ -75,7 +76,9 @@ const EachCharacter = (props) => {
                         </label>
                     </div>
                     <div className="md:w-2/3">
-                        <p className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight">{character.campaign !== null ? character.campaign : "None"}</p>
+                        {character.campaign !== null ? 
+                        <Link to="/vac" className="bg-gray-200 border-2 border-gray-200 rounded block py-4 px-4 text-gray-700 leading-tight font-semibold">{character.campaign.name}</Link> : 
+                        <p className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight">None</p> }
                     </div>
                 </div>
 
