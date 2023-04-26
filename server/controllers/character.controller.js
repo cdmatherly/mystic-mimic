@@ -26,14 +26,23 @@ module.exports.getCharacterById = (req, res) => {
 
 // Get characters by user
 module.exports.getCharactersByUser = (req, res) => {
-    // User.findById(req.params.user)
-    //     .then((user) => {
-    //         return res.json(user)
-    //     })
-    //     .catch((err) => {
-    //         return res.status(400).json(err)
-    //     })
+    User.findById(req.params.user_id)
+    .then((user) => {
+        let userCharacters = user.characters
+        Character.find({ _id: { $in: userCharacters }})
+            .then((characters) => {
+                console.log(characters)
+                return res.json(characters)
+            })
+            .catch((err) => {
+                return res.status(400).json(err)
+            })
+    })
+    .catch((err) => {
+        return res.status(400).json(err)
+    })
 }
+
 // Get characters by user where campaign is null
 module.exports.getCharactersCampaignNullByUser = (req, res) => {
     User.findById(req.params.user_id)
