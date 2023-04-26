@@ -11,6 +11,7 @@ const ViewAllCampaigns = (props) => {
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user = cookies.user_id
     const [newCampaign, setNewCampaign] = useState(null)
+    const [updateCampaigns, setUpdateCampaigns] = useState(null)
 
 
     useEffect(() => {
@@ -32,14 +33,14 @@ const ViewAllCampaigns = (props) => {
             .catch(err => {
                 console.log(err)
             })
-    }, [newCampaign])
+    }, [newCampaign, updateCampaigns])
 
     return (
         <>
             <div className="min-h-screen py-16 bg-black">
                 <div className="grid grid-cols-4 gap-10">
                     {campaigns.map((campaign) => 
-                    <EachCampaign key={campaign._id} campaign={campaign} characters={characters} setNewCampaign={setNewCampaign}/>
+                    <EachCampaign key={campaign._id} campaign={campaign} characters={characters} setNewCampaign={setNewCampaign} setUpdateCampaigns={setUpdateCampaigns}/>
                     )}
                 </div>
             </div>

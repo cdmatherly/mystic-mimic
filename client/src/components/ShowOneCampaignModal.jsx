@@ -3,14 +3,11 @@ import axios from 'axios'
 import { useCookies } from "react-cookie";
 
 export default function Modal(props) {
-    const { campaign, characters, setNewCampaign } = props
+    const { campaign, characters, setNewCampaign, setUpdateCampaigns } = props
     const [ selectedCharacter, setSelectedCharacter ] = useState(null)
     const [showModal, setShowModal] = useState(false);
-    const [ isOwner, setIsOwner ] = useState(false)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user = cookies.user_id
-    
-    user === campaign.user_id && setIsOwner(true)
 
     const handleJoin = () => {
         const thisCampaign = {campaign: campaign._id}
@@ -18,6 +15,18 @@ export default function Modal(props) {
             .then(res => {
                 console.log(res)
                 setNewCampaign(campaign)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const handleDelete = () => {
+        axios.delete(`http://localhost:8000/api/campaigns/${campaign._id}`)
+            .then(res => {
+                console.log(res)
+                setUpdateCampaigns(res)
+                setShowModal(false)
             })
             .catch(err => {
                 console.log(err)
@@ -46,12 +55,14 @@ export default function Modal(props) {
                                     <h3 className="text-3xl font-semibold">
                                         {campaign.name} 
                                     </h3>
-                                    {isOwner && (<button
+                                    {user === campaign.owner && (
+                                    <button
                                         className="ml-auto bg-red-500 text-white hover:bg-red-600 font-bold uppercase text-sm p-1 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-                                        onClick={() => setShowModal(false)}
+                                        onClick={() => handleDelete()}
                                     >
                                             Delete
-                                    </button>)}
+                                    </button>
+                                    )}
                                 </div>
                                 {/*body*/}
                                 <div className="relative p-6 flex-auto">
