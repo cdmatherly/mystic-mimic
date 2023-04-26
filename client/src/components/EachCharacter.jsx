@@ -2,9 +2,10 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import DeleteModal from '../components/DeleteModal'
+import EditCharacterModal from '../components/EditCharacterModal'
 
 const EachCharacter = (props) => {
-    const { character, charImg, allCharacters, updateCharacters } = props
+    const { character, charImg, allCharacters, updateCharacters, races, classes} = props
     const [characters, setAllCharacters] = useState(allCharacters)
     const [deletedCharacter, setDeletedCharacter] = useState(null)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
@@ -64,7 +65,7 @@ const EachCharacter = (props) => {
                     <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
                         Edit
                     </button>
-                    
+                    <EditCharacterModal character={character} races={races} classes={classes}/>
                     <DeleteModal character={character} handleDelete={handleDelete}/>
                 </div>
             </div>
