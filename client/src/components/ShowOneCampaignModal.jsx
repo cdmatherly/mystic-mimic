@@ -1,17 +1,23 @@
 import { useState } from "react";
 import axios from 'axios'
+import { useCookies } from "react-cookie";
 
 export default function Modal(props) {
-    const { campaign, characters } = props
-    const [ selectedCharacter, setSelectedCharacter ] = useState(characters[0]._id)
+    const { campaign, characters, setNewCampaign } = props
+    const [ selectedCharacter, setSelectedCharacter ] = useState(null)
     const [showModal, setShowModal] = useState(false);
-    const campCharacters = campaign.characters
+    const [ isOwner, setIsOwner ] = useState(false)
+    const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
+    const user = cookies.user_id
+    
+    user === campaign.user_id && setIsOwner(true)
 
     const handleJoin = () => {
-        const character = {selectedCharacter}
-        axios.put(`http://localhost:8000/api/characters/${selectedCharacter}/add/campaigns/${campaign._id}`, character)
+        const thisCampaign = {campaign: campaign._id}
+        axios.put(`http://localhost:8000/api/characters/${selectedCharacter}/add/campaigns/${campaign._id}`, thisCampaign)
             .then(res => {
                 console.log(res)
+                setNewCampaign(campaign)
             })
             .catch(err => {
                 console.log(err)
@@ -36,30 +42,28 @@ export default function Modal(props) {
                             {/*content*/}
                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 {/*header*/}
-                                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                                <div className="flex justify-between items-center p-5 border-b border-solid border-slate-200 rounded-t">
                                     <h3 className="text-3xl font-semibold">
                                         {campaign.name} 
                                     </h3>
-                                    <button
-                                        className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                    {isOwner && (<button
+                                        className="ml-auto bg-red-500 text-white hover:bg-red-600 font-bold uppercase text-sm p-1 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
                                         onClick={() => setShowModal(false)}
                                     >
-                                        <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                                            ×
-                                        </span>
-                                    </button>
+                                            Delete
+                                    </button>)}
                                 </div>
                                 {/*body*/}
                                 <div className="relative p-6 flex-auto">
                                     <p>Info about each campaign here!</p>
-                                    {campCharacters.map((character) => {
+                                    {campaign.characters.map((character) => 
                                         <p key={character._id}>{character.name}</p>
-                                    })}
+                                    )}
                                 </div>
                                 {/*footer*/}
-                                <select name="character" id="character" className="px-2 py-1">
+                                <select name="character" id="character" className="px-2 py-1" onChange={(e) => setSelectedCharacter(e.target.value)}>
                                 {characters.map((character) => 
-                                    <option value={character._id} onChange={(e) => {setSelectedCharacter(e.target.value)}}>{character.name}</option>
+                                    <option key={character._id} value={character._id} >{character.name}</option>
                                 )}
                                 </select>
                                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">

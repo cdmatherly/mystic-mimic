@@ -10,6 +10,8 @@ const ViewAllCampaigns = (props) => {
     const [isLoading, setIsLoading] = useState(true)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user = cookies.user_id
+    const [newCampaign, setNewCampaign] = useState(null)
+
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/campaigns`)
@@ -21,7 +23,7 @@ const ViewAllCampaigns = (props) => {
             .catch(err => {
                 console.log(err)
             })
-            axios.get(`http://localhost:8000/api/${user}/characters`)
+            axios.get(`http://localhost:8000/api/${user}/characters/campaign_null`)
             .then(res => {
                 console.log(res)
                 setCharacters(res.data)
@@ -30,14 +32,14 @@ const ViewAllCampaigns = (props) => {
             .catch(err => {
                 console.log(err)
             })
-    }, [])
+    }, [newCampaign])
 
     return (
         <>
             <div className="min-h-screen py-16 bg-black">
                 <div className="grid grid-cols-4 gap-10">
                     {campaigns.map((campaign) => 
-                    <EachCampaign key={campaign._id} campaign={campaign} characters={characters}/>
+                    <EachCampaign key={campaign._id} campaign={campaign} characters={characters} setNewCampaign={setNewCampaign}/>
                     )}
                 </div>
             </div>
