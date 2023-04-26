@@ -43,7 +43,6 @@ const ViewAllCampaigns = (props) => {
                     {campaigns.map((campaign) => 
                     <EachCampaign key={campaign._id} campaign={campaign} characters={characters} setNewCampaign={setNewCampaign} setUpdateCampaigns={setUpdateCampaigns}/>
                     )}
-                    <Outlet />
                 </div>
             </div>
         </>
