@@ -116,48 +116,48 @@ const CreateACharacter = (props) => {
     }
 
     return (
-        <div className="relative w-3/4 mx-auto">
-            <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg"></div>
-            <div className="relative max-w-full rounded overflow-hidden shadow-lg px-20 py-10 bg-white">
+        <div className="relative w-3/4 mx-auto lg:mt-10">
+            <div className="absolute rounded-lg -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 blur-lg"></div>
+            <div className="relative max-w-full px-20 py-10 overflow-hidden bg-white rounded shadow-lg">
                 <h1 className='mb-6 text-xl font-bold text-gray-700'>Create a Character:</h1>
-                <form onSubmit={(e) => handleCreateACharacter(e)} className="w-full relative flex justify-between">
+                <form onSubmit={(e) => handleCreateACharacter(e)} className="relative flex justify-between w-full">
                     <div className='w-2/5'>
-                        <div className="md:flex md:items-center mb-6">
+                        <div className="mb-6 md:flex md:items-center">
                             <div className="md:w-1/6">
-                                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0" htmlFor="inline-full-name">
+                                <label className="block mb-1 font-bold text-gray-500 md:text-right md:mb-0" htmlFor="inline-full-name">
                                     Character Name:
                                 </label>
                             </div>
-                            <div className='md:w-1/6 h-12'></div>
+                            <div className='h-12 md:w-1/6'></div>
                             <div className="md:w-4/6">
-                                {validationErrors?.name && (<p className='text-red-500 xl:ml-10 -mt-6 top-0 absolute whitespace-nowrap'>{validationErrors.name.message}</p>)}
-                                <input onChange={(event) => setName(event.target.value)} id="inline-full-name" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Enter A Name" />
+                                {validationErrors?.name && (<p className='absolute top-0 -mt-6 text-red-500 xl:ml-10 whitespace-nowrap'>{validationErrors.name.message}</p>)}
+                                <input onChange={(event) => setName(event.target.value)} id="inline-full-name" className="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Enter A Name" />
                             </div>
                         </div>
-                        <div className="md:flex md:items-center mb-6">
+                        <div className="mb-6 md:flex md:items-center">
                             <div className="md:w-1/6">
-                                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0" htmlFor="race">
+                                <label className="block mb-1 font-bold text-gray-500 md:text-right md:mb-0" htmlFor="race">
                                     Race:
                                 </label>
                             </div>
-                            <div className='md:w-1/6 h-12'></div>
+                            <div className='h-12 md:w-1/6'></div>
                             <div className="md:w-4/6">
-                                <select value={race} onChange={(event) => setRace(event.target.value)} id='race' className="w-full bg-gray-200 border-2 border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
+                                <select value={race} onChange={(event) => setRace(event.target.value)} id='race' className="w-full px-4 py-2 pr-8 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded focus:outline-none focus:bg-white focus:border-purple-500">
                                     {races.map((race) =>
                                         <option key={race.index} value={race.name}>{race.name}</option>
                                     )}
                                 </select>
                             </div>
                         </div>
-                        <div className="md:flex md:items-center mb-6">
+                        <div className="mb-6 md:flex md:items-center">
                             <div className="md:w-1/6">
-                                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0" htmlFor="class">
+                                <label className="block mb-1 font-bold text-gray-500 md:text-right md:mb-0" htmlFor="class">
                                     Class:
                                 </label>
                             </div>
-                            <div className='md:w-1/6 h-12'></div>
+                            <div className='h-12 md:w-1/6'></div>
                             <div className="md:w-4/6">
-                                <select value={className} onChange={(event) => setClassName(event.target.value)} id='class' className="w-full bg-gray-200 border-2 border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
+                                <select value={className} onChange={(event) => setClassName(event.target.value)} id='class' className="w-full px-4 py-2 pr-8 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded focus:outline-none focus:bg-white focus:border-purple-500">
                                     {classes.map((eachClass) =>
                                         <option key={eachClass.index} value={eachClass.name}>{eachClass.name}</option>
                                     )}
@@ -165,17 +165,17 @@ const CreateACharacter = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className='float-left h-auto w-1 bg-slate-300'></div>
+                    <div className='float-left w-1 h-auto bg-slate-300'></div>
                     <div className='w-2/5'>
-                        <h2 className='block text-gray-700 font-bold text-xl mb-5 pr-4'>Select Stats:</h2>
-                        <div className="md:flex md:items-center mb-6">
+                        <h2 className='block pr-4 mb-5 text-xl font-bold text-gray-700'>Select Stats:</h2>
+                        <div className="mb-6 md:flex md:items-center">
                             <div className="md:w-1/3">
-                                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="attributes">
+                                <label className="block pr-4 mb-1 font-bold text-gray-500 md:text-right md:mb-0" htmlFor="attributes">
                                     Remaining Stat Points:
                                 </label>
                             </div>
                             <div className="md:w-2/3">
-                                <p id="attributes" className="appearance-none rounded w-full py-2 px-4 leading-tight text-center font-bold text-xl text-gray-500"> {attributePoints} </p>
+                                <p id="attributes" className="w-full px-4 py-2 text-xl font-bold leading-tight text-center text-gray-500 rounded appearance-none"> {attributePoints} </p>
                             </div>
                         </div>
                         <StatSelect attribute="Strength" stat={strength} newStat={handleStats} attributePoints={attributePoints} />
@@ -187,7 +187,7 @@ const CreateACharacter = (props) => {
                         <div className="md:flex md:items-center">
                             <div className="md:w-1/3"></div>
                             <div className="md:w-2/3">
-                                <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                <button className="px-4 py-2 font-bold text-white bg-purple-500 rounded shadow hover:bg-purple-400 focus:shadow-outline focus:outline-none">
                                     Create Character
                                 </button>
                             </div>
