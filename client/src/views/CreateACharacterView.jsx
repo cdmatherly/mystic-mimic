@@ -86,7 +86,8 @@ const CreateACharacter = (props) => {
         
     }
 
-    const postCreateACharacter = (event) => {
+    const handleCreateACharacter = (event) => {
+        event.preventDefault()
         const stats = {
             stats: {
                 strength,
@@ -109,18 +110,13 @@ const CreateACharacter = (props) => {
 
         axios.post(`http://localhost:8000/api/${user}/characters`, newCharacter)
             .then((response) => {
+                navigate('/sac')
                 console.log(response.data);
             })
             .catch((err) => {
                 console.log(err);
                 setValidationErrors(err.response?.data?.errors)
             })
-    }
-
-    const onSubmitHandler = (e) => {
-        e.preventDefault()
-        postCreateACharacter()
-        navigate('/sac')
     }
 
     return (
@@ -131,7 +127,7 @@ const CreateACharacter = (props) => {
                         <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg "></div>
                         <div className="relative max-w-full rounded overflow-hidden shadow-lg px-20 py-10 bg-white">
                             <h1 className='mb-6 text-xl font-bold'>Create a Character:</h1>
-                            <form onSubmit={(e) => onSubmitHandler(e)} className="w-full max-w-sm relative py-6">
+                            <form onSubmit={(e) => handleCreateACharacter(e)} className="w-full max-w-sm relative py-6">
                                 <div className="md:flex md:items-center mb-6">
                                     <div className="md:w-1/3">
                                         <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
