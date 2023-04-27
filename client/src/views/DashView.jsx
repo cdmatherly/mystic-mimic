@@ -64,13 +64,16 @@ const Dash = (props) => {
                 </ul>
             </div>
             <div className="max-w-full rounded overflow-hidden px-20 py-10 bg-no-repeat bg-cover" style={{
-                            backgroundPosition: '100%',
-                            backgroundImage: 'url("https://cdn.shopify.com/s/files/1/0059/3061/4851/products/B9A0964.jpg?v=1653900526&width=1445")',
-                            height: '1200px',
-                            width: 'auto'
-                        }}>
-                <Outlet />
-            <Chat socket={socket} user={user}/>
+                backgroundPosition: '100%',
+                backgroundImage: 'url("https://cdn.shopify.com/s/files/1/0059/3061/4851/products/B9A0964.jpg?v=1653900526&width=1445")',
+                height: '100vh',
+                width: 'auto'
+            }}>
+                <div className="py-16 bg-black bg-opacity-80 rounded-lg p-8 overflow-y-auto" style={{ height: "85vh" }}>
+                    <Outlet />
+                </div>
+
+                {/* <Chat socket={socket} user={user}/> */}
             </div>
         </>
     )

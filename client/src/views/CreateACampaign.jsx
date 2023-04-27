@@ -27,7 +27,6 @@ const CreateACampaign = (props) => {
         navigate('/vac')
     }
     return (
-        <div className="min-h-screen py-16 bg-black bg-opacity-80 rounded-lg">
             <div className="grid gap-8 items-start justify-center">
                 <div className="relative">
                 <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg "></div>
@@ -45,7 +44,6 @@ const CreateACampaign = (props) => {
                     </div>
                 </div>
             </div>
-        </div>
     )
 }
 export default CreateACampaign;

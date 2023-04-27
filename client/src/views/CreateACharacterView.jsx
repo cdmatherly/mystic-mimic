@@ -10,16 +10,16 @@ const CreateACharacter = (props) => {
     const attributePointCosts = {
         8: 8,
         9: 9,
-        10:10,
-        11:11,
-        12:12,
-        13:13,
-        14:15,
-        15:17
+        10: 10,
+        11: 11,
+        12: 12,
+        13: 13,
+        14: 15,
+        15: 17
     }
 
-    const [name,setName] = useState("")
-    const [race,setRace] = useState("Dragonborn")
+    const [name, setName] = useState("")
+    const [race, setRace] = useState("Dragonborn")
     const [className, setClassName] = useState("Barbarian")
 
     const [strength, setStrength] = useState(8)
@@ -31,7 +31,7 @@ const CreateACharacter = (props) => {
 
     const [races, setRaces] = useState([])
     const [classes, setClasses] = useState([])
-    const [attributePoints, setAttributePoints] = useState(75-attributePointCosts[strength]-attributePointCosts[dexterity]-attributePointCosts[constitution]-attributePointCosts[intelligence]-attributePointCosts[wisdom]-attributePointCosts[charisma])
+    const [attributePoints, setAttributePoints] = useState(75 - attributePointCosts[strength] - attributePointCosts[dexterity] - attributePointCosts[constitution] - attributePointCosts[intelligence] - attributePointCosts[wisdom] - attributePointCosts[charisma])
 
     const [validationErrors, setValidationErrors] = useState(null)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
@@ -61,27 +61,27 @@ const CreateACharacter = (props) => {
         console.log(stat)
         if (attribute === "Strength") {
             setStrength(stat)
-            setAttributePoints(75-attributePointCosts[stat]-attributePointCosts[dexterity]-attributePointCosts[constitution]-attributePointCosts[intelligence]-attributePointCosts[wisdom]-attributePointCosts[charisma])
+            setAttributePoints(75 - attributePointCosts[stat] - attributePointCosts[dexterity] - attributePointCosts[constitution] - attributePointCosts[intelligence] - attributePointCosts[wisdom] - attributePointCosts[charisma])
         }
         else if (attribute === "Dexterity") {
             setDexterity(stat)
-            setAttributePoints(75-attributePointCosts[strength]-attributePointCosts[stat]-attributePointCosts[constitution]-attributePointCosts[intelligence]-attributePointCosts[wisdom]-attributePointCosts[charisma])
+            setAttributePoints(75 - attributePointCosts[strength] - attributePointCosts[stat] - attributePointCosts[constitution] - attributePointCosts[intelligence] - attributePointCosts[wisdom] - attributePointCosts[charisma])
         }
         else if (attribute === "Constitution") {
             setConstitution(stat)
-            setAttributePoints(75-attributePointCosts[strength]-attributePointCosts[dexterity]-attributePointCosts[stat]-attributePointCosts[intelligence]-attributePointCosts[wisdom]-attributePointCosts[charisma])
+            setAttributePoints(75 - attributePointCosts[strength] - attributePointCosts[dexterity] - attributePointCosts[stat] - attributePointCosts[intelligence] - attributePointCosts[wisdom] - attributePointCosts[charisma])
         }
         else if (attribute === "Intelligence") {
             setIntelligence(stat)
-            setAttributePoints(75-attributePointCosts[strength]-attributePointCosts[dexterity]-attributePointCosts[constitution]-attributePointCosts[stat]-attributePointCosts[wisdom]-attributePointCosts[charisma])
+            setAttributePoints(75 - attributePointCosts[strength] - attributePointCosts[dexterity] - attributePointCosts[constitution] - attributePointCosts[stat] - attributePointCosts[wisdom] - attributePointCosts[charisma])
         }
         else if (attribute === "Wisdom") {
             setWisdom(stat)
-            setAttributePoints(75-attributePointCosts[strength]-attributePointCosts[dexterity]-attributePointCosts[constitution]-attributePointCosts[intelligence]-attributePointCosts[stat]-attributePointCosts[charisma])
+            setAttributePoints(75 - attributePointCosts[strength] - attributePointCosts[dexterity] - attributePointCosts[constitution] - attributePointCosts[intelligence] - attributePointCosts[stat] - attributePointCosts[charisma])
         }
         else if (attribute === "Charisma") {
             setCharisma(stat)
-            setAttributePoints(75-attributePointCosts[strength]-attributePointCosts[dexterity]-attributePointCosts[constitution]-attributePointCosts[intelligence]-attributePointCosts[wisdom]-attributePointCosts[stat])
+            setAttributePoints(75 - attributePointCosts[strength] - attributePointCosts[dexterity] - attributePointCosts[constitution] - attributePointCosts[intelligence] - attributePointCosts[wisdom] - attributePointCosts[stat])
         }
     }
 
@@ -97,10 +97,10 @@ const CreateACharacter = (props) => {
                 charisma
             }
         }
-        const newCharacter = { 
-            name, 
-            race, 
-            class:className,
+        const newCharacter = {
+            name,
+            race,
+            class: className,
             ...stats
         }
 
@@ -116,87 +116,86 @@ const CreateACharacter = (props) => {
     }
 
     return (
-        <>
-            <main className="min-h-screen py-16 bg-black bg-opacity-80 rounded-lg">
-                <div className="grid gap-8 items-start justify-center">
-                    <div className="relative">
-                        <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg "></div>
-                        <div className="relative max-w-full rounded overflow-hidden shadow-lg px-20 py-10 bg-white">
-                            <h1 className='mb-6 text-xl font-bold'>Create a Character:</h1>
-                            <form onSubmit={(e) => handleCreateACharacter(e)} className="w-full max-w-sm relative py-6">
-                                <div className="md:flex md:items-center mb-6">
-                                    <div className="md:w-1/3">
-                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-full-name">
-                                            Character Name:
-                                        </label>
-                                    </div>
-                                    <div className="md:w-2/3">
-                                    {validationErrors?.name && (<p className='text-red-500 ml-1 top-0 absolute whitespace-nowrap'>{validationErrors.name.message}</p>)}
-                                        <input onChange={ (event) => setName(event.target.value) } id="inline-full-name" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Enter A Name"/>
-                                    </div>
-                                </div>
-                                <div className="md:flex md:items-center mb-6">
-                                    <div className="md:w-1/3">
-                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="race">
-                                            Race:
-                                        </label>
-                                    </div>
-                                    <div className="md:w-2/3">
-                                        <select value={race} onChange={ (event) => setRace(event.target.value) } className="w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
-                                            {races.map((race) =>
-                                                <option key={race.index} value={race.name}>{race.name}</option>
-                                            )}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="md:flex md:items-center mb-6">
-                                    <div className="md:w-1/3">
-                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="class">
-                                            Class:
-                                        </label>
-                                    </div>
-                                    <div className="md:w-2/3">
-                                        <select value={className} onChange={ (event) => setClassName(event.target.value) } className="w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
-                                            {classes.map((eachClass) =>
-                                                <option key={eachClass.index} value={eachClass.name}>{eachClass.name}</option>
-                                            )}
-                                        </select>
-                                    </div>
-                                </div>
-                                <br />
-                                <hr />
-                                <br />
-                                <h2 className='block text-gray-500 font-bold text-xl mb-5 pr-4'>Select Stats:</h2>
-                                <div className="md:flex md:items-center mb-6">
-                                    <div className="md:w-1/3">
-                                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="attributes">
-                                            Remaining Stat Points:
-                                        </label>
-                                    </div>
-                                    <div className="md:w-2/3">
-                                        <p id="attributes" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"> {attributePoints} </p>
-                                    </div>
-                                </div>
-                                <StatSelect attribute="Strength" stat={strength} newStat={ handleStats } attributePoints={attributePoints}/>
-                                <StatSelect attribute="Dexterity"  stat={dexterity} newStat={ handleStats } attributePoints={attributePoints}/>
-                                <StatSelect attribute="Constitution"  stat={constitution} newStat={ handleStats } attributePoints={attributePoints}/>
-                                <StatSelect attribute="Intelligence"  stat={intelligence} newStat={ handleStats } attributePoints={attributePoints}/>
-                                <StatSelect attribute="Wisdom"  stat={wisdom} newStat={ handleStats } attributePoints={attributePoints}/>
-                                <StatSelect attribute="Charisma"  stat={charisma} newStat={ handleStats } attributePoints={attributePoints}/>
-                                <div className="md:flex md:items-center">
-                                    <div className="md:w-1/3"></div>
-                                    <div className="md:w-2/3">
-                                        <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                            Create Character
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+        <div className="relative w-3/4 mx-auto">
+            <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg"></div>
+            <div className="relative max-w-full rounded overflow-hidden shadow-lg px-20 py-10 bg-white">
+                <h1 className='mb-6 text-xl font-bold'>Create a Character:</h1>
+                <form onSubmit={(e) => handleCreateACharacter(e)} className="w-full relative flex justify-between">
+                    <div className='w-2/5'>
+                        <div className="md:flex md:items-center mb-6">
+                            <div className="md:w-1/6">
+                                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0" htmlFor="inline-full-name">
+                                    Character Name:
+                                </label>
+                            </div>
+                            <div className='md:w-1/6 h-12'></div>
+                            <div className="md:w-4/6">
+                                {validationErrors?.name && (<p className='text-red-500 xl:ml-10 -mt-6 top-0 absolute whitespace-nowrap'>{validationErrors.name.message}</p>)}
+                                <input onChange={(event) => setName(event.target.value)} id="inline-full-name" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Enter A Name" />
+                            </div>
+                        </div>
+                        <div className="md:flex md:items-center mb-6">
+                            <div className="md:w-1/6">
+                                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0" htmlFor="race">
+                                    Race:
+                                </label>
+                            </div>
+                            <div className='md:w-1/6 h-12'></div>
+                            <div className="md:w-4/6">
+                                <select value={race} onChange={(event) => setRace(event.target.value)} id='race' className="w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
+                                    {races.map((race) =>
+                                        <option key={race.index} value={race.name}>{race.name}</option>
+                                    )}
+                                </select>
+                            </div>
+                        </div>
+                        <div className="md:flex md:items-center mb-6">
+                            <div className="md:w-1/6">
+                                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0" htmlFor="class">
+                                    Class:
+                                </label>
+                            </div>
+                            <div className='md:w-1/6 h-12'></div>
+                            <div className="md:w-4/6">
+                                <select value={className} onChange={(event) => setClassName(event.target.value)} id='class' className="w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
+                                    {classes.map((eachClass) =>
+                                        <option key={eachClass.index} value={eachClass.name}>{eachClass.name}</option>
+                                    )}
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </main>
-        </>
+                    <div className='float-left h-auto w-1 bg-slate-300'></div>
+                    <div className='w-2/5'>
+                        <h2 className='block text-gray-500 font-bold text-xl mb-5 pr-4'>Select Stats:</h2>
+                        <div className="md:flex md:items-center mb-6">
+                            <div className="md:w-1/3">
+                                <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="attributes">
+                                    Remaining Stat Points:
+                                </label>
+                            </div>
+                            <div className="md:w-2/3">
+                                <p id="attributes" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"> {attributePoints} </p>
+                            </div>
+                        </div>
+                        <StatSelect attribute="Strength" stat={strength} newStat={handleStats} attributePoints={attributePoints} />
+                        <StatSelect attribute="Dexterity" stat={dexterity} newStat={handleStats} attributePoints={attributePoints} />
+                        <StatSelect attribute="Constitution" stat={constitution} newStat={handleStats} attributePoints={attributePoints} />
+                        <StatSelect attribute="Intelligence" stat={intelligence} newStat={handleStats} attributePoints={attributePoints} />
+                        <StatSelect attribute="Wisdom" stat={wisdom} newStat={handleStats} attributePoints={attributePoints} />
+                        <StatSelect attribute="Charisma" stat={charisma} newStat={handleStats} attributePoints={attributePoints} />
+                        <div className="md:flex md:items-center">
+                            <div className="md:w-1/3"></div>
+                            <div className="md:w-2/3">
+                                <button className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    Create Character
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     )
 }
 export default CreateACharacter;

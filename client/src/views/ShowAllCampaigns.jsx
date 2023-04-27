@@ -25,7 +25,7 @@ const ViewAllCampaigns = (props) => {
             .catch(err => {
                 console.log(err)
             })
-            axios.get(`http://localhost:8000/api/${user}/characters/campaign_null`)
+        axios.get(`http://localhost:8000/api/${user}/characters/campaign_null`)
             .then(res => {
                 console.log(res)
                 setCharacters(res.data)
@@ -37,15 +37,11 @@ const ViewAllCampaigns = (props) => {
     }, [newCampaign, updateCampaigns])
 
     return (
-        <>
-            <div className="h-screen py-16 bg-black bg-opacity-80 rounded-lg p-8 overflow-y-scroll">
-                <div className="grid grid-cols-4 gap-10">
-                    {campaigns.map((campaign) => 
-                    <EachCampaign key={campaign._id} campaign={campaign} characters={characters} setNewCampaign={setNewCampaign} setUpdateCampaigns={setUpdateCampaigns}/>
-                    )}
-                </div>
-            </div>
-        </>
+        <div className="grid grid-cols-4 gap-10">
+            {campaigns.map((campaign) =>
+                <EachCampaign key={campaign._id} campaign={campaign} characters={characters} setNewCampaign={setNewCampaign} setUpdateCampaigns={setUpdateCampaigns} />
+            )}
+        </div>
     )
 }
 export default ViewAllCampaigns;
