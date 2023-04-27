@@ -58,42 +58,47 @@ const ShowOneCharacter = (props) => {
                     <div className="grid items-start justify-center w-4/5 gap-8">
                         <div className="relative">
                             <div className="absolute rounded-lg -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 blur-lg "></div>
-                            <div></div>
+
+                            {/* Below holds the value of the top bar*/}
                             <div className="relative max-w-full px-20 py-8 overflow-hidden bg-white rounded shadow-lg">
-                                <div className='flex items-center justify-between'>
+                                <div className="flex">
+                                    <div className='flex items-center justify-between'>
                                     <div>
-                                        <ImageModal character={character}>
-                                        </ImageModal>
-                                        <div className="mb-6">
-                                            <p className="text-lg font-bold text-gray-500">
-                                                {character.name}
-                                            </p>
-                                            <div className='flex gap-1 text-sm text-slate-400'>
-                                                <p className=''>{character.race}</p>
-                                                <p className=''>{character.class}</p>
+                                            <ImageModal character={character}>
+                                            </ImageModal>
+                                            <div className="mb-6">
+                                                <p className="text-lg font-bold text-gray-500">
+                                                    {character.name}
+                                                </p>
+                                                <div className='flex gap-1 text-sm text-slate-400'>
+                                                    <p className=''>{character.race}</p>
+                                                    <p className=''>{character.class}</p>
+                                                </div>
                                             </div>
-                                        </div>
                                     </div>
+                                        </div>
                                     <div className='text-right'>
                                         <p className='font-semibold'>Current Campaign:</p>
                                         <div> {character.campaign? character.campaign.name: "None"}</div>
                                     </div>
-                                </div>
-                                <div className="flex justify-center">
-                                    {/* Map through each stat */}
-                                    {Object.entries(character.stats).map((stat) => 
-                                    <div key={stat[0]} className="mb-6 md:items-center">
-                                        <div className="md:w-1/3">
-                                            <label className="block pr-4 mb-1 font-bold text-gray-500 md:text-right md:mb-0">
-                                                {/* Capitalize the first letter */}
-                                                {stat[0].charAt(0).toUpperCase() + stat[0].slice(1)}:
-                                            </label>
-                                        </div>
-                                        <div className="md:w-2/3">
-                                            <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{stat[1]}</p>
+                                <div>
+                                        <div className="flex justify-center ml-16 mt-5">
+                                            {/* Map through each stat */}
+                                            {Object.entries(character.stats).map((stat) =>
+                                                <div key={stat[0]} className="mb-6 md:items-center">
+                                                    <div className="md:w-1/3">
+                                                        <label className="block pr-4 mb-1 font-bold text-gray-500 md:text-right md:mb-0">
+                                                            {/* Capitalize the first letter */}
+                                                            {stat[0].charAt(0).toUpperCase() + stat[0].slice(1)}:
+                                                        </label>
+                                                    </div>
+                                                    <div className="md:w-2/3">
+                                                        <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{stat[1]}</p>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
-                                    )}
                                 </div>
                                 <div className='flex'>
                                     {/* Bottom Left Column, On View One Character Page*/}
@@ -110,16 +115,15 @@ const ShowOneCharacter = (props) => {
 
                                         </div>
                                     </div>
+                                    
+                                    {/* Right Side of the bottom div */}
                                     <div className='flex-auto p-3 mr-4 border-2 border-solid rounded'>
-                                        <div className="flex mb-3 place-content-center">
-                                            <label className="block pr-4 mb-1 text-lg font-bold text-center text-gray-500 align-middle md:mb-0">
-                                                Right Column Skill 1sadjkfdaskjsdafkajsdf:
-                                            </label>
-                                            <p className="px-4 py-1 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">10</p>
-                                        </div>
+                                        {/* insert component here */}
                                     </div>
+
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <Chat socket={socket} user={user} campaign={character.campaign} />
