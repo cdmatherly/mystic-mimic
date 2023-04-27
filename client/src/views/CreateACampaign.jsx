@@ -27,17 +27,17 @@ const CreateACampaign = (props) => {
         navigate('/vac')
     }
     return (
-            <div className="grid gap-8 items-start justify-center">
+            <div className="grid items-start justify-center gap-8 lg:mt-10">
                 <div className="relative">
-                <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg "></div>
-                    <div className="relative max-w-full rounded overflow-hidden shadow-lg px-20 py-20 bg-white">
-                    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">New Campaign</h2>
+                <div className="absolute rounded-lg -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 blur-lg "></div>
+                    <div className="relative max-w-full px-20 py-20 overflow-hidden bg-white rounded shadow-lg">
+                    <h2 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-center text-gray-900">New Campaign</h2>
                     <form onSubmit={(e) => onSubmitHandler(e)} className="w-full max-w-sm">
                         <br/>
-                        <label className="block text-gray-500 font-bold md:text-left mb-1 md:mb-0 pr-4" htmlFor="group-name">Campaign Name:</label>
-                        <input id="group-name" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" value={name} onChange={(e) => setName(e.target.value)}/>
+                        <label className="block pr-4 mb-1 font-bold text-gray-500 md:text-left md:mb-0" htmlFor="group-name">Campaign Name:</label>
+                        <input id="group-name" className="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" type="text" value={name} onChange={(e) => setName(e.target.value)}/>
                         {validationErrors?.name && (<p style={{ color: 'red', marginLeft: '5px' }}>{validationErrors.name.message}</p>)}
-                        <button className="hover:animate-pulse shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-5" type="submit">
+                        <button className="px-4 py-2 mt-5 font-bold text-white bg-purple-500 rounded shadow hover:animate-pulse hover:bg-purple-400 focus:shadow-outline focus:outline-none" type="submit">
                             Create Group
                         </button>
                     </form>
