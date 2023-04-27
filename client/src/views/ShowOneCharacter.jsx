@@ -1,8 +1,24 @@
 import charImg from '../images/bard_lute_char_img.jpeg';
-import { useState, useParams } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import Chat from '../components/Chat';
 
 const ShowOneCharacter = (props) => {
+    const { char_id } = useParams()
+    const [character, setCharacter] = useState(null)
+
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/characters/${char_id}`)
+            .then(res => {
+                console.log(res)
+                setCharacter(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+    
     return (
         <div className="grid items-start justify-center gap-8">
             <div className="relative">
@@ -12,12 +28,16 @@ const ShowOneCharacter = (props) => {
                     <div>
                         <img className="h-20" src={charImg} alt="Character"></img>
                         <div className="mb-6">
-                            <label className="font-bold text-gray-500">
-                                Character Name
-                            </label>
+                            <p className="text-lg font-bold text-gray-500">
+                                {character.name}
+                            </p>
+                            <div className='flex gap-1 text-sm text-slate-400'>
+                                <p className=''>{character.race}</p>
+                                <p className=''>{character.class}</p>
+                            </div>
                         </div>
                     </div>
-                    <div className="flex">
+                    <div className="flex justify-center">
                         <div className="mb-6 md:items-center">
                             <div className="md:w-1/3">
                                 <label className="block pr-4 mb-1 font-bold text-gray-500 md:text-right md:mb-0">
@@ -25,7 +45,7 @@ const ShowOneCharacter = (props) => {
                                 </label>
                             </div>
                             <div className="md:w-2/3">
-                                <p className="w-full px-4 py-4 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">10</p>
+                                <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.stats.strength}</p>
                             </div>
                         </div>
 
@@ -36,7 +56,7 @@ const ShowOneCharacter = (props) => {
                                 </label>
                             </div>
                             <div className="md:w-2/3">
-                                <p className="w-full px-4 py-4 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">10</p>
+                                <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.stats.dexterity}</p>
                             </div>
                         </div>
 
@@ -47,7 +67,7 @@ const ShowOneCharacter = (props) => {
                                 </label>
                             </div>
                             <div className="md:w-2/3">
-                                <p className="w-full px-4 py-4 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">10</p>
+                                <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.stats.constitution}</p>
                             </div>
                         </div>
 
@@ -58,7 +78,7 @@ const ShowOneCharacter = (props) => {
                                 </label>
                             </div>
                             <div className="md:w-2/3">
-                                <p className="w-full px-4 py-4 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">10</p>
+                                <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.stats.wisdom}</p>
                             </div>
                         </div>
 
@@ -69,7 +89,7 @@ const ShowOneCharacter = (props) => {
                                 </label>
                             </div>
                             <div className="md:w-2/3">
-                                <p className="w-full px-4 py-4 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">10</p>
+                                <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.stats.intelligence}</p>
                             </div>
                         </div>
 
@@ -80,7 +100,7 @@ const ShowOneCharacter = (props) => {
                                 </label>
                             </div>
                             <div className="md:w-2/3">
-                                <p className="w-full px-4 py-4 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">10</p>
+                                <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.stats.charisma}</p>
                             </div>
                         </div>
                     </div>
