@@ -11,7 +11,8 @@ import io from 'socket.io-client'
 const ShowOneCharacter = (props) => {
     const { char_id } = useParams()
     const [character, setCharacter] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
+    const [isUserLoading, setIsUserLoading] = useState(true)
+    const [isCharacterLoading, setIsCharacterLoading] = useState(true)
     const [user, setUser] = useState(null)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user_id = cookies.user_id
@@ -24,8 +25,8 @@ const ShowOneCharacter = (props) => {
             .then(res => {
                 console.log(res)
                 setCharacter(res.data)
-                setIsLoading(false)
-                socket.emit("join_room", res.data.campaign._id)
+                setIsCharacterLoading(false)
+                socket.emit("join_room", 1)
             })
             .catch(err => {
                 console.log(err)
@@ -35,6 +36,7 @@ const ShowOneCharacter = (props) => {
             .then(res => {
                 console.log(res)
                 setUser(res.data)
+                setIsUserLoading(false)
             })
             .catch(err => {
                 console.log(err)
@@ -45,7 +47,7 @@ const ShowOneCharacter = (props) => {
 
     return (
         <div className='flex'>
-            {!isLoading && (
+            {!isUserLoading && !isCharacterLoading && (
                 <>
                     <div className="grid items-start justify-center w-4/5 gap-8">
                         <div className="relative">
@@ -178,7 +180,7 @@ const ShowOneCharacter = (props) => {
                             </div>
                         </div>
                     </div>
-                    <Chat socket={socket} user={user} campaign={character.campaign._id} />
+                    <Chat socket={socket} user={user} campaign={character.campaign} />
                 </>)}
         </div>
     )
