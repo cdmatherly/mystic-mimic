@@ -119,7 +119,7 @@ const CreateACharacter = (props) => {
         <div className="relative w-3/4 mx-auto">
             <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg"></div>
             <div className="relative max-w-full rounded overflow-hidden shadow-lg px-20 py-10 bg-white">
-                <h1 className='mb-6 text-xl font-bold'>Create a Character:</h1>
+                <h1 className='mb-6 text-xl font-bold text-gray-700'>Create a Character:</h1>
                 <form onSubmit={(e) => handleCreateACharacter(e)} className="w-full relative flex justify-between">
                     <div className='w-2/5'>
                         <div className="md:flex md:items-center mb-6">
@@ -142,7 +142,7 @@ const CreateACharacter = (props) => {
                             </div>
                             <div className='md:w-1/6 h-12'></div>
                             <div className="md:w-4/6">
-                                <select value={race} onChange={(event) => setRace(event.target.value)} id='race' className="w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
+                                <select value={race} onChange={(event) => setRace(event.target.value)} id='race' className="w-full bg-gray-200 border-2 border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
                                     {races.map((race) =>
                                         <option key={race.index} value={race.name}>{race.name}</option>
                                     )}
@@ -157,7 +157,7 @@ const CreateACharacter = (props) => {
                             </div>
                             <div className='md:w-1/6 h-12'></div>
                             <div className="md:w-4/6">
-                                <select value={className} onChange={(event) => setClassName(event.target.value)} id='class' className="w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
+                                <select value={className} onChange={(event) => setClassName(event.target.value)} id='class' className="w-full bg-gray-200 border-2 border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
                                     {classes.map((eachClass) =>
                                         <option key={eachClass.index} value={eachClass.name}>{eachClass.name}</option>
                                     )}
@@ -167,7 +167,7 @@ const CreateACharacter = (props) => {
                     </div>
                     <div className='float-left h-auto w-1 bg-slate-300'></div>
                     <div className='w-2/5'>
-                        <h2 className='block text-gray-500 font-bold text-xl mb-5 pr-4'>Select Stats:</h2>
+                        <h2 className='block text-gray-700 font-bold text-xl mb-5 pr-4'>Select Stats:</h2>
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/3">
                                 <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="attributes">
@@ -175,7 +175,7 @@ const CreateACharacter = (props) => {
                                 </label>
                             </div>
                             <div className="md:w-2/3">
-                                <p id="attributes" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"> {attributePoints} </p>
+                                <p id="attributes" className="appearance-none rounded w-full py-2 px-4 leading-tight text-center font-bold text-xl text-gray-500"> {attributePoints} </p>
                             </div>
                         </div>
                         <StatSelect attribute="Strength" stat={strength} newStat={handleStats} attributePoints={attributePoints} />
