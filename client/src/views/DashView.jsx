@@ -42,34 +42,34 @@ const Dash = (props) => {
 
     return (
         <>
-            <div className="bg-black absolute w-full">
-                <ul className="flex border-b justify-between">
+            <div className="absolute w-full bg-black">
+                <ul className="flex justify-between border-b">
                     <div className="flex">
-                        <li className="-mb-px mr-1">
-                            <Link to="/cac" className="bg-black inline-block focus:border-l focus:border-t focus:border-r hover:text-blue-800 hover:animate-pulse rounded-t py-2 px-4 text-indigo-700 font-semibold">Create Character</Link>
+                        <li className="mr-1 -mb-px">
+                            <Link to="/cac" className="inline-block px-4 py-2 font-semibold text-indigo-700 bg-black rounded-t focus:border-l focus:border-t focus:border-r hover:text-blue-800 hover:animate-pulse">Create Character</Link>
                         </li>
                         <li className="mr-1">
-                            <Link to="/sac" className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 text-indigo-400 hover:text-blue-800 hover:animate-pulse font-semibold" href="#">My Characters</Link>
+                            <Link to="/sac" className="inline-block px-4 py-2 font-semibold text-indigo-400 bg-black focus:border-l focus:border-t focus:border-r hover:text-blue-800 hover:animate-pulse" href="#">My Characters</Link>
                         </li>
                         <li className="mr-1">
-                            <Link to="cag" className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 text-violet-400 hover:text-blue-800 hover:animate-pulse font-semibold" href="#">Create Campaign</Link>
+                            <Link to="cag" className="inline-block px-4 py-2 font-semibold bg-black focus:border-l focus:border-t focus:border-r text-violet-400 hover:text-blue-800 hover:animate-pulse" href="#">Create Campaign</Link>
                         </li>
                         <li className="mr-1">
-                            <Link to="vac" className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 text-violet-500 hover:text-blue-800 hover:animate-pulse font-semibold" href="#">Find Campaign</Link>
+                            <Link to="vac" className="inline-block px-4 py-2 font-semibold bg-black focus:border-l focus:border-t focus:border-r text-violet-500 hover:text-blue-800 hover:animate-pulse" href="#">Find Campaign</Link>
                         </li>
                     </div>
                     <li className="mr-1">
-                        <button onClick={e => { onClickHandler(e) }} className="bg-black inline-block focus:border-l focus:border-t focus:border-r py-2 px-4 font-semibold text-blue-600 dark:text-blue-500 hover:underline hover:animate-pulse"> Logout</button>
+                        <button onClick={e => { onClickHandler(e) }} className="inline-block px-4 py-2 font-semibold text-blue-600 bg-black focus:border-l focus:border-t focus:border-r dark:text-blue-500 hover:underline hover:animate-pulse"> Logout</button>
                     </li>
                 </ul>
             </div>
-            <div className="max-w-full rounded overflow-hidden px-20 py-10 bg-no-repeat bg-cover" style={{
+            <div className="max-w-full px-20 py-10 overflow-hidden bg-no-repeat bg-cover rounded" style={{
                 backgroundPosition: '100%',
                 backgroundImage: 'url("https://cdn.shopify.com/s/files/1/0059/3061/4851/products/B9A0964.jpg?v=1653900526&width=1445")',
                 height: '100vh',
                 width: 'auto'
             }}>
-                <div className="mt-10 p-12 bg-black bg-opacity-80 rounded-lg overflow-y-auto" style={{ height: "85vh" }}>
+                <div className="p-12 mt-10 overflow-y-auto bg-black rounded-lg bg-opacity-80" style={{ height: "85vh" }}>
                     <Outlet />
                 </div>
 
