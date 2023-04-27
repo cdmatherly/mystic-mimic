@@ -17,6 +17,8 @@ const ShowOneCharacter = (props) => {
     const user_id = cookies.user_id
     const [socket] = useState(() => io(':8000'))
 
+    const skillList = [{ stat: 'DEX', name: 'Acrobatics' }, { stat: 'WIS', name: 'Animal Handling' }, { stat: 'INT', name: 'Arcana' }, { stat: 'STR', name: 'Athletics' }, { stat: 'CHA', name: 'Deception' }, { stat: 'INT', name: 'History' }, { stat: 'CHA', name: 'Intimidation' }, { stat: 'INT', name: 'Investigation' }, { stat: 'WIS', name: 'Medicine' }, { stat: 'INT', name: 'Nature' }, { stat: 'WIS', name: 'Perception' }, { stat: 'CHA', name: 'Performance' }, { stat: 'CHA', name: 'Persuasion' }, { stat: 'INT', name: 'Religion' }, { stat: 'DEX', name: 'Sleight of Hand' }, { stat: 'DEX', name: 'Stealth' }, { stat: 'WIS', name: 'Survival' }]
+
 
 
     useEffect(() => {
@@ -39,7 +41,7 @@ const ShowOneCharacter = (props) => {
             .catch(err => {
                 console.log(err)
             })
-            
+
         return () => socket.disconnect(true)
     }, [socket])
 
@@ -51,7 +53,7 @@ const ShowOneCharacter = (props) => {
                         <div className="relative">
                             <div className="absolute rounded-lg -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 blur-lg "></div>
                             <div></div>
-                            <div className="relative max-w-full px-20 py-20 overflow-hidden bg-white rounded shadow-lg">
+                            <div className="relative max-w-full px-20 py-8 overflow-hidden bg-white rounded shadow-lg">
                                 <div>
                                     <ImageModal character={character}>
                                     </ImageModal>
@@ -66,103 +68,33 @@ const ShowOneCharacter = (props) => {
                                     </div>
                                 </div>
                                 <div className="flex justify-center">
+                                    {/* Map through each stat */}
+                                    {Object.entries(character.stats).map((stat) => 
                                     <div className="mb-6 md:items-center">
                                         <div className="md:w-1/3">
                                             <label className="block pr-4 mb-1 font-bold text-gray-500 md:text-right md:mb-0">
-                                                Strength:
+                                                {/* Capitalize the first letter */}
+                                                {stat[0].charAt(0).toUpperCase() + stat[0].slice(1)}:
                                             </label>
                                         </div>
                                         <div className="md:w-2/3">
-                                            <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.stats.strength}</p>
+                                            <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{stat[1]}</p>
                                         </div>
                                     </div>
-
-                                    <div className="mb-6 md:items-center">
-                                        <div className="md:w-1/3">
-                                            <label className="block pr-4 mb-1 font-bold text-gray-500 md:text-right md:mb-0">
-                                                Dexterity:
-                                            </label>
-                                        </div>
-                                        <div className="md:w-2/3">
-                                            <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.stats.dexterity}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="mb-6 md:items-center">
-                                        <div className="md:w-1/3">
-                                            <label className="block pr-4 mb-1 font-bold text-gray-500 md:text-right md:mb-0">
-                                                Constitution:
-                                            </label>
-                                        </div>
-                                        <div className="md:w-2/3">
-                                            <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.stats.constitution}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="mb-6 md:items-center">
-                                        <div className="md:w-1/3">
-                                            <label className="block pr-4 mb-1 font-bold text-gray-500 md:text-right md:mb-0">
-                                                Wisdom:
-                                            </label>
-                                        </div>
-                                        <div className="md:w-2/3">
-                                            <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.stats.wisdom}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="mb-6 md:items-center">
-                                        <div className="md:w-1/3">
-                                            <label className="block pr-4 mb-1 font-bold text-gray-500 md:text-right md:mb-0">
-                                                Intelligence:
-                                            </label>
-                                        </div>
-                                        <div className="md:w-2/3">
-                                            <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.stats.intelligence}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="mb-6 md:items-center">
-                                        <div className="md:w-1/3">
-                                            <label className="block pr-4 mb-1 font-bold text-gray-500 md:text-right md:mb-0">
-                                                Charisma:
-                                            </label>
-                                        </div>
-                                        <div className="md:w-2/3">
-                                            <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.stats.charisma}</p>
-                                        </div>
-                                    </div>
+                                    )}
                                 </div>
                                 <div className='flex'>
                                     {/* Bottom Left Column, On View One Character Page*/}
                                     <div className='flex-auto p-3 mr-4 border-2 border-solid rounded'>
                                         <div className="mb-6 align-middle md:items-center">
-                                            <div className="flex mb-3 place-content-center">
-                                                <label className="block pr-4 mb-1 text-lg font-bold text-center text-gray-500 align-middle md:mb-0">
-                                                    Left Column Skill 1:
-                                                </label>
-                                                <p className="px-4 py-1 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">10</p>
-                                            </div>
 
-                                            <div className="flex mb-3 place-content-center">
-                                                <label className="block pr-4 mb-1 text-lg font-bold text-center text-gray-500 align-middle md:mb-0">
-                                                    Left Column Skill 2:
-                                                </label>
-                                                <p className="px-4 py-1 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">10</p>
-                                            </div>
-
-                                            <div className="flex mb-3 place-content-center">
-                                                <label className="block pr-4 mb-1 text-lg font-bold text-center text-gray-500 align-middle md:mb-0">
-                                                    Left Column Skill 3:
-                                                </label>
-                                                <p className="px-4 py-1 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">10</p>
-                                            </div>
-
-                                            <div className="flex mb-3 place-content-center">
-                                                <label className="block pr-4 mb-1 text-lg font-bold text-center text-gray-500 align-middle md:mb-0">
-                                                    Left Column Skill 4:
-                                                </label>
-                                                <p className="px-4 py-1 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">10</p>
-                                            </div>
+                                            {skillList.map((skill) => <div className="flex items-center mb-3 place-content-center">
+                                                <p className="block w-1/5 pr-4 mb-1 text-xs font-bold text-center text-gray-400 align-middle md:mb-0">{skill.stat}</p>
+                                                <p className="block w-3/5 pr-4 mb-1 font-bold text-center text-gray-500 align-middle text-md md:mb-0">
+                                                    {skill.name}:
+                                                </p>
+                                                <p className="w-1/5 px-4 py-1 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">10</p>
+                                            </div>)}
 
                                         </div>
                                     </div>
