@@ -13,6 +13,7 @@
 
 #you .message-content {
   justify-content: flex-start;
+  border-bottom-left-radius: inherit;
 }
 
 #you .message-meta {
@@ -27,6 +28,7 @@
 #other .message-content {
   justify-content: flex-end;
   background-color:lightslategray;
+  border-bottom-right-radius: inherit;
 }
 
 #other .message-meta {

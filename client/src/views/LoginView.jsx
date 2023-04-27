@@ -39,7 +39,7 @@ const Login = (props) => {
             <div className="relative max-w-full bg-no-repeat bg-cover py-40" style={{
                                 backgroundPosition: '100%',
                                 backgroundImage: 'url("https://cdn.shopify.com/s/files/1/0059/3061/4851/products/B9A0964.jpg?v=1653900526&width=1445")',
-                                height: '1060px',
+                                height: '100vh',
                                 width: 'auto'
                             }}>
                 <div className="grid items-start justify-center">
