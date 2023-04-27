@@ -42,6 +42,7 @@ const ShowOneCharacter = (props) => {
                 console.log(res)
                 setUser(res.data)
                 setIsUserLoading(false)
+                setIsUserLoading(false)
             })
             .catch(err => {
                 console.log(err)
@@ -52,6 +53,7 @@ const ShowOneCharacter = (props) => {
 
     return (
         <div className='flex'>
+            {!isUserLoading && !isCharacterLoading && (
             {!isUserLoading && !isCharacterLoading && (
                 <>
                     <div className="grid items-start justify-center w-4/5 gap-8">
