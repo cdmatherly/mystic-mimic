@@ -70,7 +70,7 @@ const ShowOneCharacter = (props) => {
                                 <div className="flex justify-center">
                                     {/* Map through each stat */}
                                     {Object.entries(character.stats).map((stat) => 
-                                    <div className="mb-6 md:items-center">
+                                    <div key={stat[0]} className="mb-6 md:items-center">
                                         <div className="md:w-1/3">
                                             <label className="block pr-4 mb-1 font-bold text-gray-500 md:text-right md:mb-0">
                                                 {/* Capitalize the first letter */}
@@ -88,7 +88,7 @@ const ShowOneCharacter = (props) => {
                                     <div className='flex-auto p-3 mr-4 border-2 border-solid rounded'>
                                         <div className="mb-6 align-middle md:items-center">
 
-                                            {skillList.map((skill) => <div className="flex items-center mb-3 place-content-center">
+                                            {skillList.map((skill) => <div key={skill.name} className="flex items-center mb-3 place-content-center">
                                                 <p className="block w-1/5 pr-4 mb-1 text-xs font-bold text-center text-gray-400 align-middle md:mb-0">{skill.stat}</p>
                                                 <p className="block w-3/5 pr-4 mb-1 font-bold text-center text-gray-500 align-middle text-md md:mb-0">
                                                     {skill.name}:

@@ -37,18 +37,17 @@ const Register = (props) => {
 
     return (
         <>
-            <div className=" relative max-w-full rounded overflow-hidden shadow-lg px-20 py-5 bg-no-repeat bg-cover" style={{
-            <div className=" relative max-w-full overflow-hidden shadow-lg px-20 py-40 bg-no-repeat bg-cover" style={{
+            <div className="relative max-w-full px-20 py-40 overflow-hidden bg-no-repeat bg-cover shadow-lg " style={{
                             backgroundPosition: '100%',
                             backgroundImage: 'url("https://cdn.shopify.com/s/files/1/0059/3061/4851/products/B9A0964.jpg?v=1653900526&width=1445")',
                             height: '100vh',
                             width: 'auto'
                         }}>
                 <div className="grid items-start justify-center">
-                <div className="flex bg-gray-800 rounded-lg bg-opacity-90 max-h-full min-w-full flex-1 flex-col px-10 py-12 lg:px-8 w-2/5">
+                <div className="flex flex-col flex-1 w-2/5 max-h-full min-w-full px-10 py-12 bg-gray-800 rounded-lg bg-opacity-90 lg:px-8">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                         <h1 className="mb-4 text-3xl font-extrabold text-black dark:text-white md:text-5xl lg:text-6xl"><span className="text-transparent bg-clip-text bg-gradient-to-r to-purple-500 from-sky-400">Mystic</span> Mimic</h1>
-                        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
+                        <h2 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-center text-white">
                             -  Create an account  -
                         </h2>
                     </div>
@@ -57,7 +56,7 @@ const Register = (props) => {
                         <form className="space-y-6" onSubmit={(e) => onSubmitHandler(e)}>
                             <div>
                                 <div className="flex items-center justify-between">
-                                    <label htmlFor="username" className="block text-sm font-medium leading-6 text-white text-left">
+                                    <label htmlFor="username" className="block text-sm font-medium leading-6 text-left text-white">
                                         Username:
                                     </label>
                                     {validationErrors?.username && (<p style={{ color: 'red', marginLeft: '5px' }}>{validationErrors.username.message}</p>)}
@@ -77,7 +76,7 @@ const Register = (props) => {
 
                             <div>
                                 <div className="flex items-center justify-between">
-                                    <label htmlFor="email" className="block text-sm font-medium leading-6 text-white text-left">
+                                    <label htmlFor="email" className="block text-sm font-medium leading-6 text-left text-white">
                                         Email address:
                                     </label>
                                     {validationErrors?.email && (<p style={{ color: 'red', marginLeft: '5px' }}>{validationErrors.email.message}</p>)}
@@ -120,7 +119,7 @@ const Register = (props) => {
                             </div>
 
                             <div>
-                                <div className="flex items-center justify-between flex-wrap">
+                                <div className="flex flex-wrap items-center justify-between">
                                     <label htmlFor="confirmPassword" className="block text-sm font-medium leading-6 text-white">
                                         Confirm Password:
                                     </label>
@@ -153,7 +152,7 @@ const Register = (props) => {
                             </div>
                         </form>
 
-                        <p className="mt-10 text-center text-sm text-gray-200">
+                        <p className="mt-10 text-sm text-center text-gray-200">
                             Already a member?{' '}
                             <Link to="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                                 Login
