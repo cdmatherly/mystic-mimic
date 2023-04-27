@@ -21,7 +21,7 @@ const Chat = (props) => {
     }
 
     useEffect(() => {
-        socket.on("receive_message", (data) => {
+        socket.off("receive_message").on("receive_message", (data) => {
             console.log(data)
             setMessageList((list) => [...list, data])
         })
@@ -62,9 +62,9 @@ const Chat = (props) => {
                         </div>
                         <div className="flex flex-col leading-tight">
                             <div className="flex items-center mt-1 text-2xl">
-                                <span className="mr-3 text-gray-700">{user.username}</span>
+                                <span className="mr-3 text-gray-700">{campaign? campaign.name: "Not in any campaign!"}</span>
                             </div>
-                            <span className="text-lg text-gray-600">Welcome to your Live Chat!</span>
+                            <span className="text-lg text-gray-600">Welcome {user.username}!</span>
                         </div>
                     </div>
                 </div>

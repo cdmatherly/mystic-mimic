@@ -35,8 +35,9 @@ io.on("connection", socket => {
     })
 
     socket.on('send_message', (data) => {
-        // console.log(data)
-        socket.to(data.campaign).emit('receive_message', data)
+        console.log(data)
+        console.log(data.campaign._id)
+        socket.to(data.campaign._id).emit('receive_message', data)
     })
     
 
