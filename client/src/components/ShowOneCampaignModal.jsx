@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from 'axios'
 import { useCookies } from "react-cookie";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Modal(props) {
     const { campaign, characters, setNewCampaign, setUpdateCampaigns } = props
@@ -8,6 +9,7 @@ export default function Modal(props) {
     const [showModal, setShowModal] = useState(false);
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user = cookies.user_id
+    const navigate = useNavigate()
 
     const handleJoin = () => {
         const thisCampaign = {campaign: campaign._id}
@@ -33,10 +35,14 @@ export default function Modal(props) {
             })
     }
 
+    const navToCharacter = (id) => {
+        navigate(`/soc/${id}`)
+    }
+
     return (
         <>
             <button
-                className="animate-pulse shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                className="px-4 py-2 font-bold text-white bg-purple-500 rounded shadow animate-pulse hover:bg-purple-400 focus:shadow-outline focus:outline-none"
                 type="button"
                 onClick={() => setShowModal(true)}
             >
@@ -45,19 +51,19 @@ export default function Modal(props) {
             {showModal ? (
                 <>
                     <div
-                        className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                        className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
                     >
-                        <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                        <div className="relative w-auto max-w-3xl mx-auto my-6">
                             {/*content*/}
-                            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                            <div className="relative flex flex-col w-full px-10 bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none ">
                                 {/*header*/}
-                                <div className="flex justify-between items-center p-5 border-b border-solid border-slate-200 rounded-t">
+                                <div className="flex items-center justify-around gap-5 p-5 border-b border-solid rounded-t border-slate-200">
                                     <h3 className="text-3xl font-semibold">
                                         {campaign.name} 
                                     </h3>
-                                    {user === campaign.owner && (
+                                    {user === campaign.owner._id && (
                                     <button
-                                        className="ml-auto bg-red-500 text-white hover:bg-red-600 font-bold uppercase text-sm p-1 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                                        className="p-1 ml-auto text-sm font-bold text-white uppercase transition-all duration-150 ease-linear bg-red-500 rounded shadow outline-none hover:bg-red-600 hover:shadow-lg focus:outline-none"
                                         onClick={() => handleDelete()}
                                     >
                                             Delete
@@ -65,13 +71,13 @@ export default function Modal(props) {
                                     )}
                                 </div>
                                 {/*body*/}
-                                <div className="relative p-6 flex-auto">
+                                <div className="relative flex-auto p-6">
                                     <p>Info about each campaign here!</p>
-                                    <p className="font-semibold mt-5 text-lg">Players:</p>
-                                    {campaign.characters ? campaign.characters.map((character) => 
-                                        <p key={character._id}>{character.name}</p>
-                                        //? Logic doesn''t work
-                                    ) : <p>None yet!</p>}
+                                    <p className="mt-5 text-lg font-semibold">Players:</p>
+                                    {/* shows message if character list is empty */}
+                                    {campaign.characters.length !== 0 ? campaign.characters.map((character) => 
+                                        <p key={character._id} className="text-right"><button onClick={() => navToCharacter(character._id)}>{character.name}</button></p>
+                                    ) : <p className="text-right">None yet!</p>}
                                 </div>
                                 {/*footer*/}
                                 <select name="character" id="character" className="px-2 py-1" onChange={(e) => setSelectedCharacter(e.target.value)}>
@@ -80,16 +86,16 @@ export default function Modal(props) {
                                     <option key={character._id} value={character._id} >{character.name}</option>
                                     )}
                                 </select>
-                                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                                <div className="flex items-center justify-end p-6 border-t border-solid rounded-b border-slate-200">
                                     <button
-                                        className="text-gray-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                        className="px-6 py-2 mb-1 mr-1 text-sm font-bold text-gray-500 uppercase transition-all duration-150 ease-linear outline-none background-transparent focus:outline-none"
                                         type="button"
                                         onClick={() => setShowModal(false)}
                                     >
                                         Cancel
                                     </button>
                                     <button onClick={(e) => {handleJoin(e)}}
-                                        className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                        className="px-6 py-3 mb-1 mr-1 text-sm font-bold text-white uppercase transition-all duration-150 ease-linear rounded shadow outline-none bg-emerald-500 active:bg-emerald-600 hover:shadow-lg focus:outline-none"
                                         type="button"
                                     >
                                         Join Campaign
@@ -98,7 +104,7 @@ export default function Modal(props) {
                             </div>
                         </div>
                     </div>
-                    <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                    <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
                 </>
             ) : null}
         </>
