@@ -39,13 +39,13 @@ const StatSelect = (props) => {
             </div>
             <div className="md:w-2/3 relative flex justify-center">
                 {/* <input id={attribute} name={attribute} type="number" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" min={8} max={15} defaultValue={8} onChange={ (event) => onChangeHandle(event.target.value) } /> */}
-                <div className='absolute left-0 flex items-center'>
+                <div className='absolute left-1 flex items-center'>
                     <p className='text-xs'>{(count >= 14) ? "(+2 pts)" : count === 8 ? "" : "(+1 pts)"}</p>
-                    {count !== 8 && <button className="bg-gray-200 appearance-none border-2 border-gray-200 rounded px-1 ml-2" type="button" onClick={(e) => { handleClick(-1) }}>-</button>}
+                    {count !== 8 && <button className="w-7 bg-gray-200 appearance-none border-2 border-gray-300 rounded px-1 ml-2 hover:bg-gray-100" type="button" onClick={(e) => { handleClick(-1) }}>-</button>}
                 </div>
                 <p className="inline font-bold text-lg">{count}</p>
-                <div className='absolute right-0 flex items-center'>
-                    {count !== 15 && <button className="bg-gray-200 appearance-none border-2 border-gray-200 rounded  px-1 mr-2" type="button" onClick={(e) => { handleClick(1) }}> +</button>}
+                <div className='absolute right-1 flex items-center'>
+                    {count !== 15 && <button className="w-7 bg-gray-200 appearance-none border-2 border-gray-300 rounded  px-1 mr-2 hover:bg-gray-100" type="button" onClick={(e) => { handleClick(1) }}> +</button>}
                     <p className='text-xs'>{(count >= 13) ? count === 15 ? "" : "(-2 pts)" : "(-1 pts)"}</p>
                 </div>
             </div>
