@@ -1,4 +1,7 @@
 import charImg from '../images/bard_lute_char_img.jpeg';
+import {useState, useParams } from 'react'
+import Chat from '../components/Chat';
+
 const ShowOneCharacter = (props) => {
     return (
         <>

@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import DeleteModal from '../components/DeleteModal'
 import EditCharacterModal from '../components/EditCharacterModal'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 
 const EachCharacter = (props) => {
     const { character, charImg, allCharacters, updateCharacters, races, classes} = props
@@ -11,6 +11,7 @@ const EachCharacter = (props) => {
     const [deletedCharacter, setDeletedCharacter] = useState(null)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user = cookies.user_id
+    const navigate = useNavigate()
 
     const handleDelete = () => {
         axios.delete(`http://localhost:8000/api/${user}/characters/${character._id}`)
@@ -83,7 +84,7 @@ const EachCharacter = (props) => {
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
-                    <button className="text-white font-bold rounded transition ease-in-out delay-150 bg-purple-400 hover:-translate-y-1 hover:scale-150 hover:bg-purple-600 duration-300 ..." type="button">
+                    <button onClick={() => navigate(`/soc/${character._id}`)} className="text-white text-center font-bold rounded transition ease-in-out delay-150 bg-purple-400 hover:-translate-y-1 hover:scale-150 hover:bg-purple-600 duration-300 ..." type="button">
                         View
                     </button>
                     <EditCharacterModal character={character} races={races} classes={classes} handleEdit={handleEdit}/>
