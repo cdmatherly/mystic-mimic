@@ -38,13 +38,10 @@ const Chat = (props) => {
                 <div className="flex justify-between py-3 border-b-2 border-gray-200 sm:items-center">
                     <div className="relative flex items-center p-1 space-x-4">
                         <div className="relative">
-                            <span className="absolute text-green-500 right-0 bottom-0 left-0.5">
-                                <svg width="20" height="20">
-                                    {isConnected ? <circle cx="8" cy="8" r="8" fill="currentcolor"></circle> :
-                                        <circle cx="8" cy="8" r="8" fill="red"></circle>
-                                    }
-                                </svg>
-                            </span>
+                        <span class="relative flex h-3 w-3">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </span>
                         </div>
                         <div className="flex flex-col leading-tight">
                             <div className="flex flex-col items-center mt-1 text-2xl">
