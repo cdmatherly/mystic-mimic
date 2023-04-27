@@ -30,64 +30,44 @@ const Chat = (props) => {
 
     return (
         <>
-            {/* <div className=' h-96 w-72'>
-                <div className="header h-11 bg-slate-200 relative cursor-pointer">Live Chat</div>
-                <div className="body h-52 bg-slate-400 border border-solid border-black relative">
-                    {messageList.map((messageContent) =>
-                        <div key={messageContent.message} className='message h-auto p-2 flex' id={user.username === messageContent.author ? "you" : "other"}>
-                            <div className='message-content w-auto h-auto bg-blue-600 text-white rounded mx-1 px-1 max-w-max flex items-center justify-end'>
-                                <p>{messageContent.message}</p>
-                            </div>
-                            <div className='message-meta flex'>
-                                <p>{messageContent.time}</p>
-                                <p className='ml-2 font-semibold'>{messageContent.author}</p>
-                            </div>
-                        </div>)}
-                </div>
-                <div className="footer h-10 border border-black border-t-0 flex">
-                    <input className=' h-full py-1 ' type="text" placeholder="Send a message" value={currentMessage} onChange={(e) => setCurrentMessage(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendMessage()} />
-                    <button onClick={sendMessage}>&#9658;</button>
-                </div>
-            </div> */}
-
-            <div class="justify-between flex flex-col h-80 w-80 bg-white rounded-lg">
-                <div class="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
-                    <div class="relative flex items-center space-x-4">
-                        <div class="relative">
-                            <span class="absolute text-green-500 right-0 bottom-0">
+            <div className="justify-between flex flex-col h-80 w-80 bg-white rounded-lg">
+                <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
+                    <div className="relative flex items-center space-x-4 p-1">
+                        <div className="relative">
+                            <span className="absolute text-green-500 right-0 bottom-0 left-0.5">
                                 <svg width="20" height="20">
                                     <circle cx="8" cy="8" r="8" fill="currentColor"></circle>
                                 </svg>
                             </span>
                         </div>
-                        <div class="flex flex-col leading-tight">
-                            <div class="text-2xl mt-1 flex items-center">
-                                <span class="text-gray-700 mr-3">{user.username}</span>
+                        <div className="flex flex-col leading-tight">
+                            <div className="text-2xl mt-1 flex items-center">
+                                <span className="text-gray-700 mr-3 ml-2">{user.username}</span>
                             </div>
-                            <span class="text-lg text-gray-600">Welcome to your Live Chat!</span>
+                            <span className="text-lg text-gray-600 -ml-3">Welcome to your Live Chat!</span>
                         </div>
                     </div>
                 </div>
                 {/* Message Section */}
-                <div id="messages" class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-                    <div class="chat-message">
-                        <div class="flex items-end">
-                            <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-                                <div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">Can be verified on any platform using docker</span></div>
+                <div id="messages" className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+                    <div className="chat-message">
+                        <div className="flex items-end">
+                            <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
+                                <div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">Welcome to the chat feature!</span></div>
                             </div>
                         </div>
                     </div>
-                    <div class="chat-message">
-                        <div class="flex items-end justify-end">
-                            <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-                                <div><span class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">Your error message says permission denied, npm global installs must be given root privileges.</span></div>
+                    <div className="chat-message">
+                        <div className="flex items-end justify-end">
+                            <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
+                                <div><span className="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">Start by typing in a message below.</span></div>
                             </div>
                         </div>
                     </div>
-                    <div class="chat-message">
+                    <div className="chat-message">
                     {messageList.map((messageContent) =>
                         <div key={messageContent.message} className='message h-auto p-2 flex-column' id={user.username === messageContent.author ? "you" : "other"}>
-                            <div className='message-content w-auto h-auto bg-blue-600 text-white rounded mx-1 px-1 max-w-max flex items-center justify-end'>
+                            <div className='message-content w-auto h-auto bg-blue-600 text-white rounded-lg px-4 py-2 max-w-max flex items-center justify-end text-xs'>
                                 <p>{messageContent.message}</p>
                             </div>
                             <div className='message-meta flex'>

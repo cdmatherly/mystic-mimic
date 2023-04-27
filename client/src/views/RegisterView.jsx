@@ -37,7 +37,6 @@ const Register = (props) => {
 
     return (
         <>
-            <div className=" relative max-w-full rounded overflow-hidden shadow-lg px-20 py-5 bg-no-repeat bg-cover" style={{
             <div className=" relative max-w-full overflow-hidden shadow-lg px-20 py-40 bg-no-repeat bg-cover" style={{
                             backgroundPosition: '100%',
                             backgroundImage: 'url("https://cdn.shopify.com/s/files/1/0059/3061/4851/products/B9A0964.jpg?v=1653900526&width=1445")',
