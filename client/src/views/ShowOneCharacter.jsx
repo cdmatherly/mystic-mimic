@@ -2,7 +2,7 @@ import charImg from '../images/bard_lute_char_img.jpeg';
 const ShowOneCharacter = (props) => {
     return (
         <>
-            <body className="min-h-screen py-16 bg-black">
+            <body className="min-h-screen py-16 bg-black bg-opacity-80 rounded">
                 <div className="grid gap-8 items-start justify-center">
                     <div className="relative">
                         <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg "></div>
