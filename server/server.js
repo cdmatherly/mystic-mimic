@@ -13,6 +13,7 @@ app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 require('./routes/user.routes')(app);
 require('./routes/character.routes')(app);
 require('./routes/campaign.routes')(app);
+require('./routes/item.routes')(app);
 
 app.get('/', (req, res) => {
     return res.send('Hello')
