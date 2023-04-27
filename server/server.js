@@ -31,6 +31,7 @@ io.on("connection", socket => {
 
     socket.on("join_room", (campaign_id) => {
         socket.join(campaign_id)
+        socket.emit('confirm_join', ('confirmed?'))
         console.log(`User ${socket.id} joined room ${campaign_id}`)
     })
 
