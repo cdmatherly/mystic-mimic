@@ -27,7 +27,7 @@ function App() {
           <Route element={<ProtectedRoute user={user} />}>
             <Route element={<CreateACharacter />} path="/cac" />
             <Route element={<ShowAllCharacters />} path='/sac' />
-            <Route element={<ShowOneCharacter />} path='/soc' />
+            <Route element={<ShowOneCharacter />} path='/soc/:char_id' />
             <Route element={<CreateACampaign />} path='/cag' />
             <Route element={<ViewAllCampaigns/>} path='/vac' />
           </Route>
