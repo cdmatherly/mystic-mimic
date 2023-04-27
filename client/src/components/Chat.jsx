@@ -4,6 +4,7 @@ const Chat = (props) => {
     const { socket, user, campaign } = props
     const [currentMessage, setCurrentMessage] = useState('')
     const [messageList, setMessageList] = useState([])
+    const [isConnected, setIsConnected] = useState(false)
 
     const sendMessage = async () => {
         if (currentMessage !== '') {
@@ -21,9 +22,12 @@ const Chat = (props) => {
     }
 
     useEffect(() => {
-        socket.on("receive_message", (data) => {
+        socket.off("receive_message").on("receive_message", (data) => {
             console.log(data)
             setMessageList((list) => [...list, data])
+        })
+        socket.on('confirm_join', (msg) => {
+            setIsConnected(true)
         })
     }, [socket])
 
@@ -40,40 +44,40 @@ const Chat = (props) => {
                             </span>
                         </div>
                         <div className="flex flex-col leading-tight">
-                            <div className="text-2xl mt-1 flex items-center">
-                                <span className="text-gray-700 mr-3 ml-2">{user.username}</span>
+                            <div className="flex flex-col items-center mt-1 text-2xl">
+                                <span className="ml-2 mr-3 text-gray-700">{campaign ? campaign.name : "Not in any campaign!"}</span>
                             </div>
-                            <span className="text-lg text-gray-600 -ml-3">Welcome to your Live Chat!</span>
+                            <span className="-ml-3 text-lg text-gray-600">Welcome, {user.username}!</span>
                         </div>
                     </div>
                 </div>
                 {/* Message Section */}
-                <div id="messages" className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+                <div id="messages" className="flex flex-col p-3 space-y-4 overflow-y-auto scrolling-touch scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2">
                     <div className="chat-message">
                         <div className="flex items-end">
-                            <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-                                <div><span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">Welcome to the chat feature!</span></div>
+                            <div className="flex flex-col items-start order-2 max-w-xs mx-2 space-y-2 text-xs">
+                                <div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">Welcome to the chat feature!</span></div>
                             </div>
                         </div>
                     </div>
                     <div className="chat-message">
                         <div className="flex items-end justify-end">
-                            <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-                                <div><span className="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">Start by typing in a message below.</span></div>
+                            <div className="flex flex-col items-end order-1 max-w-xs mx-2 space-y-2 text-xs">
+                                <div><span className="inline-block px-4 py-2 text-white bg-blue-600 rounded-lg rounded-br-none ">Start by typing in a message below.</span></div>
                             </div>
                         </div>
                     </div>
                     <div className="chat-message">
-                    {messageList.map((messageContent) =>
-                        <div key={messageContent.message} className='message h-auto p-2 flex-column' id={user.username === messageContent.author ? "you" : "other"}>
-                            <div className='message-content w-auto h-auto bg-blue-600 text-white rounded-lg px-4 py-2 max-w-max flex items-center justify-end text-xs'>
-                                <p>{messageContent.message}</p>
-                            </div>
-                            <div className='flex message-meta'>
-                                <p>{messageContent.time}</p>
-                                <p className='ml-2 font-semibold'> - {messageContent.author}</p>
-                            </div>
-                        </div>)}
+                        {messageList.map((messageContent) =>
+                            <div key={messageContent.message} className='h-auto p-2 message flex-column' id={user.username === messageContent.author ? "you" : "other"}>
+                                <div className='flex items-center justify-end w-auto h-auto px-4 py-2 text-xs text-white bg-blue-600 rounded-lg message-content max-w-max'>
+                                    <p>{messageContent.message}</p>
+                                </div>
+                                <div className='flex message-meta'>
+                                    <p>{messageContent.time}</p>
+                                    <p className='ml-2 font-semibold'> - {messageContent.author}</p>
+                                </div>
+                            </div>)}
                     </div>
                 </div>
 

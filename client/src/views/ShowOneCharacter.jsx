@@ -11,8 +11,9 @@ import io from 'socket.io-client'
 const ShowOneCharacter = (props) => {
     const { char_id } = useParams()
     const [character, setCharacter] = useState(null)
-    const [isUserLoading, setIsUserLoading] = useState(true)
+    const [campaignId, setCampaignId] = useState(null)
     const [isCharacterLoading, setIsCharacterLoading] = useState(true)
+    const [isUserLoading, setIsUserLoading] = useState(true)
     const [user, setUser] = useState(null)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user_id = cookies.user_id
@@ -28,7 +29,9 @@ const ShowOneCharacter = (props) => {
                 console.log(res)
                 setCharacter(res.data)
                 setIsCharacterLoading(false)
-                socket.emit("join_room", 1)
+                res.data.campaign !== null && (
+                socket.emit("join_room", res.data.campaign._id))
+                res.data.campaign && setCampaignId(res.data.campaign._id)
             })
             .catch(err => {
                 console.log(err)
@@ -38,6 +41,7 @@ const ShowOneCharacter = (props) => {
             .then(res => {
                 console.log(res)
                 setUser(res.data)
+                setIsUserLoading(false)
                 setIsUserLoading(false)
             })
             .catch(err => {
@@ -56,17 +60,23 @@ const ShowOneCharacter = (props) => {
                             <div className="absolute rounded-lg -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 blur-lg "></div>
                             <div></div>
                             <div className="relative max-w-full px-20 py-8 overflow-hidden bg-white rounded shadow-lg">
-                                <div>
-                                    <ImageModal character={character}>
-                                    </ImageModal>
-                                    <div className="mb-6">
-                                        <p className="text-lg font-bold text-gray-500">
-                                            {character.name}
-                                        </p>
-                                        <div className='flex gap-1 text-sm text-slate-400'>
-                                            <p className=''>{character.race}</p>
-                                            <p className=''>{character.class}</p>
+                                <div className='flex items-center justify-between'>
+                                    <div>
+                                        <ImageModal character={character}>
+                                        </ImageModal>
+                                        <div className="mb-6">
+                                            <p className="text-lg font-bold text-gray-500">
+                                                {character.name}
+                                            </p>
+                                            <div className='flex gap-1 text-sm text-slate-400'>
+                                                <p className=''>{character.race}</p>
+                                                <p className=''>{character.class}</p>
+                                            </div>
                                         </div>
+                                    </div>
+                                    <div className='text-right'>
+                                        <p className='font-semibold'>Current Campaign:</p>
+                                        <div> {character.campaign? character.campaign.name: "None"}</div>
                                     </div>
                                 </div>
                                 <div className="flex justify-center">
@@ -113,7 +123,8 @@ const ShowOneCharacter = (props) => {
                         </div>
                     </div>
                     <Chat socket={socket} user={user} campaign={character.campaign} />
-                </>)}
+                </>
+                )}
         </div>
     )
 }

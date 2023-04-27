@@ -13,6 +13,7 @@ app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 require('./routes/user.routes')(app);
 require('./routes/character.routes')(app);
 require('./routes/campaign.routes')(app);
+require('./routes/item.routes')(app);
 
 app.get('/', (req, res) => {
     return res.send('Hello')
@@ -31,12 +32,14 @@ io.on("connection", socket => {
 
     socket.on("join_room", (campaign_id) => {
         socket.join(campaign_id)
+        socket.emit('confirm_join', ('confirmed?'))
         console.log(`User ${socket.id} joined room ${campaign_id}`)
     })
 
     socket.on('send_message', (data) => {
         console.log(data)
-        socket.to(1).emit('receive_message', data)
+        console.log(data.campaign._id)
+        socket.to(data.campaign._id).emit('receive_message', data)
     })
     
 
