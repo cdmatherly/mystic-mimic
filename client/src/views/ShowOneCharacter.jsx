@@ -75,7 +75,7 @@ const ShowOneCharacter = (props) => {
                                         </div>
                                     </div>
                                     <div className='text-right'>
-                                        <p className='font-semibold'>Curent Campaign:</p>
+                                        <p className='font-semibold'>Current Campaign:</p>
                                         <div> {character.campaign? character.campaign.name: "None"}</div>
                                     </div>
                                 </div>

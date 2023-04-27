@@ -41,48 +41,47 @@ const Chat = (props) => {
                             </span>
                         </div>
                         <div className="flex flex-col leading-tight">
-                            <div className="flex items-center mt-1 text-2xl">
-                                <span className="ml-2 mr-3 text-gray-700">{user.username}</span>
-                                <div className="flex items-center mt-1 text-2xl">
-                                    <span className="mr-3 text-gray-700">{campaign ? campaign.name : "Not in any campaign!"}</span>
-                                </div>
-                                <span className="-ml-3 text-lg text-gray-600">Welcome to your Live Chat!</span>
+                            <div className="flex flex-col items-center mt-1 text-2xl">
+                                    <span className="ml-2 mr-3 text-gray-700">{campaign ? campaign.name : "Not in any campaign!"}</span>
+                            </div>
+                            <span className="-ml-3 text-lg text-gray-600">Welcome, {user.username}!</span>
+                        </div>
+                    </div>
+                </div>
+                {/* Message Section */}
+                <div id="messages" className="flex flex-col p-3 space-y-4 overflow-y-auto scrolling-touch scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2">
+                    <div className="chat-message">
+                        <div className="flex items-end">
+                            <div className="flex flex-col items-start order-2 max-w-xs mx-2 space-y-2 text-xs">
+                                <div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">Welcome to the chat feature!</span></div>
                             </div>
                         </div>
                     </div>
-                    {/* Message Section */}
-                    <div id="messages" className="flex flex-col p-3 space-y-4 overflow-y-auto scrolling-touch scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2">
-                        <div className="chat-message">
-                            <div className="flex items-end">
-                                <div className="flex flex-col items-start order-2 max-w-xs mx-2 space-y-2 text-xs">
-                                    <div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">Welcome to the chat feature!</span></div>
-                                </div>
+                    <div className="chat-message">
+                        <div className="flex items-end justify-end">
+                            <div className="flex flex-col items-end order-1 max-w-xs mx-2 space-y-2 text-xs">
+                                <div><span className="inline-block px-4 py-2 text-white bg-blue-600 rounded-lg rounded-br-none ">Start by typing in a message below.</span></div>
                             </div>
-                        </div>
-                        <div className="chat-message">
-                            <div className="flex items-end justify-end">
-                                <div className="flex flex-col items-end order-1 max-w-xs mx-2 space-y-2 text-xs">
-                                    <div><span className="inline-block px-4 py-2 text-white bg-blue-600 rounded-lg rounded-br-none ">Start by typing in a message below.</span></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="chat-message">
-                            {messageList.map((messageContent) =>
-                                <div key={messageContent.message} className='h-auto p-2 message flex-column' id={user.username === messageContent.author ? "you" : "other"}>
-                                    <div className='flex items-center justify-end w-auto h-auto px-4 py-2 text-xs text-white bg-blue-600 rounded-lg message-content max-w-max'>
-                                        <p>{messageContent.message}</p>
-                                    </div>
-                                    <div className='flex message-meta'>
-                                        <p>{messageContent.time}</p>
-                                        <p className='ml-2 font-semibold'> - {messageContent.author}</p>
-                                    </div>
-                                </div>)}
                         </div>
                     </div>
-                    {/* Button Section */}
-                    <div className="px-4 pt-4 mb-2 border-t-2 border-gray-200 sm:mb-0">
-                        <div className="relative flex">
-                            <input value={currentMessage} onChange={(e) => setCurrentMessage(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendMessage()} type="text" placeholder="Send a message" className="w-full py-3 pl-10 text-gray-600 placeholder-gray-600 bg-gray-200 rounded-md focus:outline-none focus:placeholder-gray-400" />
+                    <div className="chat-message">
+                    {messageList.map((messageContent) =>
+                        <div key={messageContent.message} className='h-auto p-2 message flex-column' id={user.username === messageContent.author ? "you" : "other"}>
+                            <div className='flex items-center justify-end w-auto h-auto px-4 py-2 text-xs text-white bg-blue-600 rounded-lg message-content max-w-max'>
+                                <p>{messageContent.message}</p>
+                            </div>
+                            <div className='flex message-meta'>
+                                <p>{messageContent.time}</p>
+                                <p className='ml-2 font-semibold'> - {messageContent.author}</p>
+                            </div>
+                        </div>)}
+                    </div>
+                </div>
+
+                {/* Button Section */}
+                <div className="px-4 pt-4 mb-2 border-t-2 border-gray-200 sm:mb-0">
+                    <div className="relative flex">
+                        <input value={currentMessage} onChange={(e) => setCurrentMessage(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendMessage()} type="text" placeholder="Send a message" className="w-full py-3 pl-10 text-gray-600 placeholder-gray-600 bg-gray-200 rounded-md focus:outline-none focus:placeholder-gray-400"/>
                             <div class="absolute right-0 items-center inset-y-0 hidden sm:flex">
                                 <button onClick={sendMessage} type="button" className="inline-flex items-center justify-center px-2 py-3 text-white transition duration-500 ease-in-out bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none">
                                     <span className="font-bold">Send</span>
@@ -91,11 +90,9 @@ const Chat = (props) => {
                                     </svg>
                                 </button>
                             </div>
-                        </div>
                     </div>
                 </div>
-            </div>
-        </>
+            </div>        </>
     )
 }
 
