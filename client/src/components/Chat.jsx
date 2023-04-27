@@ -50,7 +50,7 @@ const Chat = (props) => {
                 </div>
             </div> */}
 
-            <div className="flex flex-col justify-between bg-white rounded-lg h-80 w-80">==
+            <div className="flex flex-col justify-between bg-white rounded-lg h-80 w-80">
                 <div className="flex justify-between py-3 border-b-2 border-gray-200 sm:items-center">
                     <div className="relative flex items-center space-x-4">
                         <div className="relative">
