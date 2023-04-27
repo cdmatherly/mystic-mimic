@@ -3,11 +3,17 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Chat from '../components/Chat';
+import { useCookies } from 'react-cookie'
+import io from 'socket.io-client'
+
 
 const ShowOneCharacter = (props) => {
     const { char_id } = useParams()
     const [character, setCharacter] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
+    const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
+    const user_id = cookies.user_id
+    const [socket] = useState(() => io(':8000'))
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/characters/${char_id}`)
@@ -22,8 +28,8 @@ const ShowOneCharacter = (props) => {
     }, [])
 
     return (
-        <>
-            {!isLoading && (<div className="grid items-start justify-center gap-8">
+        <div className='flex'>
+            {!isLoading && (<div className="grid items-start justify-center w-4/5 gap-8">
                 <div className="relative">
                     <div className="absolute rounded-lg -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 blur-lg "></div>
                     <div></div>
@@ -153,7 +159,8 @@ const ShowOneCharacter = (props) => {
                     </div>
                 </div>
             </div>)}
-        </>
+            <Chat socket={socket} user_id={user_id}/>
+        </div>
     )
 }
 export default ShowOneCharacter;
