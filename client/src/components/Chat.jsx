@@ -33,11 +33,10 @@ const Chat = (props) => {
             <div className="justify-between flex flex-col h-80 w-80 bg-white rounded-lg">
                 <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
                     <div className="relative flex items-center space-x-4 p-1">
-                        <div className="relative">
-                            <span className="absolute text-green-500 right-0 bottom-0 left-0.5">
-                                <svg width="20" height="20">
-                                    <circle cx="8" cy="8" r="8" fill="currentColor"></circle>
-                                </svg>
+                        <div className="ml-2 mb-5 -mr-4">
+                            <span class="relative flex h-3 w-3">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                             </span>
                         </div>
                         <div className="flex flex-col leading-tight">
@@ -53,7 +52,7 @@ const Chat = (props) => {
                     <div className="chat-message">
                         <div className="flex items-end">
                             <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-                                <div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">Welcome to the chat feature!</span></div>
+                                <div><span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">Welcome to the chat feature!</span></div>
                             </div>
                         </div>
                     </div>
@@ -82,7 +81,7 @@ const Chat = (props) => {
                 <div className="px-4 pt-4 mb-2 border-t-2 border-gray-200 sm:mb-0">
                     <div className="relative flex">
                         <input value={currentMessage} onChange={(e) => setCurrentMessage(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendMessage()} type="text" placeholder="Send a message" className="w-full py-3 pl-10 text-gray-600 placeholder-gray-600 bg-gray-200 rounded-md focus:outline-none focus:placeholder-gray-400"/>
-                            <div class="absolute right-0 items-center inset-y-0 hidden sm:flex">
+                            <div className="absolute right-0 items-center inset-y-0 hidden sm:flex">
                                 <button onClick={sendMessage} type="button" className="inline-flex items-center justify-center px-2 py-3 text-white transition duration-500 ease-in-out bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none">
                                     <span className="font-bold">Send</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6 ml-2 transform rotate-90">
