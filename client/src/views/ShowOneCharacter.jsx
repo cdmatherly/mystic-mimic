@@ -1,4 +1,5 @@
 import charImg from '../images/bard_lute_char_img.jpeg';
+import ImageModal from '../components/ImageModal'
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -35,7 +36,8 @@ const ShowOneCharacter = (props) => {
                     <div></div>
                     <div className="relative max-w-full px-20 py-20 overflow-hidden bg-white rounded shadow-lg">
                         <div>
-                            <img className="h-20" src={charImg} alt="Character"></img>
+                            <ImageModal character={character}>
+                                </ImageModal>
                             <div className="mb-6">
                                 <p className="text-lg font-bold text-gray-500">
                                     {character.name}
@@ -159,7 +161,7 @@ const ShowOneCharacter = (props) => {
                     </div>
                 </div>
             </div>)}
-            <Chat socket={socket} user_id={user_id}/>
+            <Chat socket={socket} user_id={user_id} />
         </div>
     )
 }
