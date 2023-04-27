@@ -54,7 +54,6 @@ const ShowOneCharacter = (props) => {
     return (
         <div className='flex'>
             {!isUserLoading && !isCharacterLoading && (
-            {!isUserLoading && !isCharacterLoading && (
                 <>
                     <div className="grid items-start justify-center w-4/5 gap-8">
                         <div className="relative">
@@ -124,7 +123,8 @@ const ShowOneCharacter = (props) => {
                         </div>
                     </div>
                     <Chat socket={socket} user={user} campaign={character.campaign} />
-                </>)}
+                </>
+                )}
         </div>
     )
 }
