@@ -3,7 +3,7 @@ const { Character } = require("../models/character.model")
 
 // get all campaigns and populate characters with character documents from character model
 module.exports.getAllCampaigns = (req, res) => {
-    Campaign.find().populate('characters')
+    Campaign.find().populate('characters').populate('owner')
         .then((campaigns) => {
             return res.json(campaigns)
         })
