@@ -31,7 +31,6 @@ module.exports.getCharactersByUser = (req, res) => {
         let userCharacters = user.characters
         Character.find({ _id: { $in: userCharacters }}).populate('campaign')
             .then((characters) => {
-                console.log(characters)
                 return res.json(characters)
             })
             .catch((err) => {
@@ -79,13 +78,16 @@ module.exports.createCharacterAndUpdateUser = (req, res) => {
     let newCharacter = {...req.body, user: req.params.user_id}
     Character.create(newCharacter)
         .then((character) => {
+            let newCharacter = character
+            // console.log("newCharacter",newCharacter)
             console.log(character._id)
             User.findById(req.params.user_id)
                 .then((user) => {
-                    console.log(user.characters)
                     let updateCharacters = { "characters": [...user.characters, character._id] }
-                    console.log(updateCharacters)
                     User.findByIdAndUpdate(req.params.user_id, updateCharacters, { runValidators: true, new: true })
+                        .then((user) => {
+                            return res.json(newCharacter)
+                        })
                         .catch((err) => {
                             return res.status(400).json(err)
                         })
@@ -93,7 +95,6 @@ module.exports.createCharacterAndUpdateUser = (req, res) => {
                 .catch((err) => {
                     return res.status(400).json(err)
                 })
-            return res.json(character);
         })
         .catch((err) => {
             return res.status(400).json(err)
