@@ -12,9 +12,12 @@ const ShowOneCharacter = (props) => {
     const { char_id } = useParams()
     const [character, setCharacter] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
+    const [user, setUser] = useState(null)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user_id = cookies.user_id
     const [socket] = useState(() => io(':8000'))
+
+
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/characters/${char_id}`)
@@ -22,11 +25,23 @@ const ShowOneCharacter = (props) => {
                 console.log(res)
                 setCharacter(res.data)
                 setIsLoading(false)
+                socket.emit("join_room", res.data.campaign._id)
             })
             .catch(err => {
                 console.log(err)
             })
-    }, [])
+
+        axios.get(`http://localhost:8000/api/users/${user_id}`)
+            .then(res => {
+                console.log(res)
+                setUser(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            
+        return () => socket.disconnect(true)
+    }, [socket])
 
     return (
         <div className='flex'>
@@ -163,7 +178,7 @@ const ShowOneCharacter = (props) => {
                             </div>
                         </div>
                     </div>
-                    <Chat socket={socket} user_id={user_id} />
+                    <Chat socket={socket} user={user} campaign={character.campaign._id} />
                 </>)}
         </div>
     )

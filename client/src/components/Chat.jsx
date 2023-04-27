@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 const Chat = (props) => {
-    const { socket, user } = props
+    const { socket, user, campaign } = props
     const [currentMessage, setCurrentMessage] = useState('')
     const [messageList, setMessageList] = useState([])
 
@@ -10,7 +10,8 @@ const Chat = (props) => {
             const messageData = {
                 author: user.username,
                 message: currentMessage,
-                time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()
+                time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
+                campaign
             }
 
             await socket.emit("send_message", messageData)
@@ -29,21 +30,21 @@ const Chat = (props) => {
 
     return (
         <div className=' h-96 w-72'>
-            <div className="header h-11 bg-slate-200 relative cursor-pointer">Live Chat</div>
-            <div className="body h-52 bg-slate-400 border border-solid border-black relative">
+            <div className="relative cursor-pointer header h-11 bg-slate-200">Live Chat</div>
+            <div className="relative border border-black border-solid body h-52 bg-slate-400">
                 {messageList.map((messageContent) =>
-                    <div key={messageContent.message} className='message h-auto p-2 flex' id={user.username === messageContent.author ? "you" : "other" }>
-                        <div className='message-content w-auto h-auto bg-blue-300 rounded mx-1 px-1 max-w-max flex items-center justify-end'>
+                    <div key={messageContent.message} className='flex h-auto p-2 message' id={user.username === messageContent.author ? "you" : "other" }>
+                        <div className='flex items-center justify-end w-auto h-auto px-1 mx-1 bg-blue-300 rounded message-content max-w-max'>
                             <p>{messageContent.message}</p>
                         </div>
-                        <div className='message-meta flex'>
+                        <div className='flex message-meta'>
                             <p>{messageContent.time}</p>
                             <p className='ml-2 font-semibold'>{messageContent.author}</p>
                         </div>
                     </div>)}
             </div>
-            <div className="footer h-10 border border-black border-t-0 flex">
-                <input className=' h-full py-1 ' type="text" placeholder="Send a message" value={currentMessage} onChange={(e) => setCurrentMessage(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendMessage()}/>
+            <div className="flex h-10 border border-t-0 border-black footer">
+                <input className='h-full py-1 ' type="text" placeholder="Send a message" value={currentMessage} onChange={(e) => setCurrentMessage(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendMessage()}/>
                 <button onClick={sendMessage}>&#9658;</button>
             </div>
         </div>
