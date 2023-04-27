@@ -83,7 +83,6 @@ const CreateACharacter = (props) => {
             setCharisma(stat)
             setAttributePoints(75-attributePointCosts[strength]-attributePointCosts[dexterity]-attributePointCosts[constitution]-attributePointCosts[intelligence]-attributePointCosts[wisdom]-attributePointCosts[stat])
         }
-        
     }
 
     const handleCreateACharacter = (event) => {
@@ -104,9 +103,6 @@ const CreateACharacter = (props) => {
             class:className,
             ...stats
         }
-
-        console.log(stats)
-        console.log(newCharacter)
 
         axios.post(`http://localhost:8000/api/${user}/characters`, newCharacter)
             .then((response) => {
