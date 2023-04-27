@@ -42,7 +42,7 @@ const Dash = (props) => {
 
     return (
         <>
-            <div className="bg-black">
+            <div className="bg-black absolute w-full">
                 <ul className="flex border-b justify-between">
                     <div className="flex">
                         <li className="-mb-px mr-1">
@@ -69,7 +69,7 @@ const Dash = (props) => {
                 height: '100vh',
                 width: 'auto'
             }}>
-                <div className="py-16 bg-black bg-opacity-80 rounded-lg p-8 overflow-y-auto" style={{ height: "85vh" }}>
+                <div className="mt-10 p-12 bg-black bg-opacity-80 rounded-lg overflow-y-auto" style={{ height: "85vh" }}>
                     <Outlet />
                 </div>
 
