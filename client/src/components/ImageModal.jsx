@@ -20,7 +20,7 @@ export default function Modal(props) {
                     >
                         <div className="relative w-auto max-w-3xl mx-auto my-6">
                             {/*content*/}
-                            <img className="" src={require("../images/combo_imgs/" + character.race.toLowerCase() + "-" + character.class.toLowerCase() + ".jpg")} alt="Character" />
+                            <img className="max-h-screen" src={require("../images/combo_imgs/" + character.race.toLowerCase() + "-" + character.class.toLowerCase() + ".jpg")} alt="Character" />
                         </div>
                     </div>
                     <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
