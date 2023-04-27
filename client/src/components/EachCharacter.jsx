@@ -38,48 +38,48 @@ const EachCharacter = (props) => {
     
     return (
         <div className="relative">
-            <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg "></div>
-            <div className="relative max-w-full rounded overflow-hidden shadow-lg px-16 py-16 bg-white">
+            <div className="absolute rounded-lg -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 blur-lg "></div>
+            <div className="relative max-w-full px-16 py-16 overflow-hidden bg-white rounded shadow-lg">
                 <div>
-                    <img className="h-20" src={charImg} alt="Character Image"></img>
+                <img className="h-20" src={require("../images/combo_imgs/" + character.race.toLowerCase() + "-" + character.class.toLowerCase() + ".jpg")} alt="Character"></img>
                     <div className="mb-6">
-                        <label className="text-gray-500 font-bold">
+                        <label className="font-bold text-gray-500">
                             {character.name}
                         </label>
                     </div>
                 </div>
-                <div className="md:flex md:items-center mb-6">
+                <div className="mb-6 md:flex md:items-center">
                     <div className="md:w-1/3">
-                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        <label className="block pr-4 mb-1 font-bold text-gray-500 md:text-right md:mb-0">
                             Race:
                         </label>
                     </div>
                     <div className="md:w-2/3">
-                        <p className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight">{character.race}</p>
+                        <p className="w-full px-4 py-4 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.race}</p>
                     </div>
                 </div>
 
-                <div className="md:flex md:items-center mb-6">
+                <div className="mb-6 md:flex md:items-center">
                     <div className="md:w-1/3">
-                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        <label className="block pr-4 mb-1 font-bold text-gray-500 md:text-right md:mb-0">
                             Class:
                         </label>
                     </div>
                     <div className="md:w-2/3">
-                        <p className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight">{character.class}</p>
+                        <p className="w-full px-4 py-4 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.class}</p>
                     </div>
                 </div>
 
-                <div className="md:flex md:items-center mb-6">
+                <div className="mb-6 md:flex md:items-center">
                     <div className="md:w-1/3">
-                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        <label className="block pr-4 mb-1 font-bold text-gray-500 md:text-right md:mb-0">
                             Campaign:
                         </label>
                     </div>
                     <div className="md:w-2/3">
                         {character.campaign !== null ? 
-                        <Link to="/vac" className="bg-gray-200 border-2 border-gray-200 rounded block py-4 px-4 text-gray-700 leading-tight font-semibold">{character.campaign.name}</Link> : 
-                        <p className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight">None</p> }
+                        <Link to="/vac" className="block px-4 py-4 font-semibold leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.campaign.name}</Link> : 
+                        <p className="w-full px-4 py-4 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">None</p> }
                     </div>
                 </div>
 

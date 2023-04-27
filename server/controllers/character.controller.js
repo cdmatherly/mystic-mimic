@@ -15,7 +15,7 @@ module.exports.getAllCharacters = (req, res) => {
 
 // get character by ID
 module.exports.getCharacterById = (req, res) => {
-    Character.findById(req.params.id)
+    Character.findById(req.params.id).populate('campaign')
         .then((character) => {
             return res.json(character)
         })

@@ -32,12 +32,12 @@ io.on("connection", socket => {
 
     socket.on("join_room", (campaign_id) => {
         socket.join(campaign_id)
-        console.log(`User ${socket.id} joined room`)
+        console.log(`User ${socket.id} joined room ${campaign_id}`)
     })
 
     socket.on('send_message', (data) => {
         // console.log(data)
-        socket.to(1).emit('receive_message', data)
+        socket.to(data.campaign).emit('receive_message', data)
     })
     
 

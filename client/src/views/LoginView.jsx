@@ -36,13 +36,14 @@ const Login = (props) => {
 
     return (
         <>
-            <div className=" relative max-w-full rounded overflow-hidden shadow-lg px-20 py-5 bg-no-repeat bg-cover" style={{
+            <div className="relative max-w-full bg-no-repeat bg-cover py-40" style={{
                                 backgroundPosition: '100%',
                                 backgroundImage: 'url("https://cdn.shopify.com/s/files/1/0059/3061/4851/products/B9A0964.jpg?v=1653900526&width=1445")',
-                                height: '100vh',
+                                height: '1060px',
                                 width: 'auto'
                             }}>
-                <div className="flex bg-gray-800 opacity-90 max-h-full flex-1 flex-col px-6 py-12 lg:px-8 w-2/5">
+                <div className="grid items-start justify-center">
+                <div className="flex bg-gray-800 rounded-lg bg-opacity-90 max-h-full min-w-full flex-1 flex-col px-10 py-12 lg:px-8 w-2/5">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                         <h1 className="mb-4 text-3xl font-extrabold text-black md:text-5xl lg:text-6xl"><span className="text-transparent bg-clip-text bg-gradient-to-r to-purple-500 from-sky-400">Mystic</span> Mimic</h1>
                         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
@@ -111,6 +112,7 @@ const Login = (props) => {
                                     Register
                                 </Link>
                             </p>
+                    </div>
                     </div>
                 </div>
             </div>

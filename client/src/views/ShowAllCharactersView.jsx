@@ -3,6 +3,7 @@ import axios from 'axios'
 import charImg from '../images/bard_lute_char_img.jpeg';
 import { useCookies } from 'react-cookie'
 import EachCharacter from '../components/EachCharacter'
+import LoadingScreen from '../components/LoadingScreen';
 
 const ShowAllCharacters = (props) => {
     const [characters, setCharacters] = useState([])
@@ -52,18 +53,23 @@ const ShowAllCharacters = (props) => {
 
 
     return (
-            <div className="grid grid-cols-4 gap-10">
-                {!isLoading && characters.map((character) =>
-                    <EachCharacter key={character._id} 
-                    charImg={charImg} 
-                    character={character} 
-                    allCharacters={characters} 
-                    updateCharacters={updateCharacters} 
-                    handleEdit={handleEdit} 
-                    races={races}
-                    classes={classes}/>
-                )}
-            </div>
+        <>
+            {isLoading ?
+                <LoadingScreen /> :
+                <div className="grid grid-cols-4 gap-10">
+                    {characters.map((character) =>
+                        <EachCharacter key={character._id}
+                            charImg={charImg}
+                            character={character}
+                            allCharacters={characters}
+                            updateCharacters={updateCharacters}
+                            handleEdit={handleEdit}
+                            races={races}
+                            classes={classes} />
+                    )}
+                </div>
+            }
+        </>
     )
 }
 export default ShowAllCharacters;
