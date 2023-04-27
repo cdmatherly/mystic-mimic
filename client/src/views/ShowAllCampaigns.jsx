@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Outlet } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import EachCampaign from "../components/EachCampaign";
+import LoadingScreen from "../components/LoadingScreen";
 
 
 const ViewAllCampaigns = (props) => {
@@ -37,11 +38,16 @@ const ViewAllCampaigns = (props) => {
     }, [newCampaign, updateCampaigns])
 
     return (
-        <div className="grid grid-cols-4 gap-10">
-            {campaigns.map((campaign) =>
-                <EachCampaign key={campaign._id} campaign={campaign} characters={characters} setNewCampaign={setNewCampaign} setUpdateCampaigns={setUpdateCampaigns} />
-            )}
-        </div>
+        <>
+            {isLoading ?
+                <LoadingScreen /> :
+                <div className="grid grid-cols-4 gap-10">
+                    {campaigns.map((campaign) =>
+                        <EachCampaign key={campaign._id} campaign={campaign} characters={characters} setNewCampaign={setNewCampaign} setUpdateCampaigns={setUpdateCampaigns} />
+                    )}
+                </div>
+            }
+        </>
     )
 }
 export default ViewAllCampaigns;

@@ -16,6 +16,7 @@ import CreateACampaign from "./views/CreateACampaign";
 import ViewAllCampaigns from "./views/ShowAllCampaigns";
 import ShowOneCampaignModal from "./components/ShowOneCampaignModal"
 import NotFound from "./views/NotFound";
+import LoadingScreen from "./components/LoadingScreen";
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['user_id'])

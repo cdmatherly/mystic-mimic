@@ -33,6 +33,8 @@ const CreateACharacter = (props) => {
     const [classes, setClasses] = useState([])
     const [attributePoints, setAttributePoints] = useState(75 - attributePointCosts[strength] - attributePointCosts[dexterity] - attributePointCosts[constitution] - attributePointCosts[intelligence] - attributePointCosts[wisdom] - attributePointCosts[charisma])
 
+    const [isLoading, setIsLoading] = useState(true)
+
     const [validationErrors, setValidationErrors] = useState(null)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user = cookies.user_id
@@ -106,6 +108,7 @@ const CreateACharacter = (props) => {
 
         axios.post(`http://localhost:8000/api/${user}/characters`, newCharacter)
             .then((response) => {
+                setIsLoading(false)
                 navigate('/sac')
                 console.log(response.data);
             })
@@ -143,9 +146,11 @@ const CreateACharacter = (props) => {
                             <div className='h-12 md:w-1/6'></div>
                             <div className="md:w-4/6">
                                 <select value={race} onChange={(event) => setRace(event.target.value)} id='race' className="w-full px-4 py-2 pr-8 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded focus:outline-none focus:bg-white focus:border-purple-500">
-                                    {races.map((race) =>
-                                        <option key={race.index} value={race.name}>{race.name}</option>
-                                    )}
+                                    {!isLoading ?
+                                        <option>Loading Options...</option> :
+                                        races.map((race) =>
+                                            <option key={race.index} value={race.name}>{race.name}</option>
+                                        )}
                                 </select>
                             </div>
                         </div>
@@ -158,7 +163,9 @@ const CreateACharacter = (props) => {
                             <div className='h-12 md:w-1/6'></div>
                             <div className="md:w-4/6">
                                 <select value={className} onChange={(event) => setClassName(event.target.value)} id='class' className="w-full px-4 py-2 pr-8 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded focus:outline-none focus:bg-white focus:border-purple-500">
-                                    {classes.map((eachClass) =>
+                                    {!isLoading?
+                                    <option>Loading Options...</option> :
+                                    classes.map((eachClass) =>
                                         <option key={eachClass.index} value={eachClass.name}>{eachClass.name}</option>
                                     )}
                                 </select>
