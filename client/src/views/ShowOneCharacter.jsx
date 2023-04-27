@@ -1,4 +1,7 @@
 import charImg from '../images/bard_lute_char_img.jpeg';
+import {useState, useParams } from 'react'
+import Chat from '../components/Chat';
+
 const ShowOneCharacter = (props) => {
     return (
         <>
@@ -80,7 +83,6 @@ const ShowOneCharacter = (props) => {
                                         <p className="bg-gray-200 border-2 border-gray-200 rounded w-full py-4 px-4 text-gray-700 leading-tight">Character's Charisma Goes Here</p>
                                     </div>
                                 </div>
-
                         </div>
                     </div>
                 </div>
