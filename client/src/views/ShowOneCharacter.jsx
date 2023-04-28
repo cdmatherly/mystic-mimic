@@ -7,6 +7,7 @@ import Chat from '../components/Chat';
 import { useCookies } from 'react-cookie'
 import io from 'socket.io-client'
 import Tabs from './sideViewOneCharacter';
+import ChatDrawer from '../components/ChatDrawer'
 
 
 const ShowOneCharacter = (props) => {
@@ -16,6 +17,7 @@ const ShowOneCharacter = (props) => {
     const [isCharacterLoading, setIsCharacterLoading] = useState(true)
     const [isUserLoading, setIsUserLoading] = useState(true)
     const [user, setUser] = useState(null)
+    const [isOpen, setIsOpen] = useState(false)
     const [cookies, setCookie, removeCookie] = useCookies(['user_id'])
     const user_id = cookies.user_id
     const [socket] = useState(() => io(':8000'))
@@ -31,7 +33,7 @@ const ShowOneCharacter = (props) => {
                 setCharacter(res.data)
                 setIsCharacterLoading(false)
                 res.data.campaign !== null && (
-                socket.emit("join_room", res.data.campaign._id))
+                    socket.emit("join_room", res.data.campaign._id))
                 res.data.campaign && setCampaignId(res.data.campaign._id)
             })
             .catch(err => {
@@ -53,9 +55,9 @@ const ShowOneCharacter = (props) => {
     }, [socket])
 
     return (
-        <div className='flex'>
+        <div className=''>
             {!isUserLoading && !isCharacterLoading && (
-                <>
+                <div className='flex relative justify-center'>
                     <div className="grid items-start justify-center w-4/5 gap-8">
                         <div className="relative">
                             <div className="absolute rounded-lg -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 blur-lg "></div>
@@ -64,7 +66,7 @@ const ShowOneCharacter = (props) => {
                             <div className="relative max-w-full px-20 py-8 overflow-hidden bg-white rounded shadow-lg">
                                 <div className="flex">
                                     <div className='flex items-center justify-between'>
-                                    <div>
+                                        <div>
                                             <ImageModal character={character}>
                                             </ImageModal>
                                             <div className="mb-6">
@@ -76,13 +78,13 @@ const ShowOneCharacter = (props) => {
                                                     <p className=''>{character.class}</p>
                                                 </div>
                                             </div>
-                                    </div>
                                         </div>
+                                    </div>
                                     <div className='text-right'>
                                         <p className='font-semibold'>Current Campaign:</p>
-                                        <div> {character.campaign? character.campaign.name: "None"}</div>
+                                        <div> {character.campaign ? character.campaign.name : "None"}</div>
                                     </div>
-                                <div>
+                                    <div>
                                         <div className="flex justify-center ml-16 mt-5">
                                             {/* Map through each stat */}
                                             {Object.entries(character.stats).map((stat) =>
@@ -116,7 +118,7 @@ const ShowOneCharacter = (props) => {
 
                                         </div>
                                     </div>
-                                    
+
                                     {/* Right Side of the bottom div */}
                                     <div className='flex-auto w-full p-3 mr-4 border-2 border-solid rounded'>
                                         <Tabs />
@@ -127,9 +129,12 @@ const ShowOneCharacter = (props) => {
 
                         </div>
                     </div>
-                    <Chat socket={socket} user={user} campaign={character.campaign} />
-                </>
-                )}
+                    <button className={'text-red-500 absolute right-0 -mr-12  transition-opacity ease-in-out duration-300 delay-300 ' + (isOpen ? ' opacity-0 ' : ' opacity-100 ')} onClick={() => setIsOpen(true)}>OPEN</button>
+                    <ChatDrawer isOpen={isOpen} setIsOpen={setIsOpen}>
+                        <Chat socket={socket} user={user} campaign={character.campaign} />
+                    </ChatDrawer>
+                </div>
+            )}
         </div>
     )
 }
