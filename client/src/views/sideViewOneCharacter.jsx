@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ItemDrawer from '../components/ItemDrawer'
+import axios from "axios";
 
 function Tabs(props) {
+  const {character} = props
   const [toggleState, setToggleState] = useState(0);
   const [isItemListOpen, setIsItemListOpen] = useState(false)
-  const {character} = props
+  const [items, setItems] = useState([])
 
   const toggleTab = (index) => {
     setToggleState(index);
@@ -14,6 +16,17 @@ function Tabs(props) {
   const handleAddItems = () => {
     setIsItemListOpen(true)
   }
+
+  useEffect(() => {
+    axios.get(`http://localhost:8000/api/${character._id}/items`)
+      .then(res => {
+        console.log(res)
+        setItems(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [])
 
   return (
     <>
@@ -57,12 +70,12 @@ function Tabs(props) {
             {/* UNCOMMENT when fixed */}
             {/* <p className="text-right"><button onClick={handleAddItems}>Add items to inventory</button></p> */}
             <ItemDrawer isOpen={isItemListOpen} setIsOpen={setIsItemListOpen}/>
-            <ul>
-              {character.inventory.map((item) => 
-              <li key={item._id} className="ml-5">{item.name}</li>
-              )}
-            </ul>
-          </div>
+          <ul>
+            {items.map((item, idx) => 
+            <li key={item._id} className="ml-5">{item.name} {character.inventory[idx].quantity}</li>
+            )}
+          </ul>
+        </div>
 
           <div
             className={toggleState === 2 ? "content  active-content" : "hidden"}
