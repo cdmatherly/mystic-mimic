@@ -150,11 +150,11 @@ const ShowOneCharacter = (props) => {
                                                 </p>
                                                 <button className="w-1/5 py-1 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-300 shadow rounded">
                                                     {skill.stat === 'STR' ? strBonus >= 0 ? '+' : '' : 
-                                                            skill.stat === 'DEX' ? dexBonus >= 0 ? '+' : '' : 
-                                                            skill.stat === 'CON' ? conBonus >= 0 ? '+' : '' : 
-                                                            skill.stat === 'WIS' ? wisBonus >= 0 ? '+' : '' : 
-                                                            skill.stat === 'INT' ? intBonus >= 0 ? '+' : '' : 
-                                                            skill.stat === 'CHA' ? chaBonus >= 0 ? '+' : '' : 
+                                                            skill.stat === 'DEX' ? dexBonus >= 0 ? '+ ' : '' : 
+                                                            skill.stat === 'CON' ? conBonus >= 0 ? '+ ' : '' : 
+                                                            skill.stat === 'WIS' ? wisBonus >= 0 ? '+ ' : '' : 
+                                                            skill.stat === 'INT' ? intBonus >= 0 ? '+ ' : '' : 
+                                                            skill.stat === 'CHA' ? chaBonus >= 0 ? '+ ' : '' : 
                                                             'null'}
                                                             {skill.stat === 'STR' && strBonus} {skill.stat === 'DEX' && dexBonus} {skill.stat === 'CON' && conBonus}  {skill.stat === 'WIS' && wisBonus} {skill.stat === 'INT' && intBonus} {skill.stat === 'CHA' && chaBonus}
                                                 </button>
