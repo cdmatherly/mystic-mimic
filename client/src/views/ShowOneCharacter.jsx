@@ -21,6 +21,7 @@ const ShowOneCharacter = (props) => {
     const [isChatOpen, setIsChatOpen] = useState(false)
     const [isDiceOpen, setIsDiceOpen] = useState(false)
     const [setMessage, setSentMessage] = useState(false)
+    const [isOwner, setIsOwner] = useState(false)
     const [strBonus, setStrBonus] = useState(0)
     const [dexBonus, setDexBonus] = useState(0)
     const [conBonus, setConBonus] = useState(0)
@@ -41,6 +42,7 @@ const ShowOneCharacter = (props) => {
                 console.log(res)
                 setCharacter(res.data)
                 setIsCharacterLoading(false)
+                user_id === res.data.user._id && setIsOwner(true);
                 res.data.campaign !== null && (
                     socket.emit("join_room", res.data.campaign._id))
                 res.data.campaign && setCampaignId(res.data.campaign._id)
@@ -73,7 +75,6 @@ const ShowOneCharacter = (props) => {
             .then(res => {
                 console.log(res)
                 setUser(res.data)
-                setIsUserLoading(false)
                 setIsUserLoading(false)
             })
             .catch(err => {
@@ -148,7 +149,7 @@ const ShowOneCharacter = (props) => {
             {!isUserLoading && !isCharacterLoading && (
                 <div className='flex relative justify-center'>
                     <div className=' left-0 bottom-0'>
-                        <button onClick={() => handleDiceButton(20, {bonus: 0})} className='h-16 w-16 bg-red-500 fixed rounded-full' style={{ top: '84%', left: '15%' }}></button>
+                        {isOwner && <button onClick={() => handleDiceButton(20, {bonus: 0})} className='h-16 w-16 bg-red-500 fixed rounded-full' style={{ top: '84%', left: '15%' }}/>}
                     </div>
                     <div className="grid items-start justify-center w-4/5 gap-8">
                         <div className="relative">
@@ -183,7 +184,7 @@ const ShowOneCharacter = (props) => {
                                                         </p>
                                                     </div>
                                                     <div className="">
-                                                        <button onClick={() => handleDiceButton(20, findBonus(stat[0], stat[0].charAt(0).toUpperCase() + stat[0].slice(1)))} className="px-2 py-1 text-center text-gray-700 bg-gray-200 border-2 border-gray-300 rounded shadow">
+                                                        <button onClick={() => handleDiceButton(20, findBonus(stat[0], stat[0].charAt(0).toUpperCase() + stat[0].slice(1)))} disabled={!isOwner} className="px-2 py-1 text-center text-gray-700 bg-gray-200 border-2 border-gray-300 rounded shadow">
                                                             {stat[0] === 'strength' ? strBonus >= 0 ? '+ ' : '' :
                                                                 stat[0] === 'dexterity' ? dexBonus >= 0 ? '+ ' : '' :
                                                                     stat[0] === 'constitution' ? conBonus >= 0 ? '+ ' : '' :
@@ -199,9 +200,15 @@ const ShowOneCharacter = (props) => {
                                             )}
                                         </div>
                                     </div>
-                                    <div className='text-right'>
-                                        <p className='font-semibold'>Current Campaign:</p>
-                                        <div> {character.campaign ? character.campaign.name : "None"}</div>
+                                    <div className='text-right flex flex-col gap-2'>
+                                        <div>
+                                            <p className='font-semibold'>Owner:</p>
+                                            <p>{character.user.username}</p>
+                                        </div>
+                                        <div>
+                                            <p className='font-semibold'>Current Campaign:</p>
+                                            <p> {character.campaign ? character.campaign.name : "None"}</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='flex'>
@@ -214,7 +221,7 @@ const ShowOneCharacter = (props) => {
                                                 <p className="block w-3/5 pr-4 mb-1 font-bold text-center text-gray-500 align-middle text-md md:mb-0">
                                                     {skill.name}:
                                                 </p>
-                                                <button onClick={() => handleDiceButton(20, findBonus(skill.stat, skill.name))} className="w-1/5 py-1 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-300 shadow rounded">
+                                                <button onClick={() => handleDiceButton(20, findBonus(skill.stat, skill.name))} disabled={!isOwner} className="w-1/5 py-1 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-300 shadow rounded ">
                                                     {skill.stat === 'STR' ? strBonus >= 0 ? '+ ' : '' :
                                                         skill.stat === 'DEX' ? dexBonus >= 0 ? '+ ' : '' :
                                                             skill.stat === 'CON' ? conBonus >= 0 ? '+ ' : '' :
@@ -231,7 +238,7 @@ const ShowOneCharacter = (props) => {
 
                                     {/* Right Side of the bottom div */}
                                     <div className='flex-auto w-96 p-3 mr-4 border-2 border-solid rounded'>
-                                        <Tabs />
+                                        <Tabs character={character} />
                                     </div>
 
                                 </div>
@@ -239,9 +246,9 @@ const ShowOneCharacter = (props) => {
 
                         </div>
                     </div>
-                    <button className={'text-red-500 hover:animate-bounce absolute right-0 -mr-12 transition-opacity ease-in-out duration-300 delay-300 ' + (isChatOpen ? ' opacity-0 ' : ' opacity-100 ')} onClick={() => setIsChatOpen(true)}>
-                        <img className="h-20 w-20" src='https://cdn.discordapp.com/attachments/1100458355530666149/1101401013623201822/pi5rK5nyT.png'/>
-                    Open Chat</button>
+                    {isOwner && <button className={'text-red-500 hover:animate-bounce absolute right-0 -mr-12 transition-opacity ease-in-out duration-300 delay-300 ' + (isChatOpen ? ' opacity-0 ' : ' opacity-100 ')} onClick={() => setIsChatOpen(true)}>
+                        <img className="h-10 w-10" src='https://cdn.discordapp.com/attachments/1100458355530666149/1101401013623201822/pi5rK5nyT.png'/>
+                    Open Chat</button>}
                     <ChatDrawer isOpen={isChatOpen} setIsOpen={setIsChatOpen}>
                         <Chat socket={socket} user={user} campaign={character.campaign} diceRoll={diceRoll} madeDiceRoll={madeDiceRoll}/>
                     </ChatDrawer>
