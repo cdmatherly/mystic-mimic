@@ -40,7 +40,10 @@ const Chat = (props) => {
                         <div className="relative">
                         <span className="relative flex w-3 h-3">
                             <span className="absolute inline-flex w-full h-full rounded-full opacity-75 animate-ping bg-sky-400"></span>
-                            <span className="relative inline-flex w-3 h-3 bg-green-500 rounded-full"></span>
+                            {isConnected?
+                            <span className="relative inline-flex w-3 h-3 bg-green-500 rounded-full"></span>:
+                            <span className="relative inline-flex w-3 h-3 bg-red-500 rounded-full"></span>
+                            }
                         </span>
                         </div>
                         <div className="flex flex-col leading-tight">
@@ -82,11 +85,11 @@ const Chat = (props) => {
                 </div>
 
                 {/* Button Section */}
-                <div className="px-4 pt-4 mb-2 border-t-2 border-gray-200 sm:mb-0">
+                <div className="px-4 pt-4 md:mb-3 border-t-2 border-gray-200 mb-0">
                     <div className="relative flex">
                         <input value={currentMessage} onChange={(e) => setCurrentMessage(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendMessage()} type="text" placeholder="Send a message" className="w-full py-3 pl-10 text-gray-600 placeholder-gray-600 bg-gray-200 rounded-md focus:outline-none focus:placeholder-gray-400" />
                         <div className="absolute inset-y-0 right-0 items-center hidden sm:flex">
-                            <button onClick={sendMessage} type="button" className="inline-flex items-center justify-center px-2 py-3 text-white transition duration-500 ease-in-out bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none">
+                            <button onClick={sendMessage} type="button" disabled={!isConnected} className="inline-flex items-center justify-center px-2 py-3 text-white transition duration-500 ease-in-out bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none disabled:bg-slate-300">
                                 <span className="font-bold">Send</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6 ml-2 transform rotate-90">
                                     <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
