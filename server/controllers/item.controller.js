@@ -38,8 +38,8 @@ module.exports.createItem = (req, res) => {
 module.exports.addItemToCharacterInventory = (req, res) => {
     console.log(req.params.char_id)
     let newItem = {
-        "item": "644b608fcadd3fe04f7ac775", // <= change here,hard-coded for now
-        "quantity": 1 // <= change here,hard-coded for now
+        "item": "644b608fcadd3fe04f7ac769", // <= change here,hard-coded for now
+        "quantity": 2 // <= change here,hard-coded for now
     }
     Character.updateOne({ _id: req.params.char_id }, { $push: { inventory: newItem } }) //$push to add, $pull to remove
         .then((character) => {
@@ -87,14 +87,23 @@ module.exports.getItemsByCharacter = (req, res) => {
     Character.findById(req.params.char_id)
     .then((char) => {
         console.log(char)
+        let charInventory = char.inventory
         let charItems = []
         for (let i=0; i<char.inventory.length; i++){
             charItems.push(char.inventory[i].item)
         }
         console.log(charItems)
         Item.find({ _id: { $in: charItems }})
-            .then((characters) => {
-                return res.json(characters)
+            .then((items) => {
+                for (let i=0; i<charInventory.length; i++)
+                    for (let j=0; j<items.length; j++){
+                        console.log(items[i]._id)
+                        console.log(charInventory[j].item)
+                        if (items[i]._id.toString()==charInventory[j].item){
+                            charInventory[j].item=items[i]
+                        }
+                    }
+                return res.json(charInventory)
             })
             .catch((err) => {
                 return res.status(400).json(err)
