@@ -38,7 +38,7 @@ const Chat = (props) => {
                 <div className="flex justify-between py-3 border-b-2 border-gray-200 sm:items-center">
                     <div className="relative flex items-center p-1 space-x-4">
                         <div className="relative">
-                        <span className="relative flex w-3 h-3">
+                        <span className="absolute flex w-3 h-3">
                             <span className="absolute inline-flex w-full h-full rounded-full opacity-75 animate-ping bg-sky-400"></span>
                             {isConnected?
                             <span className="relative inline-flex w-3 h-3 bg-green-500 rounded-full"></span>:
@@ -48,9 +48,9 @@ const Chat = (props) => {
                         </div>
                         <div className="flex flex-col leading-tight">
                             <div className="flex flex-col items-center mt-1 text-2xl">
-                                <span className="ml-2 mr-3 text-gray-700">{campaign ? campaign.name : "Not in any campaign!"}</span>
+                                <span className="-ml-10 mr-5 font-bold text-gray-700">{campaign ? campaign.name : "Not in any campaign!"}</span>
                             </div>
-                            <span className="-ml-3 text-lg text-gray-600">Welcome, {user.username}!</span>
+                            <span className="ml-1 text-lg text-gray-600">Welcome, {user.username}!</span>
                         </div>
                     </div>
                 </div>

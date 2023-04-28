@@ -129,7 +129,9 @@ const ShowOneCharacter = (props) => {
 
                         </div>
                     </div>
-                    <button className={'text-red-500 absolute right-0 -mr-12  transition-opacity ease-in-out duration-300 delay-300 ' + (isOpen ? ' opacity-0 ' : ' opacity-100 ')} onClick={() => setIsOpen(true)}>OPEN</button>
+                    <button className={'text-red-500 hover:animate-bounce absolute right-0 -mr-12 transition-opacity ease-in-out duration-300 delay-300 ' + (isOpen ? ' opacity-0 ' : ' opacity-100 ')} onClick={() => setIsOpen(true)}>
+                        <img className="h-20 w-20" src='https://cdn.discordapp.com/attachments/1100458355530666149/1101401013623201822/pi5rK5nyT.png'/>
+                    Open Chat</button>
                     <ChatDrawer isOpen={isOpen} setIsOpen={setIsOpen}>
                         <Chat socket={socket} user={user} campaign={character.campaign} />
                     </ChatDrawer>
