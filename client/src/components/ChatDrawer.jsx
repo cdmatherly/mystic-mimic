@@ -9,7 +9,7 @@ export default function Drawer({ children, isOpen, setIsOpen }) {
             } style={{width: "350px"}}
         >
             <section
-                className={"w-full h-10 bg-gray-500 cursor-pointer left-0 text-center"}
+                className={"w-10 h-10 focus:text-3xl hover:text-3xl bg-gray-500 bg-gradient-to-r from-purple-500 to-sky-400 font-bold text-white text-lg border-l-2 border-t-2 border-b-2 border-black cursor-pointer left-0 text-center flex justify-center items-center"}
                 onClick={() => {
                     setIsOpen(false);
                 }}
