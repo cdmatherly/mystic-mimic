@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import Chat from '../components/Chat';
 import { useCookies } from 'react-cookie'
 import io from 'socket.io-client'
+import Tabs from './sideViewOneCharacter';
 
 
 const ShowOneCharacter = (props) => {
@@ -102,7 +103,7 @@ const ShowOneCharacter = (props) => {
                                 </div>
                                 <div className='flex'>
                                     {/* Bottom Left Column, On View One Character Page*/}
-                                    <div className='flex-auto p-3 mr-4 border-2 border-solid rounded'>
+                                    <div className='flex-32 p-3 mr-4 border-2 border-solid rounded'>
                                         <div className="mb-6 align-middle md:items-center">
 
                                             {skillList.map((skill) => <div key={skill.name} className="flex items-center mb-3 place-content-center">
@@ -117,8 +118,8 @@ const ShowOneCharacter = (props) => {
                                     </div>
                                     
                                     {/* Right Side of the bottom div */}
-                                    <div className='flex-auto p-3 mr-4 border-2 border-solid rounded'>
-                                        {/* insert component here */}
+                                    <div className='flex-auto w-full p-3 mr-4 border-2 border-solid rounded'>
+                                        <Tabs />
                                     </div>
 
                                 </div>
