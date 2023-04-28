@@ -7,7 +7,7 @@ const LandingPage = (props) => {
                     <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-sky-400 rounded-lg blur-lg "></div>
                     <div className=" relative max-w-full rounded overflow-hidden shadow-lg px-20 py-20 bg-no-repeat bg-cover" style={{
                         backgroundPosition: '50%',
-                        backgroundImage: 'url("https://cdn.discordapp.com/attachments/1082784107844620441/1100153756479393803/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-thumb.png")',
+                        backgroundImage: 'url("https://cdn.discordapp.com/attachments/1100458355530666149/1101377035030499438/stars-mountains-3840x2160-v0-k5wkfm2hkn191.jpg")',
                         height: '800px',
                         width: '1500px'
                     }}>

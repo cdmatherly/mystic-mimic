@@ -34,13 +34,16 @@ const Chat = (props) => {
 
     return (
         <>
-            <div className="flex flex-col justify-between bg-white rounded-lg h-80 w-80">
+            <div className="flex flex-col justify-between bg-white rounded-lg h-full w-80">
                 <div className="flex justify-between py-3 border-b-2 border-gray-200 sm:items-center">
                     <div className="relative flex items-center p-1 space-x-4">
                         <div className="relative">
-                        <span class="relative flex h-3 w-3">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        <span className="relative flex w-3 h-3">
+                            <span className="absolute inline-flex w-full h-full rounded-full opacity-75 animate-ping bg-sky-400"></span>
+                            {isConnected?
+                            <span className="relative inline-flex w-3 h-3 bg-green-500 rounded-full"></span>:
+                            <span className="relative inline-flex w-3 h-3 bg-red-500 rounded-full"></span>
+                            }
                         </span>
                         </div>
                         <div className="flex flex-col leading-tight">
@@ -56,7 +59,7 @@ const Chat = (props) => {
                     <div className="chat-message">
                         <div className="flex items-end">
                             <div className="flex flex-col items-start order-2 max-w-xs mx-2 space-y-2 text-xs">
-                                <div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">Welcome to the chat feature!</span></div>
+                                <div><span className="inline-block px-4 py-2 text-gray-600 bg-gray-300 rounded-lg rounded-bl-none">Welcome to the chat feature!</span></div>
                             </div>
                         </div>
                     </div>
@@ -82,11 +85,11 @@ const Chat = (props) => {
                 </div>
 
                 {/* Button Section */}
-                <div className="px-4 pt-4 mb-2 border-t-2 border-gray-200 sm:mb-0">
+                <div className="px-4 pt-4 md:mb-3 border-t-2 border-gray-200 mb-0">
                     <div className="relative flex">
                         <input value={currentMessage} onChange={(e) => setCurrentMessage(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendMessage()} type="text" placeholder="Send a message" className="w-full py-3 pl-10 text-gray-600 placeholder-gray-600 bg-gray-200 rounded-md focus:outline-none focus:placeholder-gray-400" />
-                        <div class="absolute right-0 items-center inset-y-0 hidden sm:flex">
-                            <button onClick={sendMessage} type="button" className="inline-flex items-center justify-center px-2 py-3 text-white transition duration-500 ease-in-out bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none">
+                        <div className="absolute inset-y-0 right-0 items-center hidden sm:flex">
+                            <button onClick={sendMessage} type="button" disabled={!isConnected} className="inline-flex items-center justify-center px-2 py-3 text-white transition duration-500 ease-in-out bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none disabled:bg-slate-300">
                                 <span className="font-bold">Send</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6 ml-2 transform rotate-90">
                                     <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
