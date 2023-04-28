@@ -20,6 +20,7 @@ const ShowOneCharacter = (props) => {
     const [user, setUser] = useState(null)
     const [isChatOpen, setIsChatOpen] = useState(false)
     const [isDiceOpen, setIsDiceOpen] = useState(false)
+    const [setMessage, setSentMessage] = useState(false)
     const [strBonus, setStrBonus] = useState(0)
     const [dexBonus, setDexBonus] = useState(0)
     const [conBonus, setConBonus] = useState(0)
@@ -82,30 +83,34 @@ const ShowOneCharacter = (props) => {
         return () => socket.disconnect(true)
     }, [socket])
 
-    const rollDie = (die, bonus) => {
+    const rollDie = (die, bonusObj) => {
         const roll = Math.ceil(Math.random() * die)
         let isPositive = true
 
-        const result = roll + bonus
+        const result = roll + bonusObj.bonus
 
-        bonus < 0 ? isPositive = false : isPositive = true
+        bonusObj.bonus < 0 ? isPositive = false : isPositive = true
 
-        const bonusString = String(bonus).replace('-', '')
+        const bonusString = String(bonusObj.bonus).replace('-', '')
 
-        bonus = Number(bonusString)
+        bonusObj.bonus = Number(bonusString)
 
         const operator = isPositive ? '+' : '-'
 
         setMadeDiceRoll(true)
 
+        // setTimeout(() => {
+        //     setIsDiceOpen(false)
+        // }, 5000)
+
         setTimeout(() => {
             setMadeDiceRoll(false)
-        }, 5000)
+        }, 500)
 
-        setDiceRoll(`${roll} ${operator} ${bonus} = ${result}`)
+        setDiceRoll({roll, operator, bonusObj, result})
 
         return (
-            `${roll} ${operator} ${bonus} = ${result}`
+            `${roll} ${operator} ${bonusObj.bonus} = ${result}`
         )
     }
 
@@ -114,28 +119,28 @@ const ShowOneCharacter = (props) => {
         setIsDiceOpen(true)
     }
 
-    const findStat = (stat) => {
+    const findBonus = (stat, skill=null) => {
         console.log(stat)
-        let bonus
+        let bonusObj
         if (stat === 'strength' || stat ==='STR'){
-            bonus = strBonus
+            bonusObj = {skill, bonus: strBonus}
         }
         else if (stat === 'dexterity' || stat === 'DEX'){
-            bonus = dexBonus
+            bonusObj = {skill, bonus: dexBonus}
         }
         else if (stat === 'constitution' || stat === 'CON'){
-            bonus = conBonus
+            bonusObj = {skill, bonus: conBonus}
         }
         else if (stat === 'wisdom' || stat === 'WIS'){
-            bonus = wisBonus
+            bonusObj = {skill, bonus: wisBonus}
         }
         else if (stat === 'intelligence' || stat === 'INT'){
-            bonus = intBonus
+            bonusObj = {skill, bonus: intBonus}
         }
         else if (stat === 'charisma' || stat === 'CHA'){
-            bonus = chaBonus
+            bonusObj = {skill, bonus: chaBonus}
         }
-        return bonus
+        return bonusObj
     }
 
     return (
@@ -143,7 +148,7 @@ const ShowOneCharacter = (props) => {
             {!isUserLoading && !isCharacterLoading && (
                 <div className='flex relative justify-center'>
                     <div className=' left-0 bottom-0'>
-                        <button onClick={() => handleDiceButton(20, 0)} className='h-16 w-16 bg-red-500 fixed rounded-full' style={{ top: '84%', left: '15%' }}></button>
+                        <button onClick={() => handleDiceButton(20, {bonus: 0})} className='h-16 w-16 bg-red-500 fixed rounded-full' style={{ top: '84%', left: '15%' }}></button>
                     </div>
                     <div className="grid items-start justify-center w-4/5 gap-8">
                         <div className="relative">
@@ -178,7 +183,7 @@ const ShowOneCharacter = (props) => {
                                                         </p>
                                                     </div>
                                                     <div className="">
-                                                        <button onClick={() => handleDiceButton(20, findStat(stat[0]))} className="px-2 py-1 text-center text-gray-700 bg-gray-200 border-2 border-gray-300 rounded shadow">
+                                                        <button onClick={() => handleDiceButton(20, findBonus(stat[0], stat[0].charAt(0).toUpperCase() + stat[0].slice(1)))} className="px-2 py-1 text-center text-gray-700 bg-gray-200 border-2 border-gray-300 rounded shadow">
                                                             {stat[0] === 'strength' ? strBonus >= 0 ? '+ ' : '' :
                                                                 stat[0] === 'dexterity' ? dexBonus >= 0 ? '+ ' : '' :
                                                                     stat[0] === 'constitution' ? conBonus >= 0 ? '+ ' : '' :
@@ -209,7 +214,7 @@ const ShowOneCharacter = (props) => {
                                                 <p className="block w-3/5 pr-4 mb-1 font-bold text-center text-gray-500 align-middle text-md md:mb-0">
                                                     {skill.name}:
                                                 </p>
-                                                <button onClick={() => handleDiceButton(20, findStat(skill.stat))} className="w-1/5 py-1 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-300 shadow rounded">
+                                                <button onClick={() => handleDiceButton(20, findBonus(skill.stat, skill.name))} className="w-1/5 py-1 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-300 shadow rounded">
                                                     {skill.stat === 'STR' ? strBonus >= 0 ? '+ ' : '' :
                                                         skill.stat === 'DEX' ? dexBonus >= 0 ? '+ ' : '' :
                                                             skill.stat === 'CON' ? conBonus >= 0 ? '+ ' : '' :
@@ -238,9 +243,9 @@ const ShowOneCharacter = (props) => {
                         <img className="h-20 w-20" src='https://cdn.discordapp.com/attachments/1100458355530666149/1101401013623201822/pi5rK5nyT.png'/>
                     Open Chat</button>
                     <ChatDrawer isOpen={isChatOpen} setIsOpen={setIsChatOpen}>
-                        <Chat socket={socket} user={user} campaign={character.campaign} />
+                        <Chat socket={socket} user={user} campaign={character.campaign} diceRoll={diceRoll} madeDiceRoll={madeDiceRoll}/>
                     </ChatDrawer>
-                    <DiceDrawer isDiceOpen={isDiceOpen} setIsDiceOpen={setIsDiceOpen} diceRoll={diceRoll} />
+                    {diceRoll && <DiceDrawer isDiceOpen={isDiceOpen} setIsDiceOpen={setIsDiceOpen} diceRoll={diceRoll} />}
                 </div>
             )}
         </div>

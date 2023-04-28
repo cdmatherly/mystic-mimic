@@ -13,7 +13,9 @@ export default function Drawer({ children, isDiceOpen, setIsDiceOpen, diceRoll }
                 onClick={() => {
                     setIsDiceOpen(false);
                 }}
-            ><p className="text-gray-300 font-bold text-xl">{diceRoll}</p></section>
+            >
+                <p className="text-gray-300 font-bold text-xl ">{diceRoll.bonusObj.skill} {diceRoll.bonusObj.skill && '|'} {diceRoll.roll} {diceRoll.operator} {diceRoll.bonusObj.bonus} = {diceRoll.result}</p>
+                </section>
             <section
                 className={
                     " w-fit max-w-fit right-0 bg-white h-10 shadow-xl"

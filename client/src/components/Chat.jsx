@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 const Chat = (props) => {
-    const { socket, user, campaign } = props
+    const { socket, user, campaign, diceRoll, madeDiceRoll } = props
     const [currentMessage, setCurrentMessage] = useState('')
     const [messageList, setMessageList] = useState([])
     const [isConnected, setIsConnected] = useState(false)
@@ -31,24 +31,55 @@ const Chat = (props) => {
         })
     }, [socket])
 
+    useEffect(() => {
+
+        if (diceRoll.roll && campaign) {
+            let messageData = {
+                author: user.username,
+                message: `Rolled ${diceRoll.bonusObj.skill} ${diceRoll.roll} ${diceRoll.operator} ${diceRoll.bonusObj.bonus} = ${diceRoll.result}`,
+                time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
+                campaign,
+                id: Math.random()
+            }
+
+            socket.emit("send_message", messageData)
+        }
+
+            if (diceRoll && campaign) {
+
+                if (!diceRoll.bonusObj.skill){
+                    diceRoll.bonusObj.skill = ''
+                }
+
+                setMessageList((list) => [...list, {author: user.username,
+                message: `Rolled ${diceRoll.bonusObj.skill}: ${diceRoll.roll} ${diceRoll.operator} ${diceRoll.bonusObj.bonus} = ${diceRoll.result}`,
+                time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
+                campaign,
+                id: Math.random()
+            }]) 
+        }
+
+
+    }, [diceRoll])
+
 
     return (
         <>
-            <div className="flex flex-col justify-between bg-white rounded-lg h-full w-80">
+            <div className="flex flex-col justify-between bg-white rounded-lg w-80 h-full" style={{height: '75vh'}}>
                 <div className="flex justify-between py-3 border-b-2 border-gray-200 sm:items-center">
                     <div className="relative flex items-center p-1 space-x-4">
                         <div className="relative">
-                        <span className="absolute flex w-3 h-3">
-                            <span className="absolute inline-flex w-full h-full rounded-full opacity-75 animate-ping bg-sky-400"></span>
-                            {isConnected?
-                            <span className="relative inline-flex w-3 h-3 bg-green-500 rounded-full"></span>:
-                            <span className="relative inline-flex w-3 h-3 bg-red-500 rounded-full"></span>
-                            }
-                        </span>
+                            <span className="absolute flex w-3 h-3">
+                                <span className="absolute inline-flex w-full h-full rounded-full opacity-75 animate-ping bg-sky-400"></span>
+                                {isConnected ?
+                                    <span className="relative inline-flex w-3 h-3 bg-green-500 rounded-full"></span> :
+                                    <span className="relative inline-flex w-3 h-3 bg-red-500 rounded-full"></span>
+                                }
+                            </span>
                         </div>
                         <div className="flex flex-col leading-tight">
                             <div className="flex flex-col items-center mt-1 text-2xl">
-                                <span className="-ml-10 mr-5 font-bold text-gray-700">{campaign ? campaign.name : "Not in any campaign!"}</span>
+                                <span className="mr-5 font-bold text-gray-700">{campaign ? campaign.name : "Not in any campaign!"}</span>
                             </div>
                             <span className="ml-1 text-lg text-gray-600">Welcome, {user.username}!</span>
                         </div>
@@ -72,7 +103,7 @@ const Chat = (props) => {
                     </div>
                     <div className="chat-message">
                         {messageList.map((messageContent) =>
-                            <div key={messageContent.message} className='h-auto p-2 message flex-column' id={user.username === messageContent.author ? "you" : "other"}>
+                            <div key={messageContent.id} className='h-auto p-2 message flex-column' id={user.username === messageContent.author ? "you" : "other"}>
                                 <div className='flex items-center justify-end w-auto h-auto px-4 py-2 text-xs text-white bg-blue-600 rounded-lg message-content max-w-max'>
                                     <p>{messageContent.message}</p>
                                 </div>
