@@ -43,7 +43,7 @@ const Dash = (props) => {
                 height: '100vh',
                 width: 'auto'
             }}>
-                <div className="p-12 mt-10 overflow-y-auto bg-black rounded-lg bg-opacity-80" style={{ height: "85vh" }}>
+                <div className="p-12 mt-10 overflow-y-auto overflow-x-hidden bg-black rounded-lg bg-opacity-80" style={{ height: "85vh" }}>
                     <Outlet />
                 </div>
 
