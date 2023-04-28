@@ -62,6 +62,10 @@ const Chat = (props) => {
 
     }, [diceRoll])
 
+    const reconnect = () => {
+        setIsConnected(true)
+    }
+
 
     return (
         <>
@@ -82,6 +86,7 @@ const Chat = (props) => {
                                 <span className="mr-5 font-bold text-gray-700">{campaign ? campaign.name : "Not in any campaign!"}</span>
                             </div>
                             <span className="ml-1 text-lg text-gray-600">Welcome, {user.username}!</span>
+                            {!isConnected && campaign && <button onClick={() => reconnect()} className=''> <p className='text-right -mr-5'>Connect</p></button>}
                         </div>
                     </div>
                 </div>
