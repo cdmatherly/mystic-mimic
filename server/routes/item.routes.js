@@ -9,4 +9,5 @@ module.exports = app => {
 
     app.put('/api/items/:char_id', ItemController.addItemToCharacterInventory)
     app.post('/api/items/insert', ItemController.InsertItems)
+    app.get('/api/:char_id/items', ItemController.getItemsByCharacter)
 }

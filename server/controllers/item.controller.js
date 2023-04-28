@@ -1,5 +1,6 @@
 const { Item } = require("../models/item.model")
 const { Character } = require("../models/character.model")
+const { User } = require("../models/user.model")
 
 // get all items
 module.exports.getAllItems = (req, res) => {
@@ -36,11 +37,11 @@ module.exports.createItem = (req, res) => {
 
 module.exports.addItemToCharacterInventory = (req, res) => {
     console.log(req.params.char_id)
-    // let newItem = {
-    //     "_id": "644ac9511fce2053e4f7247f",
-    //     "quantity": 1
-    // }
-    Character.updateOne({ _id: req.params.char_id }, { $push: { inventory: req.body } })
+    let newItem = {
+        "item": "644b608fcadd3fe04f7ac775", // <= change here,hard-coded for now
+        "quantity": 1 // <= change here,hard-coded for now
+    }
+    Character.updateOne({ _id: req.params.char_id }, { $push: { inventory: newItem } }) //$push to add, $pull to remove
         .then((character) => {
             return res.json(character)
         })
@@ -81,3 +82,26 @@ module.exports.InsertItems = (req, res) => {
             return res.status(400).json(err)
         })
 }
+
+module.exports.getItemsByCharacter = (req, res) => {
+    Character.findById(req.params.char_id)
+    .then((char) => {
+        console.log(char)
+        let charItems = []
+        for (let i=0; i<char.inventory.length; i++){
+            charItems.push(char.inventory[i].item)
+        }
+        console.log(charItems)
+        Item.find({ _id: { $in: charItems }})
+            .then((characters) => {
+                return res.json(characters)
+            })
+            .catch((err) => {
+                return res.status(400).json(err)
+            })
+    })
+    .catch((err) => {
+        return res.status(400).json(err)
+    })
+}
+
