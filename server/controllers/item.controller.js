@@ -40,8 +40,8 @@ module.exports.addItemToCharacterInventory = (req, res) => {
     //     "_id": "644ac9511fce2053e4f7247f",
     //     "quantity": 1
     // }
-    Character.updateOne({ _id: req.params.char_id }, { $push: { inventory: req.body}})    
-    .then((character) => {
+    Character.updateOne({ _id: req.params.char_id }, { $push: { inventory: req.body } })
+        .then((character) => {
             return res.json(character)
         })
         .catch((err) => {
@@ -65,6 +65,17 @@ module.exports.deleteItem = (req, res) => {
     Item.findByIdAndDelete(req.params.id)
         .then((item) => {
             return res.json(item)
+        })
+        .catch((err) => {
+            return res.status(400).json(err)
+        })
+}
+
+// Add a lot of items
+module.exports.InsertItems = (req, res) => {
+    Item.insertMany([])
+        .then((items) => {
+            return res.json(items)
         })
         .catch((err) => {
             return res.status(400).json(err)

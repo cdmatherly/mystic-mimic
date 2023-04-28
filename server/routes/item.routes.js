@@ -8,4 +8,5 @@ module.exports = app => {
     app.delete('/api/items/:id', ItemController.deleteItem)
 
     app.put('/api/items/:char_id', ItemController.addItemToCharacterInventory)
+    app.post('/api/items/insert', ItemController.InsertItems)
 }
