@@ -72,7 +72,7 @@ function Tabs(props) {
             <ItemDrawer isOpen={isItemListOpen} setIsOpen={setIsItemListOpen}/>
           <ul>
             {items.map((item, idx) => 
-            <li key={item._id} className="ml-5">{item.name} {character.inventory[idx].quantity}</li>
+            <li key={item._id} className="ml-5">{item.quantity} {item.item.name}</li>
             )}
           </ul>
         </div>
