@@ -1,6 +1,5 @@
 # Mystic Mimic
 > A supplementary online resource for Dungeons and Dragons 5th Edition.
-> Live demo [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
 * [General Info](#general-information)
@@ -17,10 +16,7 @@
 
 
 ## General Information
-- Provide general information about your project here.
-- What problem does it (intend to) solve?
-- What is the purpose of your project?
-- Why did you undertake it?
+- Allows players of Dungeons and Dragons 5th Edition to make new characters and campaigns for their friends to join
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
 
 
@@ -34,26 +30,18 @@
 
 
 ## Features
-List the ready features here:
-- Awesome feature 1
-- Awesome feature 2
-- Awesome feature 3
+- Create a new character using D&D 5th Edition rules
+- Create and join campaigns with other users' characters
+- Register an account to access your characters and campaigns
 
 
 ## Screenshots
 ![Example screenshot](./img/screenshot.png)
-<!-- If you have screenshots you'd like to share, include them here. -->
 
 
 ## Setup
-What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
+Dependencies are listed in the package.json of in both the client and server folders.
 
-Proceed to describe how to install / setup one's local environment / get started with the project.
-
-
-## Usage
-How does one go about using it?
-Provide various use cases and code examples here.
 
 ### Install relevant packages:
 

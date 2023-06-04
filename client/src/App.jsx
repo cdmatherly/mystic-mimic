@@ -27,11 +27,11 @@ function App() {
       <Routes>
         <Route element={<Index />} path='/' >
           <Route element={<ProtectedRoute user={user} />}>
-            <Route element={<CreateACharacter />} path="/cac" />
-            <Route element={<ShowAllCharacters />} path='/sac' />
-            <Route element={<ShowOneCharacter />} path='/soc/:char_id' />
-            <Route element={<CreateACampaign />} path='/cag' />
-            <Route element={<ViewAllCampaigns/>} path='/vac' />
+            <Route element={<CreateACharacter />} path="/characters/new" />
+            <Route element={<ShowAllCharacters />} path='/characters' />
+            <Route element={<ShowOneCharacter />} path='/characters/:char_id' />
+            <Route element={<CreateACampaign />} path='/campaigns/new' />
+            <Route element={<ViewAllCampaigns/>} path='/campaigns' />
           </Route>
           <Route element={<NotFound/>} path='/*' />
         </Route>

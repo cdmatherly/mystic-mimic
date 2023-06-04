@@ -109,7 +109,7 @@ const CreateACharacter = (props) => {
         axios.post(`http://localhost:8000/api/${user}/characters`, newCharacter)
             .then((response) => {
                 setIsLoading(false)
-                navigate('/sac')
+                navigate('/characters')
                 console.log(response.data);
             })
             .catch((err) => {

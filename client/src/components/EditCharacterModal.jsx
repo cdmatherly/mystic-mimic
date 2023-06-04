@@ -117,13 +117,13 @@ export default function Modal(props) {
                                                     :
                                                     <>
                                                         <p className="w-full px-4 py-4 leading-tight text-center text-gray-700 bg-gray-200 border-2 border-gray-200 rounded"> None </p>
-                                                        <Link to="/vac" className="px-4 py-2 text-sm font-bold text-white rounded shadow bg-sky-500 hover:bg-sky-400 focus:shadow-outline focus:outline-none">Join One?</Link>
+                                                        <Link to="/campaigns" className="px-4 py-2 text-sm font-bold text-white rounded shadow bg-sky-500 hover:bg-sky-400 focus:shadow-outline focus:outline-none">Join One?</Link>
                                                     </>}
                                             </div>
                                         </div>
 
                                         <div className="flex justify-center">
-                                            <button onClick={() => navigate(`/soc/${character._id}`)} className="italic text-center underline text-cyan-800">See more information</button>
+                                            <button onClick={() => navigate(`/characters/${character._id}`)} className="italic text-center underline text-cyan-800">See more information</button>
                                         </div>
 
                                     </div>

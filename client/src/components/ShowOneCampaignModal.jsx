@@ -36,7 +36,7 @@ export default function Modal(props) {
     }
 
     const navToCharacter = (id) => {
-        navigate(`/soc/${id}`)
+        navigate(`/characters/${id}`)
     }
 
     return (

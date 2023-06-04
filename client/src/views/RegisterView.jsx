@@ -18,7 +18,7 @@ const Register = (props) => {
         axios.post('http://localhost:8000/api/register', user)
             .then(res => {
                 console.log(res)
-                const user_id = res.data.user_id
+                const user_id = res.data.user._id
                 setCookie(['user_id'], user_id, {maxAge: 86400})
                 navigate('/')
             })
@@ -45,7 +45,7 @@ const Register = (props) => {
                         }}>
                 <div className="grid items-start justify-center">
                 <div className="flex flex-col flex-1 w-2/5 max-h-full min-w-full px-10 py-12 bg-gray-800 rounded-lg bg-opacity-90 lg:px-8">
-                    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                    <div className="sm:mx-auto sm:w-full sm:max-w-sm text-center">
                         <h1 className="mb-4 text-3xl font-extrabold text-black dark:text-white md:text-5xl lg:text-6xl"><span className="text-transparent bg-clip-text bg-gradient-to-r to-purple-500 from-sky-400">Mystic</span> Mimic</h1>
                         <h2 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-center text-white">
                             -  Create an account  -
@@ -69,7 +69,7 @@ const Register = (props) => {
                                         // required
                                         onChange={(event) =>{setUsername(event.target.value)}}
                                         value={username}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         />
                                 </div>
                             </div>
@@ -91,7 +91,7 @@ const Register = (props) => {
                                         // required
                                         onChange={(event) =>{setEmail(event.target.value)}}
                                         value={email}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         />
                                 </div>
                             </div>
@@ -113,7 +113,7 @@ const Register = (props) => {
                                             (confirmPassword === event.target.value) ? setIsPasswordValid(true) : setIsPasswordValid(false) }}
                                             value={password}
                                             // required
-                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             />
                                 </div>
                             </div>
@@ -135,7 +135,7 @@ const Register = (props) => {
                                             (password === event.target.value) ? setIsPasswordValid(true) : setIsPasswordValid(false) }}
                                             value={confirmPassword}
                                             // required
-                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             />
                                 </div>
                             </div>

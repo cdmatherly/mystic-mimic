@@ -20,16 +20,16 @@ const Dash = (props) => {
                 <ul className="flex justify-between border-b">
                     <div className="flex">
                         <li className="mr-1 -mb-px">
-                            <Link to="/cac" className="inline-block px-4 py-2 font-semibold text-indigo-700 bg-black rounded-t focus:border-l focus:border-t focus:border-r hover:text-blue-800 hover:animate-pulse">Create Character</Link>
+                            <Link to="/characters/new" className="inline-block px-4 py-2 font-semibold text-indigo-700 bg-black rounded-t focus:border-l focus:border-t focus:border-r hover:text-blue-800 hover:animate-pulse">Create Character</Link>
                         </li>
                         <li className="mr-1">
-                            <Link to="/sac" className="inline-block px-4 py-2 font-semibold text-indigo-400 bg-black focus:border-l focus:border-t focus:border-r hover:text-blue-800 hover:animate-pulse" href="#">My Characters</Link>
+                            <Link to="/characters" className="inline-block px-4 py-2 font-semibold text-indigo-400 bg-black focus:border-l focus:border-t focus:border-r hover:text-blue-800 hover:animate-pulse" href="#">My Characters</Link>
                         </li>
                         <li className="mr-1">
-                            <Link to="cag" className="inline-block px-4 py-2 font-semibold bg-black focus:border-l focus:border-t focus:border-r text-violet-400 hover:text-blue-800 hover:animate-pulse" href="#">Create Campaign</Link>
+                            <Link to="campaigns/new" className="inline-block px-4 py-2 font-semibold bg-black focus:border-l focus:border-t focus:border-r text-violet-400 hover:text-blue-800 hover:animate-pulse" href="#">Create Campaign</Link>
                         </li>
                         <li className="mr-1">
-                            <Link to="vac" className="inline-block px-4 py-2 font-semibold bg-black focus:border-l focus:border-t focus:border-r text-violet-500 hover:text-blue-800 hover:animate-pulse" href="#">Find Campaign</Link>
+                            <Link to="campaigns" className="inline-block px-4 py-2 font-semibold bg-black focus:border-l focus:border-t focus:border-r text-violet-500 hover:text-blue-800 hover:animate-pulse" href="#">Find Campaign</Link>
                         </li>
                     </div>
                     <li className="mr-1">

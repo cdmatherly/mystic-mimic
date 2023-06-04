@@ -44,7 +44,7 @@ const Login = (props) => {
                             }}>
                 <div className="grid items-start justify-center">
                 <div className="flex flex-col flex-1 w-2/5 max-h-full min-w-full px-10 py-12 bg-gray-800 rounded-lg bg-opacity-90 lg:px-8">
-                    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                    <div className="sm:mx-auto sm:w-full sm:max-w-sm text-center">
                         <h1 className="mb-4 text-3xl font-extrabold text-black md:text-5xl lg:text-6xl"><span className="text-transparent bg-clip-text bg-gradient-to-r to-purple-500 from-sky-400">Mystic</span> Mimic</h1>
                         <h2 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-center text-white">
                             - Sign in to your account -
@@ -68,7 +68,7 @@ const Login = (props) => {
                                         onChange={(event) =>{setEmail(event.target.value)}}
                                         value={email}
                                         required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>
@@ -92,7 +92,7 @@ const Login = (props) => {
                                         onChange={(event) =>{setPassword(event.target.value)}}
                                         value={password}
                                         required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                 </div>
                             </div>

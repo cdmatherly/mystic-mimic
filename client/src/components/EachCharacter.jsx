@@ -78,13 +78,13 @@ const EachCharacter = (props) => {
                     </div>
                     <div className="md:w-2/3">
                         {character.campaign !== null ? 
-                        <Link to="/vac" className="block px-4 py-4 font-semibold leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.campaign.name}</Link> : 
+                        <Link to="/campaigns" className="block px-4 py-4 font-semibold leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">{character.campaign.name}</Link> : 
                         <p className="w-full px-4 py-4 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded">None</p> }
                     </div>
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
-                    <button onClick={() => navigate(`/soc/${character._id}`)} className="text-white text-center font-bold rounded transition ease-in-out delay-150 bg-purple-400 hover:-translate-y-1 hover:scale-150 hover:bg-purple-600 duration-300 ..." type="button">
+                    <button onClick={() => navigate(`/characters/${character._id}`)} className="text-white text-center font-bold rounded transition ease-in-out delay-150 bg-purple-400 hover:-translate-y-1 hover:scale-150 hover:bg-purple-600 duration-300 ..." type="button">
                         View
                     </button>
                     <EditCharacterModal character={character} races={races} classes={classes} handleEdit={handleEdit}/>

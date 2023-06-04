@@ -24,7 +24,7 @@ const CreateACampaign = (props) => {
     const onSubmitHandler = (e) => {
         e.preventDefault()
         createCampaign({name})
-        navigate('/vac')
+        navigate('/campaigns')
     }
     return (
             <div className="grid items-start justify-center gap-8 lg:mt-10">
