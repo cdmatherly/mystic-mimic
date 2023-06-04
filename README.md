@@ -75,16 +75,9 @@ In a separate terminal window, navigate to the client folder and run the followi
 Project is: _in progress_. 
 
 
-## Room for Improvement
-Include areas you believe need improvement / could be improved. Also add TODOs for future development.
-
-Room for improvement:
-- Improvement to be done 1
-- Improvement to be done 2
-
+## Future Development
 To do:
-- Feature to be added 1
-- Feature to be added 2
+- Implement inventory system on character sheet
 
 
 ## Acknowledgements
