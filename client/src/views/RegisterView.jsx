@@ -20,7 +20,7 @@ const Register = (props) => {
                 console.log(res)
                 const user_id = res.data.user._id
                 setCookie(['user_id'], user_id, {maxAge: 86400})
-                navigate('/')
+                navigate('/characters/new')
             })
             .catch(err => {
                 console.log(user)

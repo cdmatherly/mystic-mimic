@@ -17,7 +17,7 @@ const Login = (props) => {
                 console.log(res)
                 const user_id = res.data.user_id
                 setCookie(['user_id'], user_id, {maxAge: 86400})
-                navigate('/')
+                navigate('/characters')
             })
             .catch(err => {
                 setEmail('')

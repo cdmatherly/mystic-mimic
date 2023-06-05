@@ -37,6 +37,7 @@
 
 ## Screenshots
 ![Example screenshot](./img/screenshot.png)
+![Login and Character Creation](./static/media/LoginAndCreate.mp4)
 
 
 ## Setup
