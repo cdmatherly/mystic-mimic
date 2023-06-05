@@ -35,9 +35,24 @@
 - Register an account to access your characters and campaigns
 
 
-## Screenshots
-![Example screenshot](./img/screenshot.png)
-![Login and Character Creation](./static/media/LoginAndCreate.mp4)
+## Preview
+### Registering and creating a character
+https://github.com/cdmatherly/mystic-mimic/assets/124110375/e4f39d2f-fa0b-4cbb-ba48-65e4244f5583
+
+
+### Editing a character and joining a campaign
+
+https://github.com/cdmatherly/mystic-mimic/assets/124110375/133ececc-60a9-4925-aa78-98674fa62039
+
+
+### Character sheet with live dice rolling and campaign chat
+
+https://github.com/cdmatherly/mystic-mimic/assets/124110375/4e4e561b-c35d-44c6-924b-b9f19c8ce9df
+
+
+### Logging into an existing user, joining a campaign and viewing another user's character
+
+https://github.com/cdmatherly/mystic-mimic/assets/124110375/56cc99fd-7807-4bb8-925e-6f3bb4287ae5
 
 
 ## Setup
